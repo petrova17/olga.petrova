@@ -1,0 +1,14 @@
+<h2>HOT VACANCIES</h2>
+<div class="row row-cols-2 row-cols-md-2">
+  <div class="card text-white bg-info mb-3 h-100 w-50" *ngFor="let driver of allDriversVacancy">
+    <div class="card-header">{{ driver.specialization.name }}</div>
+    <div class="card-body">
+      <h5><a [routerLink]="['/show-vacancy', driver.id ]" style="color: white"> {{ driver.description }} </a></h5>
+      <p class="card-text">Experience: {{ driver.specialization.experience }}</p>
+      <p class="card-text">Employment type: {{ EmploymentType[driver.specialization.employmentType] }}</p>
+      <p class="card-text">Payment type: {{ PaymentType[driver.specialization.paymentType] }}</p>
+      <p class="card-text">Payment price: {{ driver.specialization.paymentPrice }} hrn</p>
+    </div>
+  </div>
+  </div>
+
