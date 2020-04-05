@@ -14,16 +14,20 @@
           <div class="alert alert-danger" [hidden]="!addVacancyForm.submitted || descriptionField.valid">Enter Description</div>
         </div>
 
-
         <div class="form-group">
           <label for="selectSpecialization" class="control-label">Select specialization</label>
           <select class="form-control" id="selectSpecialization" name="specialization"
                   required #specializationField="ngModel"
                   [class.field-error]="addVacancyForm.submitted && specializationField.invalid"
-                  [(ngModel)]="vacancy.specialization.name">
-            <option>Driver</option>
+                  [(ngModel)]="vacancy.specialization.specializationType">
+            <option value="1">Driver</option>
+            <option value="2">Housekeeper</option>
+            <option value="3">Nurse</option>
+            <option value="4">Babysitter</option>
           </select>
         </div>
+
+        <!--<app-add-driver-vacancy [vacancy]="vacancy" [addVacancyForm]="addVacancyForm"></app-add-driver-vacancy>-->
 
         <div class="form-group">
           <label for="inputAgeFrom" class="control-label">Age from</label>
@@ -76,21 +80,6 @@
         </div>
 
         <div class="form-group">
-          <label for="inputStatus" class="control-label">Status -> to be updated</label>
-          <input type="number" class="form-control" id="inputStatus" name="status"
-                 required #statusField="ngModel"
-                 [class.field-error]="addVacancyForm.submitted && statusField.invalid"
-                 [(ngModel)]="vacancy.status">
-        </div>
-
-        <div class="form-group">
-          <label for="inputDriverExperience" class="control-label">Driver experience</label>
-          <input type="number" class="form-control" id="inputDriverExperience" name="driverExperience"
-                 required #driverExperienceField="ngModel"
-                 [class.field-error]="addVacancyForm.submitted && driverExperienceField.invalid"
-                 [(ngModel)]="vacancy.driverExperience">
-        </div>
-        <div class="form-group">
           <label for="inputCountry" class="control-label">Country</label>
           <input type="text" class="form-control" id="inputCountry" name="country"
                  required #countryField="ngModel"
@@ -116,18 +105,17 @@
         </div>
 
         <div class="form-group">
-          <label for="inputSpeciality" class="control-label">Education speciality- to be updated</label>
-          <input type="text" class="form-control" id="inputSpeciality" name="speciality"
-                 required #specialityField="ngModel"
-                 [class.field-error]="addVacancyForm.submitted && specialityField.invalid"
-                 [(ngModel)]="vacancy.specialization.education.speciality">
+          <label for="selectEducationType" class="control-label">Education type</label>
+          <select class="form-control" id="selectEducationType" name="educationType"
+                  required #educationTypeField="ngModel"
+                  [class.field-error]="addVacancyForm.submitted && educationTypeField.invalid"
+                  [(ngModel)]="vacancy.specialization.educationType">
+            <option value="1">Secondary</option>
+            <option value="2">Higher</option>
+          </select>
         </div>
 
-        <div class="form-group">
-          <label for="inputAdditionalEducation" class="control-label">Additional education</label>
-          <input type="text" class="form-control" id="inputAdditionalEducation" name="additionalEducation"
-                 [(ngModel)]="vacancy.specialization.education.additionalEducation">
-        </div>
+
 
         <div class="form-group">
           <button type="submit" class="btn btn-primary">Add</button>

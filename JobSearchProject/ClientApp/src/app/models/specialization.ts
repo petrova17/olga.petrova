@@ -1,12 +1,12 @@
-import { EmploymentType, PaymentType } from "./enum";
+import { EmploymentType, PaymentType, SpecializationType, EducationType } from "./enum";
 import { Education } from "./education";
 
 export class Specialization {
-    name: string;
+    specializationType: SpecializationType;
     employmentType: EmploymentType;
     paymentType: PaymentType;
+    educationType: EducationType;
     paymentPrice: number;
     experience: number;
     recomendation: boolean;
-    education: Education
 }

@@ -35,25 +35,33 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\src\app\add-vacancy\add-driver-vacancy\add-driver-vacancy.component.ts" />
-    <None Remove="ClientApp\src\app\add-vacancy\add-vacancy.component.ts" />
+    <None Remove="ClientApp\src\app\vacancy\add-vacancy\add-driver-vacancy\add-driver-vacancy.component.ts" />
+    <None Remove="ClientApp\src\app\vacancy\add-vacancy\add-vacancy.component.ts" />
     <None Remove="ClientApp\src\app\core\data.service.ts" />
+    <None Remove="ClientApp\src\app\core\interceptor.service.ts" />
     <None Remove="ClientApp\src\app\models\education.ts" />
     <None Remove="ClientApp\src\app\models\enum.ts" />
     <None Remove="ClientApp\src\app\models\location.ts" />
     <None Remove="ClientApp\src\app\models\specialization.ts" />
-    <None Remove="ClientApp\src\app\show-vacancy\show-vacancy.component.ts" />
+    <None Remove="ClientApp\src\app\models\trackerError.ts" />
+    <None Remove="ClientApp\src\app\vacancy\show-vacancy\show-vacancy.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\app\add-vacancy\add-driver-vacancy\add-driver-vacancy.component.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\add-vacancy\add-vacancy.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\vacancy\add-vacancy\add-driver-vacancy\add-driver-vacancy.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\vacancy\add-vacancy\add-vacancy.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\core\data.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\core\interceptor.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\education.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\enum.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\location.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\specialization.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\show-vacancy\show-vacancy.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\trackerError.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\vacancy\show-vacancy\show-vacancy.component.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ClientApp\src\app\cv\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

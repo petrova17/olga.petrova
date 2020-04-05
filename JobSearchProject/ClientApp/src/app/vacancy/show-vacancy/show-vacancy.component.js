@@ -7,13 +7,37 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var enum_1 = require("../models/enum");
+var enum_1 = require("../../models/enum");
 var ShowVacancyComponent = /** @class */ (function () {
     function ShowVacancyComponent(route, dataService) {
         this.route = route;
         this.dataService = dataService;
+        this.selectedVacancy = {
+            ageFrom: null,
+            ageTo: null,
+            status: null,
+            contactName: null,
+            drivingExperience: null,
+            description: null,
+            specialization: {
+                specializationType: null,
+                employmentType: null,
+                paymentType: null,
+                paymentPrice: null,
+                educationType: null,
+                experience: null,
+                recomendation: null,
+            },
+            location: {
+                country: null,
+                city: null,
+                region: null,
+                street: null
+            }
+        };
         this.EmploymentType = enum_1.EmploymentType;
         this.PaymentType = enum_1.PaymentType;
+        this.EducationType = enum_1.EducationType;
     }
     ShowVacancyComponent.prototype.ngOnInit = function () {
         var _this = this;

@@ -10,8 +10,10 @@ import { HomeComponent } from './home/home.component';
 import { ApiAuthorizationModule } from 'src/api-authorization/api-authorization.module';
 import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
-import { AddVacancyComponent } from './add-vacancy/add-vacancy.component';
-import { ShowVacancyComponent } from './show-vacancy/show-vacancy.component';
+import { InterceptorService } from './core/interceptor.service';
+import { AddVacancyComponent } from './vacancy/add-vacancy/add-vacancy.component';
+import { ShowVacancyComponent } from './vacancy/show-vacancy/show-vacancy.component';
+import { AddDriverVacancyComponent } from './vacancy/add-vacancy/add-driver-vacancy/add-driver-vacancy.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { ShowVacancyComponent } from './show-vacancy/show-vacancy.component';
     NavMenuComponent,
     HomeComponent,
     AddVacancyComponent,
-    ShowVacancyComponent
+    ShowVacancyComponent,
+    AddDriverVacancyComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -33,7 +36,8 @@ import { ShowVacancyComponent } from './show-vacancy/show-vacancy.component';
     ])
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true }
+      { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
+      { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }
   ],
   bootstrap: [AppComponent]
 })

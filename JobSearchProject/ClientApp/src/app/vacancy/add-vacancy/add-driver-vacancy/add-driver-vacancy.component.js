@@ -7,25 +7,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var DataService = /** @class */ (function () {
-    function DataService(http) {
-        this.http = http;
+var AddDriverVacancyComponent = /** @class */ (function () {
+    function AddDriverVacancyComponent() {
     }
-    DataService.prototype.getAllDriverVacancies = function () {
-        return this.http.get('/api/DriverVacancies/');
-    };
-    DataService.prototype.getDriverVacancyById = function (id) {
-        return this.http.get("/api/DriverVacancies/" + id);
-    };
-    DataService.prototype.addVacancy = function (newVacancy) {
-        return this.http.post('/api/DriverVacancies', newVacancy);
-    };
-    DataService = __decorate([
-        core_1.Injectable({
-            providedIn: 'root'
+    __decorate([
+        core_1.Input()
+    ], AddDriverVacancyComponent.prototype, "vacancy", void 0);
+    __decorate([
+        core_1.Input()
+    ], AddDriverVacancyComponent.prototype, "addVacancyForm", void 0);
+    AddDriverVacancyComponent = __decorate([
+        core_1.Component({
+            selector: 'app-add-driver-vacancy',
+            templateUrl: './add-driver-vacancy.component.html'
         })
-    ], DataService);
-    return DataService;
+    ], AddDriverVacancyComponent);
+    return AddDriverVacancyComponent;
 }());
-exports.DataService = DataService;
-//# sourceMappingURL=data.service.js.map
+exports.AddDriverVacancyComponent = AddDriverVacancyComponent;
+//# sourceMappingURL=add-driver-vacancy.component.js.map

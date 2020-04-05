@@ -28,7 +28,6 @@ namespace JobSearchProject.Controllers
             return await _context.DriverVacancy
                 .Include(l => l.Location)
                 .Include(r => r.Specialization)
-                .ThenInclude(t => t.Education)
                 .ToListAsync();
         }
 
@@ -39,7 +38,6 @@ namespace JobSearchProject.Controllers
             var driverVacancy = await _context.DriverVacancy
                 .Include(l => l.Location)
                 .Include(r => r.Specialization)
-                .ThenInclude(t => t.Education)
                 .FirstAsync(r => r.Id == id);
 
             if (driverVacancy == null)

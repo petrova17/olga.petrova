@@ -72,7 +72,7 @@ namespace JobSearchProject.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Speciality = table.Column<string>(type: "varchar(200)", nullable: false),
+                    SpecialityType = table.Column<int>(nullable: false),
                     AdditionalEducation = table.Column<string>(type: "varchar(200)", nullable: true)
                 },
                 constraints: table =>
@@ -111,6 +111,25 @@ namespace JobSearchProject.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PersistedGrants", x => x.Key);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Specialization",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SpecializationType = table.Column<int>(nullable: false),
+                    EmploymentType = table.Column<int>(nullable: false),
+                    PaymentType = table.Column<int>(nullable: false),
+                    PaymentPrice = table.Column<decimal>(nullable: true),
+                    EducationType = table.Column<int>(nullable: false),
+                    Experience = table.Column<decimal>(nullable: true),
+                    Recommendation = table.Column<bool>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Specialization", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -220,36 +239,12 @@ namespace JobSearchProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Specialization",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "varchar(50)", nullable: false),
-                    EmploymentType = table.Column<int>(nullable: false),
-                    PaymentType = table.Column<int>(nullable: false),
-                    PaymentPrice = table.Column<decimal>(nullable: true),
-                    Experience = table.Column<decimal>(nullable: true),
-                    Recommendation = table.Column<bool>(nullable: true),
-                    EducationId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Specialization", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Specialization_Education_EducationId",
-                        column: x => x.EducationId,
-                        principalTable: "Education",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Vacancy",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "varchar(MAX)", nullable: false),
                     AgeFrom = table.Column<int>(nullable: false),
                     AgeTo = table.Column<int>(nullable: false),
                     Status = table.Column<int>(nullable: false),
@@ -257,7 +252,6 @@ namespace JobSearchProject.Migrations
                     LocationId = table.Column<int>(nullable: false),
                     Discriminator = table.Column<string>(nullable: false),
                     DrivingExperience = table.Column<decimal>(nullable: true),
-                    Description = table.Column<string>(type: "varchar(MAX)", nullable: true),
                     SpecializationId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -338,11 +332,6 @@ namespace JobSearchProject.Migrations
                 columns: new[] { "SubjectId", "ClientId", "Type" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Specialization_EducationId",
-                table: "Specialization",
-                column: "EducationId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Vacancy_SpecializationId",
                 table: "Vacancy",
                 column: "SpecializationId",
@@ -376,6 +365,9 @@ namespace JobSearchProject.Migrations
                 name: "DeviceCodes");
 
             migrationBuilder.DropTable(
+                name: "Education");
+
+            migrationBuilder.DropTable(
                 name: "PersistedGrants");
 
             migrationBuilder.DropTable(
@@ -392,9 +384,6 @@ namespace JobSearchProject.Migrations
 
             migrationBuilder.DropTable(
                 name: "Location");
-
-            migrationBuilder.DropTable(
-                name: "Education");
         }
     }
 }

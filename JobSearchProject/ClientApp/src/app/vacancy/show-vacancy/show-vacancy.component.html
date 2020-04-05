@@ -5,9 +5,15 @@
   <div class="card-body">
     <h5 class="card-title">{{ selectedVacancy.description }}</h5>
     <p class="card-text">Driving Experience: {{ selectedVacancy.drivingExperience }}</p>
+    <p class="card-text">Age from {{ selectedVacancy.ageFrom }} to {{ selectedVacancy.ageTo }}</p>
     <p class="card-text">Employment type: {{ EmploymentType[selectedVacancy.specialization.employmentType] }}</p>
     <p class="card-text">Payment type: {{ PaymentType[selectedVacancy.specialization.paymentType] }}</p>
     <p class="card-text">Payment price: {{ selectedVacancy.specialization.paymentPrice }} hrn</p>
+    <p class="card-text">Education type: {{ EducationType[selectedVacancy.specialization.educationType] }}</p>
+    <p class="card-text">Country: {{ selectedVacancy.location.country }}</p>
+    <p class="card-text">City: {{ selectedVacancy.location.city }}</p>
+    <p class="card-text" *ngIf="selectedVacancy.location.region">Region: {{ selectedVacancy.location.region }}</p>
+    <p class="card-text" *ngIf="selectedVacancy.location.street">Street: {{ selectedVacancy.location.street }}</p>
     <a href="#" class="btn btn-primary">Replay</a>
   </div>
   <div class="card-footer text-muted">

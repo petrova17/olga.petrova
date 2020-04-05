@@ -7,7 +7,7 @@ export class DriverVacancy {
     ageTo: number;
     status: Status;
     contactName: string;
-    driverExperience: number;
+    drivingExperience: number;
     description: string;
     specialization: Specialization;
     location: Location;

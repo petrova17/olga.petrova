@@ -25,4 +25,26 @@ namespace JobSearchProject.Models
         Closed,
         Favourite
     }
+
+    public enum SpecializationType
+    {
+        Driver,
+        Housekeeper,
+        Nurse,
+        Babysitter
+    }
+
+    public enum EducationType
+    {
+        Secondary,
+        Higher,
+        NotSpecified
+    }
+
+    public enum EducationSpecialityType
+    {
+        Pedagogical,
+        Medical
+    }
+
 }

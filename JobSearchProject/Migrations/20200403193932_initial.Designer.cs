@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobSearchProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200402092017_initial")]
+    [Migration("20200403193932_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -187,9 +187,8 @@ namespace JobSearchProject.Migrations
                     b.Property<string>("AdditionalEducation")
                         .HasColumnType("varchar(200)");
 
-                    b.Property<string>("Speciality")
-                        .IsRequired()
-                        .HasColumnType("varchar(200)");
+                    b.Property<int>("SpecialityType")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -229,7 +228,7 @@ namespace JobSearchProject.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("EducationId")
+                    b.Property<int>("EducationType")
                         .HasColumnType("int");
 
                     b.Property<int>("EmploymentType")
@@ -237,10 +236,6 @@ namespace JobSearchProject.Migrations
 
                     b.Property<decimal?>("Experience")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("varchar(50)");
 
                     b.Property<decimal?>("PaymentPrice")
                         .HasColumnType("decimal(18,2)");
@@ -251,9 +246,10 @@ namespace JobSearchProject.Migrations
                     b.Property<bool?>("Recommendation")
                         .HasColumnType("bit");
 
-                    b.HasKey("Id");
+                    b.Property<int>("SpecializationType")
+                        .HasColumnType("int");
 
-                    b.HasIndex("EducationId");
+                    b.HasKey("Id");
 
                     b.ToTable("Specialization");
                 });
@@ -274,6 +270,10 @@ namespace JobSearchProject.Migrations
                     b.Property<string>("ContactName")
                         .IsRequired()
                         .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("varchar(MAX)");
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
@@ -433,10 +433,6 @@ namespace JobSearchProject.Migrations
                 {
                     b.HasBaseType("JobSearchProject.Models.Vacancy");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("varchar(MAX)");
-
                     b.Property<decimal?>("DrivingExperience")
                         .HasColumnType("decimal(18,2)");
 
@@ -448,15 +444,6 @@ namespace JobSearchProject.Migrations
                         .HasFilter("[SpecializationId] IS NOT NULL");
 
                     b.HasDiscriminator().HasValue("DriverVacancy");
-                });
-
-            modelBuilder.Entity("JobSearchProject.Models.Specialization", b =>
-                {
-                    b.HasOne("JobSearchProject.Models.Education", "Education")
-                        .WithMany("Specialization")
-                        .HasForeignKey("EducationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("JobSearchProject.Models.Vacancy", b =>

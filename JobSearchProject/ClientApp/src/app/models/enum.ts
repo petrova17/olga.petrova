@@ -15,3 +15,16 @@ export enum Status {
     Closed = 3,
     Favourite = 4
 }
+
+export enum SpecializationType {
+    Driver = 1,
+    Housekeeper = 2,
+    Nurse = 3,
+    Babysitter = 4
+}
+
+export enum EducationType {
+    Secondary = 1,
+    Higher = 2,
+    NotSpecified = 3
+}

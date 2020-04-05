@@ -12,6 +12,10 @@ namespace JobSearchProject.Models
         public int Id { get; set; }
 
         [Required]
+        [Column(TypeName = "varchar(MAX)")]
+        public string Description { get; set; }
+
+        [Required]
         public int AgeFrom { get; set; }
 
         [Required]

@@ -18,4 +18,17 @@ var Status;
     Status[Status["Closed"] = 3] = "Closed";
     Status[Status["Favourite"] = 4] = "Favourite";
 })(Status = exports.Status || (exports.Status = {}));
+var SpecializationType;
+(function (SpecializationType) {
+    SpecializationType[SpecializationType["Driver"] = 1] = "Driver";
+    SpecializationType[SpecializationType["Housekeeper"] = 2] = "Housekeeper";
+    SpecializationType[SpecializationType["Nurse"] = 3] = "Nurse";
+    SpecializationType[SpecializationType["Babysitter"] = 4] = "Babysitter";
+})(SpecializationType = exports.SpecializationType || (exports.SpecializationType = {}));
+var EducationType;
+(function (EducationType) {
+    EducationType[EducationType["Secondary"] = 1] = "Secondary";
+    EducationType[EducationType["Higher"] = 2] = "Higher";
+    EducationType[EducationType["NotSpecified"] = 3] = "NotSpecified";
+})(EducationType = exports.EducationType || (exports.EducationType = {}));
 //# sourceMappingURL=enum.js.map

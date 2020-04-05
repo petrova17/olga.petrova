@@ -1,16 +1,19 @@
 import { Component, Inject } from '@angular/core';
-import { NgForm, NgModel } from "@angular/forms"
+import { NgForm, NgModel, ControlContainer } from "@angular/forms"
 import { HttpClient } from '@angular/common/http';
-import { DriverVacancy } from '../models/driverVacancy';
-import { DataService } from '../core/data.service';
-import { AuthorizeService } from '../../api-authorization/authorize.service';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { DataService } from '../../core/data.service';
+import { AuthorizeService } from '../../../api-authorization/authorize.service';
+import { DriverVacancy } from '../../models/driverVacancy';
+import { Status } from '../../models/enum';
 
 @Component({
     selector: 'app-add-vacancy',
     templateUrl: './add-vacancy.component.html',
-    styleUrls: ['./add-vacancy.component.css']
+    styleUrls: ['./add-vacancy.component.css'],
+
+    viewProviders: [{ provide: ControlContainer, useExisting: NgForm }],
 })
 export class AddVacancyComponent {
     constructor(private dataService: DataService,
@@ -32,19 +35,16 @@ export class AddVacancyComponent {
         ageTo: null,
         status: null,
         contactName: null,
-        driverExperience: null,
+        drivingExperience: null,
         description: null,
         specialization: {
-            name: null,
+            specializationType: null,
             employmentType: null,
             paymentType: null,
             paymentPrice: null,
+            educationType: null,
             experience: null,
-            recomendation: null,
-            education: {
-                speciality: null,
-                additionalEducation: null
-            }
+            recomendation: null
         },
         location: {
             country: null,
@@ -54,18 +54,22 @@ export class AddVacancyComponent {
         }
     };
 
-    addVacancy(form: NgModel) {    
+    addVacancy(form: NgModel) {
+        if (form.valid) {
+            this.getName();
+            this.vacancy.status = Status.Saved;
+            this.dataService.addVacancy(this.vacancy)
+                .subscribe(
+                    (data: DriverVacancy) => console.log(data),
+                    (err: any) => {
+                        console.log(err);
+                        throw err;
+                    }
+                );
+            // To be updated
+            this.router.navigate(['']);
+        }
 
-        this.getName();
-        this.dataService.addVacancy(this.vacancy)
-            .subscribe(
-                (data: DriverVacancy) => console.log(data),
-                (err: any) => {
-                    console.log(err);
-                    throw err;
-                }
-        );
-        // To be updated
         //this.router.navigate(['']);
     }
 }
