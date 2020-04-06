@@ -1,4 +1,4 @@
-import { Component, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DataService } from '../core/data.service';
 import { DriverVacancy } from '../models/driverVacancy';
 import { EmploymentType, PaymentType } from '../models/enum';
@@ -8,26 +8,24 @@ import { TrackerError } from '../models/trackerError';
   selector: 'app-home',
   templateUrl: './home.component.html',
 })
-export class HomeComponent implements OnChanges {
-    ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
-        throw new Error("Method not implemented.");
-    }
-
+export class HomeComponent implements OnInit {
+    
     trackerError: TrackerError = {
         errorNumber: null,
         message: null,
         friendlyMessage: null
     };
     allDriversVacancy: DriverVacancy[];
-    EmploymentType : typeof
-    EmploymentType = EmploymentType;
+    EmploymentType : typeof EmploymentType = EmploymentType;
 
     PaymentType: typeof PaymentType = PaymentType;
 
     constructor(private dataService: DataService) { }
 
     ngOnInit() {
-        this.dataService.getAllDriverVacancies()
+        console.log('We are on this page!!!');
+
+        this.dataService.getDriverVacancies()
             .subscribe(
                 (data: DriverVacancy[]) => this.allDriversVacancy = data,
                 (err: TrackerError) => {

@@ -9,9 +9,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var enum_1 = require("../../models/enum");
 var ShowVacancyComponent = /** @class */ (function () {
-    function ShowVacancyComponent(route, dataService) {
+    function ShowVacancyComponent(route, dataService, router) {
         this.route = route;
         this.dataService = dataService;
+        this.router = router;
         this.selectedVacancy = {
             ageFrom: null,
             ageTo: null,
@@ -42,11 +43,20 @@ var ShowVacancyComponent = /** @class */ (function () {
     ShowVacancyComponent.prototype.ngOnInit = function () {
         var _this = this;
         var vacancyId = parseInt(this.route.snapshot.params['id']);
-        this.dataService.getDriverVacancyById(vacancyId)
-            .subscribe(function (data) {
-            _this.selectedVacancy = data;
-            console.log(_this.selectedVacancy);
-        }, function (err) { return console.log(err); }, function () { return console.log("All done"); });
+        this.dataService.getDriverVacancy(vacancyId)
+            .subscribe({
+            next: function (data) {
+                _this.displayDriverVacancy(data),
+                    console.log(data);
+            },
+            error: function (err) { return console.log(err); }
+        });
+    };
+    ShowVacancyComponent.prototype.displayDriverVacancy = function (vacancy) {
+        this.selectedVacancy = vacancy;
+    };
+    ShowVacancyComponent.prototype.onBack = function () {
+        this.router.navigate(['']);
     };
     ShowVacancyComponent = __decorate([
         core_1.Component({

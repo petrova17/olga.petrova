@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { DriverVacancy } from '../models/driverVacancy';
-import { catchError, retry } from 'rxjs/operators';
+import { catchError, tap, map, retry } from 'rxjs/operators';
 import { TrackerError } from '../models/trackerError';
 
 @Injectable({
@@ -11,15 +11,19 @@ import { TrackerError } from '../models/trackerError';
 export class DataService {
     constructor(private http: HttpClient) { }
 
-    getAllDriverVacancies(): Observable<DriverVacancy[] | TrackerError> {
+    getDriverVacancies(): Observable<DriverVacancy[] | TrackerError> {
         return this.http.get<DriverVacancy[]>('/api/DriverVacancies/');
     }    
 
-    getDriverVacancyById(id: number): Observable<DriverVacancy> {
+    getDriverVacancy(id: number): Observable<DriverVacancy> {
         return this.http.get<DriverVacancy>(`/api/DriverVacancies/${id}`);
     }
 
-    addVacancy(newVacancy: DriverVacancy): Observable<DriverVacancy> {
+    addDriverVacancy(newVacancy: DriverVacancy): Observable<DriverVacancy> {
         return this.http.post<DriverVacancy>('/api/DriverVacancies', newVacancy);
+    }
+
+    deleteDriverVacancy(id: number): Observable<DriverVacancy> {
+        return this.http.delete<DriverVacancy>(`/api/DriverVacancies/${id}`);
     }
 }

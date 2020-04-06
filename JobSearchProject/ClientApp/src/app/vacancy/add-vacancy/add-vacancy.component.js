@@ -7,68 +7,81 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var forms_1 = require("@angular/forms");
 var operators_1 = require("rxjs/operators");
 var enum_1 = require("../../models/enum");
+var forms_1 = require("@angular/forms");
+var trackerError_1 = require("../../models/trackerError");
 var AddVacancyComponent = /** @class */ (function () {
-    function AddVacancyComponent(dataService, authorizeService, router) {
+    function AddVacancyComponent(dataService, authorizeService, router, fb) {
         this.dataService = dataService;
         this.authorizeService = authorizeService;
         this.router = router;
-        this.vacancy = {
-            ageFrom: null,
-            ageTo: null,
-            status: null,
-            contactName: null,
-            drivingExperience: null,
-            description: null,
-            specialization: {
-                specializationType: null,
-                employmentType: null,
-                paymentType: null,
-                paymentPrice: null,
-                educationType: null,
-                experience: null,
-                recomendation: null
-            },
-            location: {
-                country: null,
-                city: null,
-                region: null,
-                street: null
-            }
-        };
+        this.fb = fb;
+        this.trackerError = new trackerError_1.TrackerError();
     }
-    AddVacancyComponent.prototype.getName = function () {
+    AddVacancyComponent.prototype.ngOnInit = function () {
         var _this = this;
-        var value = this.authorizeService.getUser()
+        this.authorizeService.getUser()
             .pipe(operators_1.map(function (u) { return u.name; }))
             .subscribe(function (data) {
-            _this.vacancy.contactName = data;
+            _this.currentUserName = data;
             console.log(data);
         });
-        return value;
+        this.addVacancyForm = this.fb.group({
+            description: ['', forms_1.Validators.required],
+            ageFrom: ['', forms_1.Validators.required],
+            ageTo: ['', forms_1.Validators.required],
+            status: [''],
+            contactName: [''],
+            drivingExperience: ['', forms_1.Validators.required],
+            //driverVacancy: this.buildDriverVacancy(),
+            specialization: this.buildSpecialization(),
+            location: this.buildLocation()
+        });
     };
-    AddVacancyComponent.prototype.addVacancy = function (form) {
-        if (form.valid) {
-            this.getName();
-            this.vacancy.status = enum_1.Status.Saved;
-            this.dataService.addVacancy(this.vacancy)
-                .subscribe(function (data) { return console.log(data); }, function (err) {
-                console.log(err);
-                throw err;
+    AddVacancyComponent.prototype.buildDriverVacancy = function () {
+        return this.fb.group({
+            drivingExperience: ['', forms_1.Validators.required],
+        });
+    };
+    AddVacancyComponent.prototype.buildSpecialization = function () {
+        return this.fb.group({
+            specializationType: ['', forms_1.Validators.required],
+            employmentType: ['', forms_1.Validators.required],
+            paymentType: ['', forms_1.Validators.required],
+            paymentPrice: [''],
+            experience: [''],
+            educationType: ['', forms_1.Validators.required],
+        });
+    };
+    AddVacancyComponent.prototype.buildLocation = function () {
+        return this.fb.group({
+            country: ['', forms_1.Validators.required],
+            city: ['', forms_1.Validators.required],
+            region: [''],
+            street: [''],
+        });
+    };
+    AddVacancyComponent.prototype.addVacancy = function () {
+        var _this = this;
+        if (this.addVacancyForm.valid) {
+            this.addVacancyForm.patchValue({
+                status: enum_1.Status.Saved,
+                contactName: this.currentUserName
             });
-            // To be updated
+            this.dataService.addDriverVacancy(this.addVacancyForm.value)
+                .subscribe(function (data) { return console.log(data); }, function (err) {
+                _this.trackerError.friendlyMessage = err.friendlyMessage;
+            });
+            //To be updated
             this.router.navigate(['']);
         }
-        //this.router.navigate(['']);
     };
     AddVacancyComponent = __decorate([
         core_1.Component({
             selector: 'app-add-vacancy',
             templateUrl: './add-vacancy.component.html',
-            styleUrls: ['./add-vacancy.component.css'],
-            viewProviders: [{ provide: forms_1.ControlContainer, useExisting: forms_1.NgForm }],
+            styleUrls: ['./add-vacancy.component.css']
         })
     ], AddVacancyComponent);
     return AddVacancyComponent;

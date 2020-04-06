@@ -1,0 +1,31 @@
+<div class="alert alert-danger" role="alert" *ngIf="this.trackerError.friendlyMessage">
+  {{this.trackerError.friendlyMessage}}
+</div>
+
+<div class="card border-dark mb-3" *ngFor="let driver of allDriversVacancy">
+  <h5 class="card-header">Featured</h5>
+  <div class="card-body text-dark">
+    <h5 class="card-title">{{ driver.description }}</h5>
+    <p class="card-text">Driving Experience: {{ driver.drivingExperience }}</p>
+    <p class="card-text">Age from {{ driver.ageFrom }} to {{ driver.ageTo }}</p>
+    <p class="card-text">Employment type: {{ EmploymentType[driver.specialization.employmentType] }}</p>
+    <p class="card-text">Payment type: {{ PaymentType[driver.specialization.paymentType] }}</p>
+    <p class="card-text">Payment price: {{ driver.specialization.paymentPrice }} hrn</p>
+    <p class="card-text">Education type: {{ EducationType[driver.specialization.educationType] }}</p>
+    <p class="card-text">Country: {{ driver.location.country }}</p>
+    <p class="card-text">City: {{ driver.location.city }}</p>
+    <p class="card-text" *ngIf="driver.location.region">Region: {{ driver.location.region }}</p>
+    <p class="card-text" *ngIf="driver.location.street">Street: {{ driver.location.street }}</p>
+    <button class="btn btn-outline-secondary mr-3"
+            style="width:80px"
+            (click)="onBack()">
+      Back
+    </button>
+    <button class="btn btn-outline-secondary mr-3"
+            style="width:80px"
+            (click)="deleteVacancy(driver.id)">
+      Delete
+    </button>
+  </div>
+</div>
+

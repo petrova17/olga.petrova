@@ -23,9 +23,12 @@ var InterceptorService = /** @class */ (function () {
             headers: headers
         });
         return next.handle(clone)
-            .pipe(operators_1.retry(2), operators_1.catchError(function (err) { return _this.handleHttpError(err); }));
+            .pipe(
+        // retry(2),
+        operators_1.catchError(function (err) { return _this.handleHttpError(err); }));
     };
     InterceptorService.prototype.handleHttpError = function (error) {
+        console.log(error);
         var dataError = new trackerError_1.TrackerError();
         dataError.errorNumber = error.status;
         dataError.message = error.message;

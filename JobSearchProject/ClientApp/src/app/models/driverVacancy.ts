@@ -1,17 +1,13 @@
-import { Specialization } from "./specialization";
-import { Location } from "./location";
-import { Status } from "./enum";
+import { Vacancy } from "./vacancy";
 
-export class DriverVacancy {
-    ageFrom: number;
-    ageTo: number;
-    status: Status;
-    contactName: string;
-    drivingExperience: number;
-    description: string;
-    specialization: Specialization;
-    location: Location;
+export class DriverVacancy extends Vacancy{
+    public drivingExperience: number;
+
+    constructor(        
+      drivingExperience = null
+    ) {
+        super();
+    }
 }
-
 
 

@@ -35,7 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\src\app\vacancy\add-vacancy\add-driver-vacancy\add-driver-vacancy.component.ts" />
+    <None Remove="ClientApp\src\app\models\vacancy.ts" />
     <None Remove="ClientApp\src\app\vacancy\add-vacancy\add-vacancy.component.ts" />
     <None Remove="ClientApp\src\app\core\data.service.ts" />
     <None Remove="ClientApp\src\app\core\interceptor.service.ts" />
@@ -48,7 +48,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\app\vacancy\add-vacancy\add-driver-vacancy\add-driver-vacancy.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\vacancy.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\vacancy\add-vacancy\add-vacancy.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\core\data.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\core\interceptor.service.ts" />

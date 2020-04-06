@@ -1,12 +1,21 @@
 import { EmploymentType, PaymentType, SpecializationType, EducationType } from "./enum";
-import { Education } from "./education";
 
 export class Specialization {
-    specializationType: SpecializationType;
-    employmentType: EmploymentType;
-    paymentType: PaymentType;
-    educationType: EducationType;
-    paymentPrice: number;
-    experience: number;
-    recomendation: boolean;
+    public specializationType: SpecializationType;
+    public employmentType: EmploymentType;
+    public paymentType: PaymentType;
+    public educationType: EducationType;
+    public paymentPrice: number;
+    public experience: number;
+    public recomendation: boolean;
+
+    constructor(
+        specializationType = null,
+        employmentType = null,
+        paymentType = null,
+        educationType = null,
+        paymentPrice = null,
+        experience = null,
+        recomendation = null
+    ) { }
 }

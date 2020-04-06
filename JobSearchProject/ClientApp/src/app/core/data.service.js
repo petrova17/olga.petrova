@@ -11,14 +11,17 @@ var DataService = /** @class */ (function () {
     function DataService(http) {
         this.http = http;
     }
-    DataService.prototype.getAllDriverVacancies = function () {
+    DataService.prototype.getDriverVacancies = function () {
         return this.http.get('/api/DriverVacancies/');
     };
-    DataService.prototype.getDriverVacancyById = function (id) {
+    DataService.prototype.getDriverVacancy = function (id) {
         return this.http.get("/api/DriverVacancies/" + id);
     };
-    DataService.prototype.addVacancy = function (newVacancy) {
+    DataService.prototype.addDriverVacancy = function (newVacancy) {
         return this.http.post('/api/DriverVacancies', newVacancy);
+    };
+    DataService.prototype.deleteDriverVacancy = function (id) {
+        return this.http.delete("/api/DriverVacancies/" + id);
     };
     DataService = __decorate([
         core_1.Injectable({

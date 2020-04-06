@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../../core/data.service';
 import { EmploymentType, PaymentType, EducationType } from '../../models/enum';
 import { DriverVacancy } from '../../models/driverVacancy';
@@ -39,18 +39,29 @@ export class ShowVacancyComponent {
     EducationType: typeof EducationType = EducationType;
 
     constructor(private route: ActivatedRoute,
-        private dataService: DataService) { }
+        private dataService: DataService,
+        private router: Router) { }
 
     ngOnInit() {
         let vacancyId: number = parseInt(this.route.snapshot.params['id']);
-        this.dataService.getDriverVacancyById(vacancyId)
+       
+        this.dataService.getDriverVacancy(vacancyId)
             .subscribe(
-                (data: DriverVacancy) => {
-                    this.selectedVacancy = data;
-                    console.log(this.selectedVacancy)
-                },
-                (err: any) => console.log(err),
-                () => console.log("All done")
+                {
+                    next: (data: DriverVacancy) => {
+                        this.displayDriverVacancy(data),
+                            console.log(data)
+                    },
+                    error: err => console.log(err)
+                }
             );
+    }
+
+    displayDriverVacancy(vacancy: DriverVacancy) {
+        this.selectedVacancy = vacancy;
+    }
+
+    onBack(): void {
+        this.router.navigate(['']);
     }
 }

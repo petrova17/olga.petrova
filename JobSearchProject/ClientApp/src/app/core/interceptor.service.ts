@@ -24,12 +24,14 @@ export class InterceptorService implements HttpInterceptor {
 
         return <any>next.handle(clone)
             .pipe(
-                retry(2),
+                // retry(2),
                 catchError(err => this.handleHttpError(err))
             );
     }
 
     private handleHttpError(error: HttpErrorResponse): Observable<TrackerError> {
+        console.log(error);
+
         let dataError = new TrackerError();
         dataError.errorNumber = error.status;
         dataError.message = error.message;

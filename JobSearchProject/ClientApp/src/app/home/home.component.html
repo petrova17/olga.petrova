@@ -1,4 +1,8 @@
-<h2 *ngIf="allDriversVacancy">HOT VACANCIES</h2>
+<div class="alert alert-danger" role="alert" *ngIf="this.trackerError.friendlyMessage">
+  {{this.trackerError.friendlyMessage}}
+</div>
+
+<h2 *ngIf="allDriversVacancy">TOP VACANCIES</h2>
 <div class="row row-cols-2 row-cols-md-2">
   <div class="card text-white bg-info mb-3 h-100 w-50" *ngFor="let driver of allDriversVacancy">
     <div class="card-header">{{ driver.specialization.name }}</div>
