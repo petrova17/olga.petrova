@@ -9,13 +9,14 @@ export class Specialization {
     public experience: number;
     public recomendation: boolean;
 
-    constructor(
-        specializationType = null,
-        employmentType = null,
-        paymentType = null,
-        educationType = null,
-        paymentPrice = null,
-        experience = null,
-        recomendation = null
-    ) { }
+    constructor(        
+    ) {
+        this.specializationType = null;
+        this.employmentType = null;
+        this.paymentType = null;
+        this.educationType = null;
+        this.paymentPrice = null;
+        this.experience = null;
+        this.recomendation = null;
+    }
 }

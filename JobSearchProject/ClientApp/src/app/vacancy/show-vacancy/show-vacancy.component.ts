@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../../core/data.service';
-import { EmploymentType, PaymentType, EducationType } from '../../models/enum';
+import { EmploymentType, PaymentType, EducationType, SpecializationType } from '../../models/enum';
 import { DriverVacancy } from '../../models/driverVacancy';
+import { TrackerError } from '../../models/trackerError';
 
 @Component({
     selector: 'show-add-vacancy',
@@ -10,50 +11,32 @@ import { DriverVacancy } from '../../models/driverVacancy';
 })
 export class ShowVacancyComponent {
     
-    selectedVacancy: DriverVacancy = {
-    ageFrom: null,
-    ageTo: null,
-    status: null,
-    contactName: null,
-    drivingExperience: null,
-    description: null,
-    specialization: {
-        specializationType: null,
-        employmentType: null,
-        paymentType: null,
-        paymentPrice: null,
-        educationType: null,
-        experience: null,
-        recomendation: null,
-    },
-    location: {
-        country: null,
-        city: null,
-        region: null,
-        street: null
-    }
-};
-
     EmploymentType: typeof EmploymentType = EmploymentType;
     PaymentType: typeof PaymentType = PaymentType;
     EducationType: typeof EducationType = EducationType;
+
+    trackerError = new TrackerError();
 
     constructor(private route: ActivatedRoute,
         private dataService: DataService,
         private router: Router) { }
 
+    
+    selectedVacancy = new DriverVacancy();
+
     ngOnInit() {
         let vacancyId: number = parseInt(this.route.snapshot.params['id']);
-       
+               
         this.dataService.getDriverVacancy(vacancyId)
             .subscribe(
-                {
-                    next: (data: DriverVacancy) => {
-                        this.displayDriverVacancy(data),
-                            console.log(data)
-                    },
-                    error: err => console.log(err)
-                }
+                (data: DriverVacancy) => {
+                    this.displayDriverVacancy(data);
+                },
+                (err: TrackerError) => {
+                    this.trackerError.friendlyMessage = err.friendlyMessage;
+                },
+                () => console.log("All done")
+                    
             );
     }
 

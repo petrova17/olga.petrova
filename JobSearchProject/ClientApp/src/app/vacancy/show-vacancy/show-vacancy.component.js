@@ -8,49 +8,28 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var enum_1 = require("../../models/enum");
+var driverVacancy_1 = require("../../models/driverVacancy");
+var trackerError_1 = require("../../models/trackerError");
 var ShowVacancyComponent = /** @class */ (function () {
     function ShowVacancyComponent(route, dataService, router) {
         this.route = route;
         this.dataService = dataService;
         this.router = router;
-        this.selectedVacancy = {
-            ageFrom: null,
-            ageTo: null,
-            status: null,
-            contactName: null,
-            drivingExperience: null,
-            description: null,
-            specialization: {
-                specializationType: null,
-                employmentType: null,
-                paymentType: null,
-                paymentPrice: null,
-                educationType: null,
-                experience: null,
-                recomendation: null,
-            },
-            location: {
-                country: null,
-                city: null,
-                region: null,
-                street: null
-            }
-        };
         this.EmploymentType = enum_1.EmploymentType;
         this.PaymentType = enum_1.PaymentType;
         this.EducationType = enum_1.EducationType;
+        this.trackerError = new trackerError_1.TrackerError();
+        this.selectedVacancy = new driverVacancy_1.DriverVacancy();
     }
     ShowVacancyComponent.prototype.ngOnInit = function () {
         var _this = this;
         var vacancyId = parseInt(this.route.snapshot.params['id']);
         this.dataService.getDriverVacancy(vacancyId)
-            .subscribe({
-            next: function (data) {
-                _this.displayDriverVacancy(data),
-                    console.log(data);
-            },
-            error: function (err) { return console.log(err); }
-        });
+            .subscribe(function (data) {
+            _this.displayDriverVacancy(data);
+        }, function (err) {
+            _this.trackerError.friendlyMessage = err.friendlyMessage;
+        }, function () { return console.log("All done"); });
     };
     ShowVacancyComponent.prototype.displayDriverVacancy = function (vacancy) {
         this.selectedVacancy = vacancy;

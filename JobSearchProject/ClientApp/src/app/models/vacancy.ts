@@ -12,15 +12,15 @@ export class Vacancy {
     public specialization: Specialization;
     public location: Location;
 
-    constructor(
-        id = null,
-        ageFrom = null,
-        ageTo = null,
-        status = null,
-        contactName = null,
-        drivingExperience = null,
-        description = null,
-        specialization = new Specialization(),
-        location = new Location()
-    ) { }
+    constructor(        
+    ) {
+        this.id = null;
+        this.ageFrom = null;
+        this.ageTo = null;
+        this.status = null;
+        this.contactName = null;
+        this.description = null;
+        this.specialization = new Specialization();
+        this.location = new Location();
+    }
 }

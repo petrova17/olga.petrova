@@ -70,11 +70,12 @@ var AddVacancyComponent = /** @class */ (function () {
                 contactName: this.currentUserName
             });
             this.dataService.addDriverVacancy(this.addVacancyForm.value)
-                .subscribe(function (data) { return console.log(data); }, function (err) {
+                .subscribe(function (data) {
+                console.log(data);
+                _this.router.navigate(['']);
+            }, function (err) {
                 _this.trackerError.friendlyMessage = err.friendlyMessage;
             });
-            //To be updated
-            this.router.navigate(['']);
         }
     };
     AddVacancyComponent = __decorate([

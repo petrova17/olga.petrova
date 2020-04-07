@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DriverVacancy } from '../../models/driverVacancy';
 import { TrackerError } from '../../models/trackerError';
 import { DataService } from '../../core/data.service';
-import { EmploymentType, PaymentType, EducationType } from '../../models/enum';
+import { EmploymentType, PaymentType, EducationType, SpecializationType } from '../../models/enum';
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,6 +17,7 @@ export class MyVacancyComponent implements OnInit {
     EmploymentType: typeof EmploymentType = EmploymentType;
     PaymentType: typeof PaymentType = PaymentType;
     EducationType: typeof EducationType = EducationType;
+    SpecializationType: typeof SpecializationType = SpecializationType;
 
     constructor(private dataService: DataService,
         private router: Router) { }
@@ -26,7 +27,6 @@ export class MyVacancyComponent implements OnInit {
             .subscribe(
                 (data: DriverVacancy[]) => {
                 this.allDriversVacancy = data;
-                    //console.log(this.allDriversVacancy);
                 },
                 (err: TrackerError) => {
                     this.trackerError.friendlyMessage = err.friendlyMessage;
@@ -51,10 +51,6 @@ export class MyVacancyComponent implements OnInit {
                         throw err;
                     }
         );
-
-        
-        //    //To be updated
-        //    this.router.navigate(['']);
-        }
+    }
 
 }

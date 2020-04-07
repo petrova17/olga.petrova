@@ -7,7 +7,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var http_1 = require("@angular/common/http");
 var rxjs_1 = require("rxjs");
 var operators_1 = require("rxjs/operators");
 var trackerError_1 = require("../models/trackerError");
@@ -16,19 +15,15 @@ var InterceptorService = /** @class */ (function () {
     }
     InterceptorService.prototype.intercept = function (req, next) {
         var _this = this;
-        var headers = new http_1.HttpHeaders({
-            'Content-Type': 'application/json'
-        });
         var clone = req.clone({
-            headers: headers
+            setHeaders: { 'Content-Type': 'application/json' }
         });
         return next.handle(clone)
-            .pipe(
-        // retry(2),
-        operators_1.catchError(function (err) { return _this.handleHttpError(err); }));
+            .pipe(operators_1.catchError(function (err) { return _this.handleHttpError(err); }));
     };
     InterceptorService.prototype.handleHttpError = function (error) {
         console.log(error);
+        console.log('iterceptor!');
         var dataError = new trackerError_1.TrackerError();
         dataError.errorNumber = error.status;
         dataError.message = error.message;

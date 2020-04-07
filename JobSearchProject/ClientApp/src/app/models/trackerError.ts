@@ -3,9 +3,10 @@ export class TrackerError {
     public message: string;
     public friendlyMessage: string;
 
-    constructor(
-        errorNumber = null,
-        message = null,
-        friendlyMessage = null
-    ) { }
+    constructor(        
+    ) {
+        this.errorNumber = null;
+        this.message = null;
+        this.friendlyMessage = null;
+    }
 }

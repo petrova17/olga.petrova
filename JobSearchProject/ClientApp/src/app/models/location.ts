@@ -4,10 +4,11 @@ export class Location {
     public region: string;
     public street: string;
 
-    constructor(
-        country = null,
-        city = null,
-        region = null,
-        street = null
-    ) { }
+    constructor(        
+    ) {
+        this.country = null;
+        this.city = null;
+        this.region = null;
+        this.street = null;
+    }
 }

@@ -16,9 +16,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var vacancy_1 = require("./vacancy");
 var DriverVacancy = /** @class */ (function (_super) {
     __extends(DriverVacancy, _super);
-    function DriverVacancy(drivingExperience) {
-        if (drivingExperience === void 0) { drivingExperience = null; }
-        return _super.call(this) || this;
+    function DriverVacancy() {
+        var _this = _super.call(this) || this;
+        _this.drivingExperience = null;
+        return _this;
     }
     return DriverVacancy;
 }(vacancy_1.Vacancy));

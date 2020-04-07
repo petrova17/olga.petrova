@@ -82,13 +82,14 @@ export class AddVacancyComponent implements OnInit {
 
             this.dataService.addDriverVacancy(this.addVacancyForm.value)
                 .subscribe(
-                    (data: DriverVacancy) => console.log(data),
+                    (data: DriverVacancy) => {
+                        console.log(data);
+                        this.router.navigate(['']);
+                    },
                     (err: TrackerError) => {
                         this.trackerError.friendlyMessage = err.friendlyMessage;
                     }
-                );
-            //To be updated
-            this.router.navigate(['']);
+                );           
         }
     }    
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpErrorResponse, HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { Observable, throwError, pipe } from 'rxjs';
+import { catchError, retry, first } from 'rxjs/operators';
 import { TrackerError } from '../models/trackerError';
 
 @Injectable({
@@ -11,26 +11,21 @@ export class InterceptorService implements HttpInterceptor {
 
     constructor() { }
 
-    intercept(req: HttpRequest<any>,
-        next: HttpHandler):
-        Observable<HttpEvent<any>> {
-        const headers = new HttpHeaders({
-            'Content-Type': 'application/json'
-        });
+    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-        const clone = req.clone({
-            headers: headers
+        let clone: HttpRequest<any> = req.clone({
+            setHeaders: { 'Content-Type': 'application/json'}
         });
 
         return <any>next.handle(clone)
-            .pipe(
-                // retry(2),
-                catchError(err => this.handleHttpError(err))
+            .pipe(                
+               catchError(err => this.handleHttpError(err))
             );
     }
 
     private handleHttpError(error: HttpErrorResponse): Observable<TrackerError> {
         console.log(error);
+        console.log('iterceptor!');
 
         let dataError = new TrackerError();
         dataError.errorNumber = error.status;
