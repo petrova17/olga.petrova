@@ -2,13 +2,13 @@
   {{this.trackerError.friendlyMessage}}
 </div>
 
-<div class="col-lg-5">
+<div class="col-lg-8">
   <div class="well bs-component">
     <form novalidate (ngSubmit)="addVacancy()" class="form-horizontal"
           [formGroup]="addVacancyForm">
       <fieldset>
         <legend>Add New Vacancy</legend>
-        <div class="form-group">
+        <div class="form-group required">
           <label for="inputDescription" class="control-label">Description</label>
           <textarea class="form-control"
                     id="inputDescription" rows="3"
@@ -24,32 +24,36 @@
           </span>
         </div>
 
-        <div class="form-group">
-          <label for="inputAgeFrom" class="control-label">Age from</label>
-          <input type="number" class="form-control"
-                 id="inputAgeFrom" formControlName="ageFrom"
-                 [ngClass]="{'is-invalid': (addVacancyForm.get('ageFrom').touched
+        <div class="form-row">
+          <div class="form-group required col-md-6">
+            <label for="inputAgeFrom" class="control-label">Age from</label>
+            <input type="number" class="form-control"
+                   id="inputAgeFrom" formControlName="ageFrom"
+                   [ngClass]="{'is-invalid': (addVacancyForm.get('ageFrom').touched
                  || addVacancyForm.get('ageFrom').dirty) && !addVacancyForm.get('ageFrom').valid }">
-          <span class="invalid-feedback">
-            <span *ngIf="addVacancyForm.get('ageFrom').errors?.required">
-              Please enter age from.
+            <span class="invalid-feedback">
+              <span *ngIf="addVacancyForm.get('ageFrom').errors?.required">
+                Please enter age from.
+              </span>
             </span>
-          </span>
-        </div>
-        <div class="form-group">
-          <label for="inputAgeTo" class="control-label">Age to</label>
-          <input type="number" class="form-control"
-                 id="inputAgeTo" formControlName="ageTo"
-                 [ngClass]="{'is-invalid': (addVacancyForm.get('ageTo').touched || addVacancyForm.get('ageTo').dirty) && !addVacancyForm.get('ageTo').valid }">
-          <span class="invalid-feedback">
-            <span *ngIf="addVacancyForm.get('ageTo').errors?.required">
-              Please enter age to.
+
+
+          </div>
+          <div class="form-group required col-md-6">
+            <label for="inputAgeTo" class="control-label">Age to</label>
+            <input type="number" class="form-control"
+                   id="inputAgeTo" formControlName="ageTo"
+                   [ngClass]="{'is-invalid': (addVacancyForm.get('ageTo').touched || addVacancyForm.get('ageTo').dirty) && !addVacancyForm.get('ageTo').valid }">
+            <span class="invalid-feedback">
+              <span *ngIf="addVacancyForm.get('ageTo').errors?.required">
+                Please enter age to.
+              </span>
             </span>
-          </span>
+          </div>
         </div>
 
         <div formGroupName="specialization">
-          <div class="form-group">
+          <div class="form-group required">
             <label for="selectSpecialization" class="control-label">Select specialization</label>
             <select class="form-control" id="selectSpecialization"
                     formControlName="specializationType"
@@ -68,7 +72,7 @@
             </span>
           </div>
 
-          <div class="form-group">
+          <div class="form-group required">
             <label for="selectEmploymentType" class="control-label">Employment type</label>
             <select class="form-control" id="selectEmploymentType"
                     formControlName="employmentType"
@@ -82,30 +86,31 @@
               </span>
             </span>
           </div>
-
-          <div class="form-group">
-            <label for="selectPaymentType" class="control-label">Payment type</label>
-            <select class="form-control" id="selectPaymentType"
-                    formControlName="paymentType"
-                    [ngClass]="{'is-invalid': (addVacancyForm.get('specialization.paymentType').touched
+          <div class="form-row">
+            <div class="form-group required col-md-6">
+              <label for="selectPaymentType" class="control-label">Payment type</label>
+              <select class="form-control" id="selectPaymentType"
+                      formControlName="paymentType"
+                      [ngClass]="{'is-invalid': (addVacancyForm.get('specialization.paymentType').touched
                     || addVacancyForm.get('specialization.paymentType').dirty)
                     && !addVacancyForm.get('specialization.paymentType').valid }">
-              <option value="1">Per Hour</option>
-              <option value="2">Per Day</option>
-              <option value="3">Per Month</option>
-            </select>
-            <span class="invalid-feedback">
-              <span *ngIf="addVacancyForm.get('specialization.paymentType').errors?.required">
-                Please select payment type.
+                <option value="1">Per Hour</option>
+                <option value="2">Per Day</option>
+                <option value="3">Per Month</option>
+              </select>
+              <span class="invalid-feedback">
+                <span *ngIf="addVacancyForm.get('specialization.paymentType').errors?.required">
+                  Please select payment type.
+                </span>
               </span>
-            </span>
-          </div>
+            </div>
 
-          <div class="form-group">
-            <label for="inputPaymentPrice" class="control-label">Payment price</label>
-            <input type="number" class="form-control"
-                   id="inputPaymentPrice"
-                   formControlName="paymentPrice">
+            <div class="form-group col-md-6">
+              <label for="inputPaymentPrice" class="control-label">Payment price</label>
+              <input type="number" class="form-control"
+                     id="inputPaymentPrice"
+                     formControlName="paymentPrice">
+            </div>
           </div>
 
           <div class="form-group">
@@ -115,7 +120,7 @@
                    formControlName="experience" />
           </div>
 
-          <div class="form-group">
+          <div class="form-group required">
             <label for="selectEducationType" class="control-label">Education type</label>
             <select class="form-control" id="selectEducationType"
                     formControlName="educationType"
@@ -135,7 +140,7 @@
         </div>
 
         <div *ngIf="addVacancyForm.get('specialization.specializationType').value == 1">
-          <div class="form-group">
+          <div class="form-group required">
             <label for="inputDrivingExperience" class="control-label">Driving experience</label>
             <input type="number" class="form-control"
                    id="inputDrivingExperience" formControlName="drivingExperience"
@@ -150,55 +155,290 @@
           </div>
         </div>
 
-        <div formGroupName="location">
+        <div *ngIf="addVacancyForm.get('specialization.specializationType').value == 4">
+          <div formGroupName="education">
+            <div class="form-group required">
+              <label for="selectSpeciality" class="control-label">Select speciality</label>
+              <select class="form-control" id="selectSpeciality"
+                      formControlName="speciality"
+                      [ngClass]="{'is-invalid': (addVacancyForm.get('education.speciality').touched
+                  || addVacancyForm.get('education.speciality').dirty)
+                  && !addVacancyForm.get('education.speciality').valid }">
+                <option value="1">Pedagogical</option>
+                <option value="2">Medical</option>
+              </select>
+              <span class="invalid-feedback">
+                <span *ngIf="addVacancyForm.get('education.speciality').errors?.required">
+                  Please select education speciality type.
+                </span>
+              </span>
+            </div>
+
+            <div class="form-group">
+              <label for="inputAdditionalEducation" class="control-label">Additional education</label>
+              <input type="text" class="form-control"
+                     id="inputAdditionalEducation"
+                     formControlName="additionalEducation">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group required col-md-6">
+              <label for="inputChildNumber" class="control-label">Children number</label>
+              <input type="number" class="form-control"
+                     id="inputChildNumber" formControlName="childNumber"
+                     [ngClass]="{'is-invalid': (addVacancyForm.get('childNumber').touched
+              || addVacancyForm.get('childNumber').dirty)
+              && !addVacancyForm.get('childNumber').valid }">
+              <span class="invalid-feedback">
+                <span *ngIf="addVacancyForm.get('childNumber').errors?.required">
+                  Please enter number of children.
+                </span>
+              </span>
+            </div>
+
+          </div>
+
+          <div class="form-row">
+            <div class="form-group required col-md-6">
+              <label for="selectNativeLanguage" class="control-label">Native language</label>
+              <select class="form-control" id="selectNativeLanguage"
+                      formControlName="nativeLanguage"
+                      [ngClass]="{'is-invalid': (addVacancyForm.get('nativeLanguage').touched
+                || addVacancyForm.get('nativeLanguage').dirty)
+                && !addVacancyForm.get('nativeLanguage').valid }">
+                <option value="1">English</option>
+                <option value="2">Spanish</option>
+                <option value="3">Ukraine</option>
+                <option value="4">Russian</option>
+                <option value="5">French</option>
+                <option value="6">Chinese</option>
+                <option value="7">Portuguese</option>
+              </select>
+              <span class="invalid-feedback">
+                <span *ngIf="addVacancyForm.get('nativeLanguage').errors?.required">
+                  Please select native language.
+                </span>
+              </span>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="selectOtherLanguage" class="control-label">Other language</label>
+              <select class="form-control" id="selectOtherLanguage"
+                      formControlName="otherLanguages">
+                <option value="1">English</option>
+                <option value="2">Spanish</option>
+                <option value="3">Ukraine</option>
+                <option value="4">Russian</option>
+                <option value="5">French</option>
+                <option value="6">Chinese</option>
+                <option value="7">Portuguese</option>
+              </select>
+            </div>
+          </div>
+
           <div class="form-group">
-            <label for="inputCountry" class="control-label">Country</label>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="driverLicenseCheck"
+                     formControlName="driverLicense">
+              <label class="form-check-label" for="driverLicenseCheck">
+                Driver license needed
+              </label>
+            </div>
+          </div>
+
+          <div class="form-row">
+
+            <div class="form-group col-md-6">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="foreignPassportCheck"
+                       formControlName="foreignPassport">
+                <label class="form-check-label" for="foreignPassportCheck">
+                  Foreign Passport needed
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="travelWithFamilyCheck"
+                       formControlName="travelWithFamily">
+                <label class="form-check-label" for="travelWithFamilyCheck">
+                  Can travel with family
+                </label>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="officialEmploymentCheck"
+                       formControlName="officialEmployment">
+                <label class="form-check-label" for="officialEmploymentCheck">
+                  Official employment available
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="medicineBookCheck"
+                       formControlName="medicineBook">
+                <label class="form-check-label" for="medicineBookCheck">
+                  Medicine book needed
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="ownChildrenCheck"
+                     formControlName="ownChildren">
+              <label class="form-check-label" for="ownChildrenCheck">
+                Having own children
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="specialChildCheck"
+                     formControlName="specialChild">
+              <label class="form-check-label" for="specialChildCheck">
+                Special child
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="petCheck"
+                     formControlName="pet">
+              <label class="form-check-label" for="petCheck">
+                I have a pet
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="videoSurveillanceCheck"
+                     formControlName="videoSurveillance">
+              <label class="form-check-label" for="videoSurveillanceCheck">
+                Video surveillance installed
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="criminalRecordCheck"
+                     formControlName="criminalRecord">
+              <label class="form-check-label" for="criminalRecordCheck">
+                Criminal record
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group required">
+            <label for="inputResponsibilities" class="control-label">Responsibilities</label>
+            <textarea class="form-control"
+                      id="inputResponsibilities" rows="3"
+                      formControlName="responsibilities"
+                      [ngClass]="{'is-invalid': (addVacancyForm.get('responsibilities').touched
+                        || addVacancyForm.get('responsibilities').dirty)
+                        && !addVacancyForm.get('responsibilities').valid }">
+              </textarea>
+            <span class="invalid-feedback">
+              <span *ngIf="addVacancyForm.get('responsibilities').errors?.required">
+                Please enter responsibilities.
+              </span>
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label for="inputDetails" class="control-label">Details</label>
+            <textarea class="form-control"
+                      id="inputDetails" rows="3"
+                      formControlName="details">
+          </textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="inputWorkingHours" class="control-label">Working hours</label>
             <input type="text" class="form-control"
-                   id="inputCountry"
-                   formControlName="country"
-                   [ngClass]="{'is-invalid': (addVacancyForm.get('location.country').touched
+                   id="inputWorkingHours"
+                   formControlName="workingHours">
+          </div>
+
+          <div class="form-group">
+            <label for="inputBeginningOfWork" class="control-label">Beginning of work</label>
+            <input type="text" class="form-control"
+                   id="inputBeginningOfWork"
+                   formControlName="beginningOfWork">
+          </div>
+
+        </div>
+
+        <div formGroupName="location">
+            <div class="form-row">
+              <div class="form-group required col-md-6">
+                <label for="inputCountry" class="control-label">Country</label>
+                <input type="text" class="form-control"
+                       id="inputCountry"
+                       formControlName="country"
+                       [ngClass]="{'is-invalid': (addVacancyForm.get('location.country').touched
                    || addVacancyForm.get('location.country').dirty)
                    && !addVacancyForm.get('location.country').valid }">
 
-            <span class="invalid-feedback">
-              <span *ngIf="addVacancyForm.get('location.country').errors?.required">
-                Please enter country.
-              </span>
-            </span>
-          </div>
+                <span class="invalid-feedback">
+                  <span *ngIf="addVacancyForm.get('location.country').errors?.required">
+                    Please enter country.
+                  </span>
+                </span>
+              </div>
 
-          <div class="form-group">
-            <label for="inputCity" class="control-label">City</label>
-            <input type="text" class="form-control" id="inputCity"
-                   formControlName="city"
-                   [ngClass]="{'is-invalid': (addVacancyForm.get('location.city').touched
+              <div class="form-group required col-md-6">
+                <label for="inputCity" class="control-label">City</label>
+                <input type="text" class="form-control" id="inputCity"
+                       formControlName="city"
+                       [ngClass]="{'is-invalid': (addVacancyForm.get('location.city').touched
                    || addVacancyForm.get('location.city').dirty)
                    && !addVacancyForm.get('location.city').valid }">
-            <span class="invalid-feedback">
-              <span *ngIf="addVacancyForm.get('location.city').errors?.required">
-                Please enter description.
-              </span>
-            </span>
-          </div>
+                <span class="invalid-feedback">
+                  <span *ngIf="addVacancyForm.get('location.city').errors?.required">
+                    Please enter city.
+                  </span>
+                </span>
+              </div>
+            </div>
 
-          <div class="form-group">
-            <label for="inputRegion" class="control-label">Region</label>
-            <input type="text" class="form-control"
-                   id="inputRegion"
-                   formControlName="region">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputRegion" class="control-label">Region</label>
+                <input type="text" class="form-control"
+                       id="inputRegion"
+                       formControlName="region">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputStreet" class="control-label">Street</label>
+                <input type="text" class="form-control"
+                       id="inputStreet"
+                       formControlName="street">
+              </div>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="inputStreet" class="control-label">Street</label>
-            <input type="text" class="form-control"
-                   id="inputStreet"
-                   formControlName="street">
-          </div>
-        </div>
         <div class="form-group">
-          <button type="submit" class="btn btn-primary"
-                  [disabled]="!addVacancyForm.valid">Add</button>
-        </div>
-      </fieldset>
+            <button type="submit" class="btn btn-primary"
+                    
+                    >
+              Add
+            </button>
+          </div>
+</fieldset>
     </form>
   </div>
 </div>

@@ -4,9 +4,10 @@ import { Router } from '@angular/router';
 import { DataService } from '../../core/data.service';
 import { AuthorizeService } from '../../../api-authorization/authorize.service';
 import { DriverVacancy } from '../../models/driverVacancy';
-import { Status } from '../../models/enum';
+import { Status, SpecializationType } from '../../models/enum';
 import { FormGroup, FormBuilder, Validators, AbstractControl, FormArray } from '@angular/forms';
 import { TrackerError } from '../../models/trackerError';
+import { BabysitterVacancy } from '../../models/babysitterVacancy';
 
 @Component({
     selector: 'app-add-vacancy',
@@ -23,6 +24,7 @@ export class AddVacancyComponent implements OnInit {
         private fb: FormBuilder) { }
 
     trackerError = new TrackerError();
+    SpecializationType: typeof SpecializationType = SpecializationType;
 
     ngOnInit() {
 
@@ -39,12 +41,55 @@ export class AddVacancyComponent implements OnInit {
             ageTo: ['', Validators.required],
             status: [''],
             contactName: [''],
-            drivingExperience: ['', Validators.required],
-            //driverVacancy: this.buildDriverVacancy(),
+            drivingExperience: [''], 
             specialization: this.buildSpecialization(),
-            location: this.buildLocation()
+            location: this.buildLocation(),
+            childNumber: [''],
+            specialChild: [''],
+            nativeLanguage: [''],
+            otherLanguages: [''],
+            driverLicense: [''],
+            foreignPassport: [''],
+            travelWithFamily: [''],
+            officialEmployment: [''],
+            medicineBook: [''],
+            ownChildren: [''],
+            pet: [''],           
+            videoSurveillance: [''],
+            responsibilities: [''],
+            criminalRecord: [''],
+            workingHours: [''],
+            beginningOfWork: [''],
+            details: [''],
+            education: this.buildEducation()
         });
 
+        this.addVacancyForm.get('specialization.specializationType').valueChanges
+            .subscribe(value => this.setValidationBySpecialization(value));
+
+    }
+
+    setValidationBySpecialization(typeSpecialization: string): void {
+        const drivingExperienceControl = this.addVacancyForm.get('drivingExperience');
+        const childNumberControl = this.addVacancyForm.get('childNumber');
+        const nativeLanguageControl = this.addVacancyForm.get('nativeLanguage');
+        const specialityControl = this.addVacancyForm.get('education.speciality');
+               
+        if (typeSpecialization === SpecializationType.Driver.toString()) {
+            drivingExperienceControl.setValidators(Validators.required);
+            childNumberControl.clearValidators();
+            nativeLanguageControl.clearValidators();
+            specialityControl.clearValidators();
+
+        } else {
+            drivingExperienceControl.clearValidators();
+            childNumberControl.setValidators(Validators.required);
+            nativeLanguageControl.setValidators(Validators.required);
+            specialityControl.setValidators(Validators.required);
+        }
+        drivingExperienceControl.updateValueAndValidity();
+        childNumberControl.updateValueAndValidity();
+        nativeLanguageControl.updateValueAndValidity();
     }
 
     buildDriverVacancy(): FormGroup {
@@ -72,25 +117,52 @@ export class AddVacancyComponent implements OnInit {
             street: [''],
         })
     }
+
+    buildEducation(): FormGroup {
+        return this.fb.group({
+            speciality: [''],
+            additionalEducation: [''],
+        })
+    }
  
     addVacancy() {
+        const specializationControl = this.addVacancyForm.get('specialization.specializationType');
+        console.log(this.addVacancyForm);
         if (this.addVacancyForm.valid) {
             this.addVacancyForm.patchValue({
                 status: Status.Saved,
                 contactName: this.currentUserName
             });
 
-            this.dataService.addDriverVacancy(this.addVacancyForm.value)
-                .subscribe(
-                    (data: DriverVacancy) => {
-                        console.log(data);
-                        this.router.navigate(['']);
-                    },
-                    (err: TrackerError) => {
-                        this.trackerError.friendlyMessage = err.friendlyMessage;
-                    }
-                );           
-        }
+
+            if (specializationControl.value == SpecializationType.Driver) {
+                this.dataService.addDriverVacancy(this.addVacancyForm.value)
+                    .subscribe(
+                        (data: DriverVacancy) => {
+                            console.log(data);
+                            this.router.navigate(['']);
+                        },
+                        (err: TrackerError) => {
+                            this.trackerError.friendlyMessage = err.friendlyMessage;
+                        }
+                    );
+            }
+            if (specializationControl.value == SpecializationType.Babysitter) {
+                this.dataService.addBabysitterVacancy(this.addVacancyForm.value)
+                    .subscribe(
+                        (data: BabysitterVacancy) => {
+                            console.log(data);
+                            this.router.navigate(['']);
+                        },
+                        (err: TrackerError) => {
+                            this.trackerError.friendlyMessage = err.friendlyMessage;
+                        }
+                    );
+            }
+            else {
+                this.trackerError.friendlyMessage = "Add vacancy for this specialization is not implemented yet";
+            }
+       }
     }    
 }
 

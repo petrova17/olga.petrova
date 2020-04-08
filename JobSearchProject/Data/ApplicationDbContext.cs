@@ -13,6 +13,7 @@ namespace JobSearchProject.Data
         public virtual DbSet<Specialization> Specialization { get; set; }
         public virtual DbSet<DriverVacancy> DriverVacancy { get; set; }
         public virtual DbSet<Vacancy> Vacancy { get; set; }
+        public virtual DbSet<BabysitterVacancy> BabysitterVacancy { get; set; }
 
         public ApplicationDbContext(
             DbContextOptions options,

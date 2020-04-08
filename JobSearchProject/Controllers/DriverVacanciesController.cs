@@ -96,13 +96,32 @@ namespace JobSearchProject.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<DriverVacancy>> DeleteDriverVacancy(int id)
         {
+            var specialization = await _context.Specialization.FirstAsync(r => r.DriverVacancyId == id);
+            if (specialization == null)
+            {
+                return NotFound();
+            }
+
+            _context.Specialization.Remove(specialization);
+
             var driverVacancy = await _context.DriverVacancy.FindAsync(id);
             if (driverVacancy == null)
             {
                 return NotFound();
             }
 
+            var locationId = driverVacancy.LocationId;
+
             _context.DriverVacancy.Remove(driverVacancy);
+
+            var location = await _context.Location.FindAsync(locationId);
+            if (location == null)
+            {
+                return NotFound();
+            }
+
+            _context.Location.Remove(location);
+
             await _context.SaveChangesAsync();
 
             return driverVacancy;

@@ -15,7 +15,7 @@ namespace JobSearchProject.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.0.0")
+                .HasAnnotation("ProductVersion", "3.1.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -185,10 +185,15 @@ namespace JobSearchProject.Migrations
                     b.Property<string>("AdditionalEducation")
                         .HasColumnType("varchar(200)");
 
+                    b.Property<int?>("BabysitterVacancyId")
+                        .HasColumnType("int");
+
                     b.Property<int>("SpecialityType")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BabysitterVacancyId");
 
                     b.ToTable("Education");
                 });
@@ -226,6 +231,12 @@ namespace JobSearchProject.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("BabysitterVacancyId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("DriverVacancyId")
+                        .HasColumnType("int");
+
                     b.Property<int>("EducationType")
                         .HasColumnType("int");
 
@@ -248,6 +259,14 @@ namespace JobSearchProject.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BabysitterVacancyId")
+                        .IsUnique()
+                        .HasFilter("[BabysitterVacancyId] IS NOT NULL");
+
+                    b.HasIndex("DriverVacancyId")
+                        .IsUnique()
+                        .HasFilter("[DriverVacancyId] IS NOT NULL");
 
                     b.ToTable("Specialization");
                 });
@@ -427,21 +446,102 @@ namespace JobSearchProject.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("JobSearchProject.Models.DriverVacancy", b =>
+            modelBuilder.Entity("JobSearchProject.Models.BabysitterVacancy", b =>
                 {
                     b.HasBaseType("JobSearchProject.Models.Vacancy");
 
-                    b.Property<decimal?>("DrivingExperience")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("BeginningOfWork")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ChildNumber")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("CriminalRecord")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Details")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("DriverLicense")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("EducationId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("ForeignPassport")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("MedicineBook")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("NativeLanguage")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("OfficialEmployment")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("OtherLanguages")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("OwnChildren")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Pet")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Responsibilities")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("SpecialChild")
+                        .HasColumnType("bit");
 
                     b.Property<int>("SpecializationId")
                         .HasColumnType("int");
 
-                    b.HasIndex("SpecializationId")
-                        .IsUnique()
-                        .HasFilter("[SpecializationId] IS NOT NULL");
+                    b.Property<bool>("TravelWithFamily")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("VideoSurveillance")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("WorkingHours")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasIndex("EducationId");
+
+                    b.HasDiscriminator().HasValue("BabysitterVacancy");
+                });
+
+            modelBuilder.Entity("JobSearchProject.Models.DriverVacancy", b =>
+                {
+                    b.HasBaseType("JobSearchProject.Models.Vacancy");
+
+                    b.Property<decimal>("DrivingExperience")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("SpecializationId")
+                        .HasColumnName("DriverVacancy_SpecializationId")
+                        .HasColumnType("int");
 
                     b.HasDiscriminator().HasValue("DriverVacancy");
+                });
+
+            modelBuilder.Entity("JobSearchProject.Models.Education", b =>
+                {
+                    b.HasOne("JobSearchProject.Models.BabysitterVacancy", "BabysitterVacancy")
+                        .WithMany()
+                        .HasForeignKey("BabysitterVacancyId");
+                });
+
+            modelBuilder.Entity("JobSearchProject.Models.Specialization", b =>
+                {
+                    b.HasOne("JobSearchProject.Models.BabysitterVacancy", "BabysitterVacancy")
+                        .WithOne("Specialization")
+                        .HasForeignKey("JobSearchProject.Models.Specialization", "BabysitterVacancyId");
+
+                    b.HasOne("JobSearchProject.Models.DriverVacancy", "DriverVacancy")
+                        .WithOne("Specialization")
+                        .HasForeignKey("JobSearchProject.Models.Specialization", "DriverVacancyId");
                 });
 
             modelBuilder.Entity("JobSearchProject.Models.Vacancy", b =>
@@ -504,11 +604,11 @@ namespace JobSearchProject.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("JobSearchProject.Models.DriverVacancy", b =>
+            modelBuilder.Entity("JobSearchProject.Models.BabysitterVacancy", b =>
                 {
-                    b.HasOne("JobSearchProject.Models.Specialization", "Specialization")
-                        .WithOne("DriverVacancy")
-                        .HasForeignKey("JobSearchProject.Models.DriverVacancy", "SpecializationId")
+                    b.HasOne("JobSearchProject.Models.Education", "Education")
+                        .WithMany()
+                        .HasForeignKey("EducationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -10,5 +10,10 @@ namespace JobSearchProject.Models
 
         [Column(TypeName = "varchar(200)")]
         public string AdditionalEducation { get; set; }
+
+        public int? BabysitterVacancyId { get; set; }
+
+        [ForeignKey("BabysitterVacancyId")]
+        public virtual BabysitterVacancy BabysitterVacancy { get; set; }
     }
 }

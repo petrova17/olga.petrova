@@ -35,6 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\models\babysitterVacancy.ts" />
     <None Remove="ClientApp\src\app\models\vacancy.ts" />
     <None Remove="ClientApp\src\app\vacancy\add-vacancy\add-vacancy.component.ts" />
     <None Remove="ClientApp\src\app\core\data.service.ts" />
@@ -48,6 +49,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\models\babysitterVacancy.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\vacancy.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\vacancy\add-vacancy\add-vacancy.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\core\data.service.ts" />
@@ -91,5 +93,21 @@
       </ResolvedFileToPublish>
     </ItemGroup>
   </Target>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>React</TypeScriptJSXEmit>
+    <TypeScriptModuleKind />
+    <TypeScriptCompileOnSaveEnabled>False</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
+  </PropertyGroup>
 
 </Project>

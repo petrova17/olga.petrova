@@ -47,4 +47,22 @@ namespace JobSearchProject.Models
         Medical
     }
 
+    public enum LanguageType
+    {
+        English,
+        Spanish,
+        Ukraine,
+        Russian,
+        French,
+        Chinese,
+        Portuguese
+    }
+
+    public enum Responsibilities
+    {
+        Cooking,
+        Cleaning,
+        DogWalking
+    }
+
 }
