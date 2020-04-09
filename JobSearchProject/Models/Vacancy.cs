@@ -30,5 +30,9 @@ namespace JobSearchProject.Models
         public int LocationId { get; set; }
 
         public virtual Location Location { get; set; }
+        
+        public int SpecializationId { get; set; }       
+
+        public virtual Specialization Specialization { get; set; }
     }
 }

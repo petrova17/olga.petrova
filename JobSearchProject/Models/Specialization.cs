@@ -14,14 +14,8 @@ namespace JobSearchProject.Models
         public decimal? Experience { get; set; }
         public bool? Recommendation { get; set; }
 
-        public int? DriverVacancyId { get; set; }
-
-        [ForeignKey("DriverVacancyId")]
         public virtual DriverVacancy DriverVacancy { get; set; }
 
-        public int? BabysitterVacancyId { get; set; }
-
-        [ForeignKey("BabysitterVacancyId")]
         public virtual BabysitterVacancy BabysitterVacancy { get; set; }
     }
 }
