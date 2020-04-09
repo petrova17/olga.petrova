@@ -1,37 +1,37 @@
 export enum EmploymentType {
-    Full = 1,
-    Partial = 2
+    Full,
+    Partial
 }
 
 export enum PaymentType {
-    PerHour = 1,
-    PerDay = 2,
-    PerMonth = 3
+    PerHour,
+    PerDay,
+    PerMonth
 }
 
 export enum Status {
-    Saved = 1,
-    Published = 2,
-    Closed = 3,
-    Favourite = 4
+    Saved ,
+    Published,
+    Closed ,
+    Favourite
 }
 
 export enum SpecializationType {
-    Driver = 1,
-    Housekeeper = 2,
-    Nurse = 3,
-    Babysitter = 4
+    Driver,
+    Housekeeper,
+    Nurse,
+    Babysitter
 }
 
 export enum EducationSpecialityType {
-    Pedagogical = 1,
-    Medical = 2
+    Pedagogical,
+    Medical
 }
 
 export enum EducationType {
-    Secondary = 1,
-    Higher = 2,
-    NotSpecified = 3
+    Secondary,
+    Higher,
+    NotSpecified
 }
 
 export enum LanguageType {

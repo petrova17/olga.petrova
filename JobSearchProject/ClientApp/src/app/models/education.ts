@@ -1,10 +1,10 @@
 export class Education {
-    public speciality: string;
+    public specialityType: string;
     public additionalEducation: string;
 
     constructor(
     ) {
-        this.speciality = null;
+        this.specialityType = null;
         this.additionalEducation = null;
     }
 }

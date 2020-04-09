@@ -46,9 +46,9 @@ namespace JobSearchProject.Models
 
         public bool Pet { get; set; }
         
-        public int SpecializationId { get; set; }
+       //public int SpecializationId { get; set; }
 
-        public virtual Specialization Specialization { get; set; }
+       // public virtual Specialization Specialization { get; set; }
 
         public int EducationId { get; set; }
 

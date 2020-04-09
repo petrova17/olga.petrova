@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../../core/data.service';
-import { EmploymentType, PaymentType, EducationType, SpecializationType } from '../../models/enum';
+import { EmploymentType, PaymentType, EducationType, SpecializationType, EducationSpecialityType, LanguageType } from '../../models/enum';
 import { DriverVacancy } from '../../models/driverVacancy';
 import { TrackerError } from '../../models/trackerError';
+import { BabysitterVacancy } from '../../models/babysitterVacancy';
 
 @Component({
     selector: 'show-add-vacancy',
@@ -15,35 +16,50 @@ export class ShowVacancyComponent {
     PaymentType: typeof PaymentType = PaymentType;
     EducationType: typeof EducationType = EducationType;
 
+    SpecializationType: typeof SpecializationType = SpecializationType;
+    EducationSpecialityType: typeof EducationSpecialityType = EducationSpecialityType;
+    LanguageType: typeof LanguageType = LanguageType;
+
     trackerError = new TrackerError();
+
+    specialization: string;
 
     constructor(private route: ActivatedRoute,
         private dataService: DataService,
         private router: Router) { }
 
     
-    selectedVacancy = new DriverVacancy();
+    selectedDriverVacancy = new DriverVacancy();
+    selectedBabysitterVacancy = new BabysitterVacancy();
 
     ngOnInit() {
         let vacancyId: number = parseInt(this.route.snapshot.params['id']);
-               
-        this.dataService.getDriverVacancy(vacancyId)
+        this.specialization = this.route.snapshot.queryParamMap.get('spec');
+                       
+        if (this.specialization == 'driver') {
+            this.dataService.getDriverVacancy(vacancyId)
+                .subscribe(
+                    (data: DriverVacancy) => {
+                        this.selectedDriverVacancy = data;
+                    },
+                    (err: TrackerError) => {
+                        this.trackerError.friendlyMessage = err.friendlyMessage;
+                    }
+                );
+        }
+        if (this.specialization == 'babysitter') {
+            this.dataService.getBabysitterVacancy(vacancyId)
             .subscribe(
-                (data: DriverVacancy) => {
-                    this.displayDriverVacancy(data);
+                (data: BabysitterVacancy) => {
+                    this.selectedBabysitterVacancy = data;
                 },
                 (err: TrackerError) => {
                     this.trackerError.friendlyMessage = err.friendlyMessage;
-                },
-                () => console.log("All done")
-                    
+                }
             );
+        }        
     }
-
-    displayDriverVacancy(vacancy: DriverVacancy) {
-        this.selectedVacancy = vacancy;
-    }
-
+    
     onBack(): void {
         this.router.navigate(['']);
     }

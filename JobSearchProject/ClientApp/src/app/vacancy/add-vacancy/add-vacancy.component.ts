@@ -40,24 +40,25 @@ export class AddVacancyComponent implements OnInit {
             ageFrom: ['', Validators.required],
             ageTo: ['', Validators.required],
             status: [''],
+            top: [false],
             contactName: [''],
             drivingExperience: [''], 
             specialization: this.buildSpecialization(),
             location: this.buildLocation(),
             childNumber: [''],
-            specialChild: [''],
+            specialChild: [false],
             nativeLanguage: [''],
             otherLanguages: [''],
-            driverLicense: [''],
-            foreignPassport: [''],
-            travelWithFamily: [''],
-            officialEmployment: [''],
-            medicineBook: [''],
-            ownChildren: [''],
-            pet: [''],           
-            videoSurveillance: [''],
+            driverLicense: [false],
+            foreignPassport: [false],
+            travelWithFamily: [false],
+            officialEmployment: [false],
+            medicineBook: [false],
+            ownChildren: [false],
+            pet: [false],           
+            videoSurveillance: [false],
             responsibilities: [''],
-            criminalRecord: [''],
+            criminalRecord: [false],
             workingHours: [''],
             beginningOfWork: [''],
             details: [''],
@@ -73,7 +74,7 @@ export class AddVacancyComponent implements OnInit {
         const drivingExperienceControl = this.addVacancyForm.get('drivingExperience');
         const childNumberControl = this.addVacancyForm.get('childNumber');
         const nativeLanguageControl = this.addVacancyForm.get('nativeLanguage');
-        const specialityControl = this.addVacancyForm.get('education.speciality');
+        const specialityControl = this.addVacancyForm.get('education.specialityType');
                
         if (typeSpecialization === SpecializationType.Driver.toString()) {
             drivingExperienceControl.setValidators(Validators.required);
@@ -120,7 +121,7 @@ export class AddVacancyComponent implements OnInit {
 
     buildEducation(): FormGroup {
         return this.fb.group({
-            speciality: [''],
+            specialityType: [''],
             additionalEducation: [''],
         })
     }
@@ -140,7 +141,7 @@ export class AddVacancyComponent implements OnInit {
                     .subscribe(
                         (data: DriverVacancy) => {
                             console.log(data);
-                            this.router.navigate(['']);
+                            this.router.navigate(['/my-vacancy']);
                         },
                         (err: TrackerError) => {
                             this.trackerError.friendlyMessage = err.friendlyMessage;
@@ -152,7 +153,7 @@ export class AddVacancyComponent implements OnInit {
                     .subscribe(
                         (data: BabysitterVacancy) => {
                             console.log(data);
-                            this.router.navigate(['']);
+                            this.router.navigate(['/my-vacancy']);
                         },
                         (err: TrackerError) => {
                             this.trackerError.friendlyMessage = err.friendlyMessage;

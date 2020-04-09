@@ -98,13 +98,39 @@ namespace JobSearchProject.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<BabysitterVacancy>> DeleteBabysitterVacancy(int id)
         {
+
+            var specialization = await _context.Specialization.FirstAsync(r => r.BabysitterVacancy.Id == id);
+            if (specialization == null)
+            {
+                return NotFound();
+            }
+
+            _context.Specialization.Remove(specialization);
+
             var babysitterVacancy = await _context.BabysitterVacancy.FindAsync(id);
             if (babysitterVacancy == null)
             {
                 return NotFound();
             }
-
+            
             _context.BabysitterVacancy.Remove(babysitterVacancy);
+
+            var location = await _context.Location.FindAsync(babysitterVacancy.LocationId);
+            if (location == null)
+            {
+                return NotFound();
+            }
+
+            _context.Location.Remove(location);
+
+            var education = await _context.Education.FindAsync(babysitterVacancy.EducationId);
+            if (education == null)
+            {
+                return NotFound();
+            }
+
+            _context.Education.Remove(education);                       
+
             await _context.SaveChangesAsync();
 
             return babysitterVacancy;

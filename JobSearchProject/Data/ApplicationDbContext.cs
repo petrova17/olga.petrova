@@ -20,5 +20,20 @@ namespace JobSearchProject.Data
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
         }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<BabysitterVacancy>()
+                .HasOne(x => x.Specialization)
+                .WithOne(x => x.BabysitterVacancy)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<DriverVacancy>()
+                .HasOne(x => x.Specialization)
+                .WithOne(x => x.DriverVacancy)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            base.OnModelCreating(builder);
+        }
     }
 }

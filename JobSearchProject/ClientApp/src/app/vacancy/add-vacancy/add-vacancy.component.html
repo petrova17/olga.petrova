@@ -60,10 +60,10 @@
                     [ngClass]="{'is-invalid': (addVacancyForm.get('specialization.specializationType').touched
                   || addVacancyForm.get('specialization.specializationType').dirty)
                   && !addVacancyForm.get('specialization.specializationType').valid }">
-              <option value="1">Driver</option>
-              <option value="2">Housekeeper</option>
-              <option value="3">Nurse</option>
-              <option value="4">Babysitter</option>
+              <option value="0">Driver</option>
+              <option value="1">Housekeeper</option>
+              <option value="2">Nurse</option>
+              <option value="3">Babysitter</option>
             </select>
             <span class="invalid-feedback">
               <span *ngIf="addVacancyForm.get('specialization.specializationType').errors?.required">
@@ -77,8 +77,8 @@
             <select class="form-control" id="selectEmploymentType"
                     formControlName="employmentType"
                     [ngClass]="{'is-invalid': (addVacancyForm.get('specialization.employmentType').touched || addVacancyForm.get('specialization.employmentType').dirty) && !addVacancyForm.get('specialization.employmentType').valid }">
-              <option value="1">Full</option>
-              <option value="2">Partial</option>
+              <option value="0">Full</option>
+              <option value="1">Partial</option>
             </select>
             <span class="invalid-feedback">
               <span *ngIf="addVacancyForm.get('specialization.employmentType').errors?.required">
@@ -94,9 +94,9 @@
                       [ngClass]="{'is-invalid': (addVacancyForm.get('specialization.paymentType').touched
                     || addVacancyForm.get('specialization.paymentType').dirty)
                     && !addVacancyForm.get('specialization.paymentType').valid }">
-                <option value="1">Per Hour</option>
-                <option value="2">Per Day</option>
-                <option value="3">Per Month</option>
+                <option value="0">Per Hour</option>
+                <option value="1">Per Day</option>
+                <option value="2">Per Month</option>
               </select>
               <span class="invalid-feedback">
                 <span *ngIf="addVacancyForm.get('specialization.paymentType').errors?.required">
@@ -127,8 +127,8 @@
                     [ngClass]="{'is-invalid': (addVacancyForm.get('specialization.educationType').touched
                     || addVacancyForm.get('specialization.educationType').dirty)
                     && !addVacancyForm.get('specialization.educationType').valid }">
-              <option value="1">Secondary</option>
-              <option value="2">Higher</option>
+              <option value="0">Secondary</option>
+              <option value="1">Higher</option>
             </select>
             <span class="invalid-feedback">
               <span *ngIf="addVacancyForm.get('specialization.educationType').errors?.required">
@@ -139,7 +139,7 @@
 
         </div>
 
-        <div *ngIf="addVacancyForm.get('specialization.specializationType').value == 1">
+        <div *ngIf="addVacancyForm.get('specialization.specializationType').value == 0">
           <div class="form-group required">
             <label for="inputDrivingExperience" class="control-label">Driving experience</label>
             <input type="number" class="form-control"
@@ -155,20 +155,20 @@
           </div>
         </div>
 
-        <div *ngIf="addVacancyForm.get('specialization.specializationType').value == 4">
+        <div *ngIf="addVacancyForm.get('specialization.specializationType').value == 3">
           <div formGroupName="education">
             <div class="form-group required">
               <label for="selectSpeciality" class="control-label">Select speciality</label>
               <select class="form-control" id="selectSpeciality"
-                      formControlName="speciality"
-                      [ngClass]="{'is-invalid': (addVacancyForm.get('education.speciality').touched
-                  || addVacancyForm.get('education.speciality').dirty)
-                  && !addVacancyForm.get('education.speciality').valid }">
-                <option value="1">Pedagogical</option>
-                <option value="2">Medical</option>
+                      formControlName="specialityType"
+                      [ngClass]="{'is-invalid': (addVacancyForm.get('education.specialityType').touched
+                  || addVacancyForm.get('education.specialityType').dirty)
+                  && !addVacancyForm.get('education.specialityType').valid }">
+                <option value="0">Pedagogical</option>
+                <option value="1">Medical</option>
               </select>
               <span class="invalid-feedback">
-                <span *ngIf="addVacancyForm.get('education.speciality').errors?.required">
+                <span *ngIf="addVacancyForm.get('education.specialityType').errors?.required">
                   Please select education speciality type.
                 </span>
               </span>
@@ -384,61 +384,72 @@
         </div>
 
         <div formGroupName="location">
-            <div class="form-row">
-              <div class="form-group required col-md-6">
-                <label for="inputCountry" class="control-label">Country</label>
-                <input type="text" class="form-control"
-                       id="inputCountry"
-                       formControlName="country"
-                       [ngClass]="{'is-invalid': (addVacancyForm.get('location.country').touched
+          <div class="form-row">
+            <div class="form-group required col-md-6">
+              <label for="inputCountry" class="control-label">Country</label>
+              <input type="text" class="form-control"
+                     id="inputCountry"
+                     formControlName="country"
+                     [ngClass]="{'is-invalid': (addVacancyForm.get('location.country').touched
                    || addVacancyForm.get('location.country').dirty)
                    && !addVacancyForm.get('location.country').valid }">
 
-                <span class="invalid-feedback">
-                  <span *ngIf="addVacancyForm.get('location.country').errors?.required">
-                    Please enter country.
-                  </span>
+              <span class="invalid-feedback">
+                <span *ngIf="addVacancyForm.get('location.country').errors?.required">
+                  Please enter country.
                 </span>
-              </div>
+              </span>
+            </div>
 
-              <div class="form-group required col-md-6">
-                <label for="inputCity" class="control-label">City</label>
-                <input type="text" class="form-control" id="inputCity"
-                       formControlName="city"
-                       [ngClass]="{'is-invalid': (addVacancyForm.get('location.city').touched
+            <div class="form-group required col-md-6">
+              <label for="inputCity" class="control-label">City</label>
+              <input type="text" class="form-control" id="inputCity"
+                     formControlName="city"
+                     [ngClass]="{'is-invalid': (addVacancyForm.get('location.city').touched
                    || addVacancyForm.get('location.city').dirty)
                    && !addVacancyForm.get('location.city').valid }">
-                <span class="invalid-feedback">
-                  <span *ngIf="addVacancyForm.get('location.city').errors?.required">
-                    Please enter city.
-                  </span>
+              <span class="invalid-feedback">
+                <span *ngIf="addVacancyForm.get('location.city').errors?.required">
+                  Please enter city.
                 </span>
-              </div>
+              </span>
             </div>
+          </div>
 
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="inputRegion" class="control-label">Region</label>
-                <input type="text" class="form-control"
-                       id="inputRegion"
-                       formControlName="region">
-              </div>
-              <div class="form-group col-md-6">
-                <label for="inputStreet" class="control-label">Street</label>
-                <input type="text" class="form-control"
-                       id="inputStreet"
-                       formControlName="street">
-              </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputRegion" class="control-label">Region</label>
+              <input type="text" class="form-control"
+                     id="inputRegion"
+                     formControlName="region">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputStreet" class="control-label">Street</label>
+              <input type="text" class="form-control"
+                     id="inputStreet"
+                     formControlName="street">
             </div>
           </div>
+        </div>
+
         <div class="form-group">
-            <button type="submit" class="btn btn-primary"
-                    
-                    >
-              Add
-            </button>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="topCheck"
+                   formControlName="top">
+            <label class="form-check-label" for="topCheck">
+              <h6>Add vacancy to the top list.</h6>
+              *you will receive email with payment details            
+              
+            </label>
           </div>
-</fieldset>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">
+            Add
+          </button>
+        </div>
+      </fieldset>
     </form>
   </div>
 </div>

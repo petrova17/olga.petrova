@@ -1,30 +1,73 @@
 <div class="alert alert-danger" role="alert" *ngIf="this.trackerError.friendlyMessage">
   {{this.trackerError.friendlyMessage}}
 </div>
-<div class="card">
-  <div class="card-header">
-    Data about Contact to be
-  </div>
-  <div class="card-body">
-    <h5 class="card-title">{{ selectedVacancy.description }}</h5>
-    <p class="card-text">Driving Experience: {{ selectedVacancy.drivingExperience }}</p>
-    <p class="card-text">Age from {{ selectedVacancy.ageFrom }} to {{ selectedVacancy.ageTo }}</p>
-    <p class="card-text">Employment type: {{ EmploymentType[selectedVacancy.specialization.employmentType] }}</p>
-    <p class="card-text">Payment type: {{ PaymentType[selectedVacancy.specialization.paymentType] }}</p>
-    <p class="card-text">Payment price: {{ selectedVacancy.specialization.paymentPrice }} hrn</p>
-    <p class="card-text">Education type: {{ EducationType[selectedVacancy.specialization.educationType] }}</p>
-    <p class="card-text">Country: {{ selectedVacancy.location.country }}</p>
-    <p class="card-text">City: {{ selectedVacancy.location.city }}</p>
-    <p class="card-text" *ngIf="selectedVacancy.location.region">Region: {{ selectedVacancy.location.region }}</p>
-    <p class="card-text" *ngIf="selectedVacancy.location.street">Street: {{ selectedVacancy.location.street }}</p>
+<div class="card border-dark mb-3" *ngIf="this.specialization == 'driver'">
+  <h5 class="card-header">{{ SpecializationType[selectedDriverVacancy.specialization.specializationType] }}</h5>
+  <div class="card-body text-dark">
+    <h5 class="card-title">{{ selectedDriverVacancy.description }}</h5>
+    <p class="card-text">Driving Experience: {{ selectedDriverVacancy.drivingExperience }}</p>
+    <p class="card-text">Age from {{ selectedDriverVacancy.ageFrom }} to {{ selectedDriverVacancy.ageTo }}</p>
+    <p class="card-text">Employment type: {{ EmploymentType[selectedDriverVacancy.specialization.employmentType] }}</p>
+    <p class="card-text">Payment type: {{ PaymentType[selectedDriverVacancy.specialization.paymentType] }}</p>
+    <p class="card-text" *ngIf="selectedDriverVacancy.specialization.paymentPrice">Payment price: {{ selectedDriverVacancy.specialization.paymentPrice }} hrn</p>
+    <p class="card-text">Education type: {{ EducationType[selectedDriverVacancy.specialization.educationType] }}</p>
+    <p class="card-text">Country: {{ selectedDriverVacancy.location.country }}</p>
+    <p class="card-text">City: {{ selectedDriverVacancy.location.city }}</p>
+    <p class="card-text" *ngIf="selectedDriverVacancy.location.region">Region: {{ selectedDriverVacancy.location.region }}</p>
+    <p class="card-text" *ngIf="selectedDriverVacancy.location.street">Street: {{ selectedDriverVacancy.location.street }}</p>
     <button class="btn btn-outline-secondary mr-3"
             style="width:80px"
             (click)="onBack()">
-      <i class="fa fa-chevron-left"></i> Back
+      Back
+    </button>
+    <a href="#" class="btn btn-primary">Replay</a>
+
+  </div>
+  <div class="card-footer p-3 mb-2 alert-primary text-dark" *ngIf="selectedDriverVacancy.top">
+    Top Vacancy
+  </div>
+</div>
+
+<div class="card border-dark mb-3" *ngIf="this.specialization == 'babysitter'">
+  <h5 class="card-header">{{ SpecializationType[selectedBabysitterVacancy.specialization.specializationType] }}</h5>
+  <div class="card-body text-dark">
+    <h5 class="card-title">{{ selectedBabysitterVacancy.description }}</h5>
+    <p class="card-text">Age from {{ selectedBabysitterVacancy.ageFrom }} to {{ selectedBabysitterVacancy.ageTo }}</p>
+    <p class="card-text">Employment type: {{ EmploymentType[selectedBabysitterVacancy.specialization.employmentType] }}</p>
+    <p class="card-text">Payment type: {{ PaymentType[selectedBabysitterVacancy.specialization.paymentType] }}</p>
+    <p class="card-text" *ngIf="selectedBabysitterVacancy.specialization.paymentPrice">Payment price: {{ selectedBabysitterVacancy.specialization.paymentPrice }} hrn</p>
+    <p class="card-text">Education type: {{ EducationType[selectedBabysitterVacancy.specialization.educationType] }}</p>
+    <p class="card-text" *ngIf="selectedBabysitterVacancy.education.speciality">Education speciality type: {{ EducationSpecialityType[selectedBabysitterVacancy.education.speciality] }}</p>
+    <p class="card-text" *ngIf="selectedBabysitterVacancy.education.additionalEducation">Additional education: {{ selectedBabysitterVacancy.education.additionalEducation }}</p>
+    <p class="card-text">Number of children: {{ selectedBabysitterVacancy.childNumber }}</p>
+    <p class="card-text">Native language: {{ LanguageType[selectedBabysitterVacancy.nativeLanguage] }}</p>
+    <p class="card-text" *ngIf="selectedBabysitterVacancy.otherLanguages">Native language: {{ LanguageType[selectedBabysitterVacancy.otherLanguages] }}</p>
+    <p class="card-text" *ngIf="selectedBabysitterVacancy.driverLicense">Driver license needed</p>
+    <p class="card-text" *ngIf="selectedBabysitterVacancy.foreignPassport">Foreign passport needed</p>
+    <p class="card-text" *ngIf="selectedBabysitterVacancy.travelWithFamily">Availablity to travel with familly</p>
+    <p class="card-text" *ngIf="selectedBabysitterVacancy.officialEmployment">Official employment available</p>
+    <p class="card-text" *ngIf="selectedBabysitterVacancy.medicineBook">Medicine book needed</p>
+    <p class="card-text" *ngIf="selectedBabysitterVacancy.ownChildren">Having own children needed</p>
+    <p class="card-text" *ngIf="selectedBabysitterVacancy.specialChild">I have a special child</p>
+    <p class="card-text" *ngIf="selectedBabysitterVacancy.pet">I have a pet</p>
+    <p class="card-text" *ngIf="selectedBabysitterVacancy.videoSurveillance">Video surveillance installed</p>
+    <p class="card-text" *ngIf="selectedBabysitterVacancy.criminalRecord">Criminal record possible</p>
+    <p class="card-text">Responsibilities: {{ selectedBabysitterVacancy.responsibilities }}</p>
+    <p class="card-text" *ngIf="selectedBabysitterVacancy.details">Details: {{ selectedBabysitterVacancy.details }}</p>
+    <p class="card-text" *ngIf="selectedBabysitterVacancy.workingHours">Working Hours: {{ selectedBabysitterVacancy.workingHours }}</p>
+    <p class="card-text" *ngIf="selectedBabysitterVacancy.beginningOfWork">Beginning of work: {{ selectedBabysitterVacancy.beginningOfWork }}</p>
+    <p class="card-text">Country: {{ selectedBabysitterVacancy.location.country }}</p>
+    <p class="card-text">City: {{ selectedBabysitterVacancy.location.city }}</p>
+    <p class="card-text" *ngIf="selectedBabysitterVacancy.location.region">Region: {{ selectedBabysitterVacancy.location.region }}</p>
+    <p class="card-text" *ngIf="selectedBabysitterVacancy.location.street">Street: {{ selectedBabysitterVacancy.location.street }}</p>
+    <button class="btn btn-outline-secondary mr-3"
+            style="width:80px"
+            (click)="onBack()">
+      Back
     </button>
     <a href="#" class="btn btn-primary">Replay</a>
   </div>
-  <div class="card-footer text-muted">
-    Published: don't know when
+  <div class="card-footer p-3 mb-2 alert-primary text-dark" *ngIf="selectedBabysitterVacancy.top">
+    Top Vacancy
   </div>
 </div>

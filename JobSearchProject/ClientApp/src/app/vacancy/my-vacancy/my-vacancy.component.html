@@ -31,6 +31,10 @@
             (click)="deleteVacancy(driver.id)">
       Delete
     </button>
+
+  </div>
+  <div class="card-footer p-3 mb-2 alert-primary text-dark" *ngIf="driver.top">
+    Top Vacancy
   </div>
 </div>
 
@@ -71,11 +75,14 @@
             (click)="onBack()">
       Back
     </button>
-    <!--<button class="btn btn-outline-secondary mr-3"
+    <button class="btn btn-outline-secondary mr-3"
             style="width:80px"
-            (click)="deleteVacancy(driver.id)">
+            (click)="deleteBabysitterVacancy(babysitter.id)">
       Delete
-    </button>-->
+    </button>
+  </div>
+  <div class="card-footer p-3 mb-2 alert-primary text-dark" *ngIf="babysitter.top">
+    Top Vacancy
   </div>
 </div>
 

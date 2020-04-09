@@ -7,6 +7,7 @@ export class Vacancy {
     public ageFrom: number;
     public ageTo: number;
     public status: Status;
+    public top: boolean;
     public contactName: string;
     public description: string;
     public specialization: Specialization;
@@ -18,6 +19,7 @@ export class Vacancy {
         this.ageFrom = null;
         this.ageTo = null;
         this.status = null;
+        this.top = false;
         this.contactName = null;
         this.description = null;
         this.specialization = new Specialization();

@@ -15,12 +15,16 @@ export class DataService {
         return this.http.get<DriverVacancy[]>('/api/DriverVacancies/');
     }    
 
-    getBabysitterVacancy(): Observable<BabysitterVacancy[] | TrackerError> {
-        return this.http.get<BabysitterVacancy[]>('/api/BabysitterVacancies');
+    getBabysitterVacancies(): Observable<BabysitterVacancy[] | TrackerError> {
+        return this.http.get<BabysitterVacancy[]>('/api/BabysitterVacancies/');
     }
 
     getDriverVacancy(id: number): Observable<DriverVacancy> {
         return this.http.get<DriverVacancy>(`/api/DriverVacancies/${id}`);
+    }
+
+    getBabysitterVacancy(id: number): Observable<BabysitterVacancy> {
+        return this.http.get<BabysitterVacancy>(`/api/BabysitterVacancies/${id}`);
     }
 
     addDriverVacancy(newVacancy: DriverVacancy): Observable<DriverVacancy> {
@@ -30,8 +34,12 @@ export class DataService {
     deleteDriverVacancy(id: number): Observable<DriverVacancy> {
         return this.http.delete<DriverVacancy>(`/api/DriverVacancies/${id}`);
     }
-
+    
     addBabysitterVacancy(newVacancy: BabysitterVacancy): Observable<BabysitterVacancy> {
         return this.http.post<BabysitterVacancy>('/api/BabysitterVacancies', newVacancy);
+    }
+
+    deleteBabysitterVacancy(id: number): Observable<BabysitterVacancy> {
+        return this.http.delete<BabysitterVacancy>(`/api/BabysitterVacancies/${id}`);
     }
 }

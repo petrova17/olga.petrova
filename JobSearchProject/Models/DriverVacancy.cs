@@ -4,8 +4,8 @@
     {
         public decimal DrivingExperience { get; set; }               
 
-        public int SpecializationId { get; set; }       
+        //public int SpecializationId { get; set; }       
 
-        public virtual Specialization Specialization { get; set; }
+        //public virtual Specialization Specialization { get; set; }
     }
 }

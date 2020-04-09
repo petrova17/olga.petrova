@@ -23,6 +23,8 @@ namespace JobSearchProject.Models
 
         public Status Status { get; set; }
 
+        public bool Top { get; set; }
+
         [Required]
         [Column(TypeName = "varchar(50)")]
         public string ContactName { get; set; }
@@ -30,5 +32,9 @@ namespace JobSearchProject.Models
         public int LocationId { get; set; }
 
         public virtual Location Location { get; set; }
+
+        public int SpecializationId { get; set; }
+
+        public virtual Specialization Specialization { get; set; }
     }
 }
