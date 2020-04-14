@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpErrorResponse, HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
-import { Observable, throwError, pipe } from 'rxjs';
-import { catchError, retry, first } from 'rxjs/operators';
-import { TrackerError } from '../models/trackerError';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { TrackerError } from '../../models/trackerError';
 
 @Injectable({
     providedIn: 'root'
 })
-export class InterceptorService implements HttpInterceptor {
+export class ErrorInterceptor implements HttpInterceptor {
 
     constructor() { }
 
@@ -25,7 +25,7 @@ export class InterceptorService implements HttpInterceptor {
 
     private handleHttpError(error: HttpErrorResponse): Observable<TrackerError> {
         console.log(error);
-        console.log('iterceptor!');
+        console.log('ErrorInterceptor!');
 
         let dataError = new TrackerError();
         dataError.errorNumber = error.status;

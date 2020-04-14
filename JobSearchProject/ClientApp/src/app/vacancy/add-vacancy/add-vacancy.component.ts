@@ -1,13 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { DataService } from '../../core/data.service';
 import { AuthorizeService } from '../../../api-authorization/authorize.service';
 import { DriverVacancy } from '../../models/driverVacancy';
 import { Status, SpecializationType } from '../../models/enum';
 import { FormGroup, FormBuilder, Validators, AbstractControl, FormArray } from '@angular/forms';
 import { TrackerError } from '../../models/trackerError';
 import { BabysitterVacancy } from '../../models/babysitterVacancy';
+import { DataService } from '../../core/services/data.service';
 
 @Component({
     selector: 'app-add-vacancy',

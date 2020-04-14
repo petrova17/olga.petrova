@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { DriverVacancy } from '../../models/driverVacancy';
 import { TrackerError } from '../../models/trackerError';
-import { DataService } from '../../core/data.service';
 import { EmploymentType, PaymentType, EducationType, SpecializationType, EducationSpecialityType, LanguageType } from '../../models/enum';
 import { Router } from '@angular/router';
 import { BabysitterVacancy } from '../../models/babysitterVacancy';
 import { map } from 'rxjs/operators';
 import { AuthorizeService } from '../../../api-authorization/authorize.service';
+import { DataService } from '../../core/services/data.service';
 
 @Component({
     selector: 'app-my-vacancy',

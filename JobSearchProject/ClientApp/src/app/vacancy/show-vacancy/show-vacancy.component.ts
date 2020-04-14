@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DataService } from '../../core/data.service';
 import { EmploymentType, PaymentType, EducationType, SpecializationType, EducationSpecialityType, LanguageType } from '../../models/enum';
 import { DriverVacancy } from '../../models/driverVacancy';
 import { TrackerError } from '../../models/trackerError';
 import { BabysitterVacancy } from '../../models/babysitterVacancy';
+import { DataService } from '../../core/services/data.service';
 
 @Component({
     selector: 'show-add-vacancy',

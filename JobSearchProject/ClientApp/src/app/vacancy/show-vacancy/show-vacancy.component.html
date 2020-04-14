@@ -15,6 +15,7 @@
     <p class="card-text">City: {{ selectedDriverVacancy.location.city }}</p>
     <p class="card-text" *ngIf="selectedDriverVacancy.location.region">Region: {{ selectedDriverVacancy.location.region }}</p>
     <p class="card-text" *ngIf="selectedDriverVacancy.location.street">Street: {{ selectedDriverVacancy.location.street }}</p>
+    <p class="card-text">Created by: {{ selectedDriverVacancy.contactName }}</p>
     <button class="btn btn-outline-secondary mr-3"
             style="width:80px"
             (click)="onBack()">
@@ -60,6 +61,7 @@
     <p class="card-text">City: {{ selectedBabysitterVacancy.location.city }}</p>
     <p class="card-text" *ngIf="selectedBabysitterVacancy.location.region">Region: {{ selectedBabysitterVacancy.location.region }}</p>
     <p class="card-text" *ngIf="selectedBabysitterVacancy.location.street">Street: {{ selectedBabysitterVacancy.location.street }}</p>
+    <p class="card-text">Created by: {{ selectedBabysitterVacancy.contactName }}</p>
     <button class="btn btn-outline-secondary mr-3"
             style="width:80px"
             (click)="onBack()">

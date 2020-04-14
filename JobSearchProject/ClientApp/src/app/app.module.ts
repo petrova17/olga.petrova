@@ -10,10 +10,11 @@ import { HomeComponent } from './home/home.component';
 import { ApiAuthorizationModule } from 'src/api-authorization/api-authorization.module';
 import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
-import { InterceptorService } from './core/interceptor.service';
 import { AddVacancyComponent } from './vacancy/add-vacancy/add-vacancy.component';
 import { ShowVacancyComponent } from './vacancy/show-vacancy/show-vacancy.component';
 import { MyVacancyComponent } from './vacancy/my-vacancy/my-vacancy.component';
+import { ErrorInterceptor } from './core/interceptors/error.interceptor';
+import { CacheInterceptor } from './core/interceptors/cache.interceptor';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { MyVacancyComponent } from './vacancy/my-vacancy/my-vacancy.component';
   ],
   providers: [
       { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
-      { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }
+      { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+      { provide: HTTP_INTERCEPTORS, useClass: CacheInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

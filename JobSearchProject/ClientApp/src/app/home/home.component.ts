@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../core/data.service';
 import { DriverVacancy } from '../models/driverVacancy';
 import { EmploymentType, PaymentType } from '../models/enum';
 import { TrackerError } from '../models/trackerError';
 import { BabysitterVacancy } from '../models/babysitterVacancy';
+import { DataService } from '../core/services/data.service';
 
 @Component({
   selector: 'app-home',

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
-import { DriverVacancy } from '../models/driverVacancy';
-import { TrackerError } from '../models/trackerError';
-import { BabysitterVacancy } from '../models/babysitterVacancy';
+import { DriverVacancy } from '../../models/driverVacancy';
+import { TrackerError } from '../../models/trackerError';
+import { BabysitterVacancy } from '../../models/babysitterVacancy';
 
 @Injectable({
     providedIn: 'root'
@@ -19,19 +19,19 @@ export class DataService {
         return this.http.get<BabysitterVacancy[]>('/api/BabysitterVacancies/');
     }
 
-    getDriverVacancy(id: number): Observable<DriverVacancy> {
+    getDriverVacancy(id: number): Observable<DriverVacancy | TrackerError> {
         return this.http.get<DriverVacancy>(`/api/DriverVacancies/${id}`);
     }
 
-    getBabysitterVacancy(id: number): Observable<BabysitterVacancy> {
+    getBabysitterVacancy(id: number): Observable<BabysitterVacancy | TrackerError> {
         return this.http.get<BabysitterVacancy>(`/api/BabysitterVacancies/${id}`);
     }
 
-    addDriverVacancy(newVacancy: DriverVacancy): Observable<DriverVacancy> {
+    addDriverVacancy(newVacancy: DriverVacancy): Observable<DriverVacancy | TrackerError> {
         return this.http.post<DriverVacancy>('/api/DriverVacancies', newVacancy);
     }
 
-    deleteDriverVacancy(id: number): Observable<DriverVacancy> {
+    deleteDriverVacancy(id: number): Observable<DriverVacancy | TrackerError> {
         return this.http.delete<DriverVacancy>(`/api/DriverVacancies/${id}`);
     }
     
