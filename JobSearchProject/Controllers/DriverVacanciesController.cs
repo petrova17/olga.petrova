@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using JobSearchProject.Data;
 using JobSearchProject.Models;
+using JobSearchProject.Models.VacancyModels;
 
 namespace JobSearchProject.Controllers
 {

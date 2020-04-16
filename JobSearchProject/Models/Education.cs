@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using JobSearchProject.Models.VacancyModels;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JobSearchProject.Models
 {
@@ -11,9 +12,6 @@ namespace JobSearchProject.Models
         [Column(TypeName = "varchar(200)")]
         public string AdditionalEducation { get; set; }
 
-        //public int? BabysitterVacancyId { get; set; }
-
-        //[ForeignKey("BabysitterVacancyId")]
         public virtual BabysitterVacancy BabysitterVacancy { get; set; }
     }
 }

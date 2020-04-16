@@ -15,6 +15,9 @@ import { ShowVacancyComponent } from './vacancy/show-vacancy/show-vacancy.compon
 import { MyVacancyComponent } from './vacancy/my-vacancy/my-vacancy.component';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { CacheInterceptor } from './core/interceptors/cache.interceptor';
+import { AddResumeComponent } from './resume/add-resume/add-resume.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material.module';
 
 @NgModule({
   declarations: [
@@ -23,20 +26,24 @@ import { CacheInterceptor } from './core/interceptors/cache.interceptor';
     HomeComponent,
     AddVacancyComponent,
     ShowVacancyComponent,
-    MyVacancyComponent
+    MyVacancyComponent,
+    AddResumeComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
-      FormsModule,
-      ReactiveFormsModule,
-      ApiAuthorizationModule,
-      RouterModule.forRoot([
-        { path: '', component: HomeComponent, pathMatch: 'full' },
-        { path: 'add-vacancy', component: AddVacancyComponent, canActivate: [AuthorizeGuard] },
-        { path: 'my-vacancy', component: MyVacancyComponent, canActivate: [AuthorizeGuard] },
-        { path: 'show-vacancy/:id', component: ShowVacancyComponent },
-      ])
+    FormsModule,
+    ReactiveFormsModule,
+    ApiAuthorizationModule,
+    RouterModule.forRoot([
+      { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: 'add-vacancy', component: AddVacancyComponent, canActivate: [AuthorizeGuard] },
+      { path: 'add-resume', component: AddResumeComponent, canActivate: [AuthorizeGuard] },
+      { path: 'my-vacancy', component: MyVacancyComponent, canActivate: [AuthorizeGuard] },
+      { path: 'show-vacancy/:id', component: ShowVacancyComponent },
+    ]),
+    BrowserAnimationsModule,
+    MaterialModule
   ],
   providers: [
       { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },

@@ -3,16 +3,17 @@
 </div>
 
 <div>
-  <div class="alert alert-info" role="alert">
-    TOP VACANCIES
-  </div>
-  <div class="row row-cols-2 row-cols-md-2">
-    <div class="card text-white bg-info mb-3 h-100 w-50" *ngFor="let driver of allDriversVacancy">
-      <div class="card-header">{{ driver.specialization.name }}</div>
+  <h2 class="bg-info text-white">TOP VACANCIES</h2>
+
+  <div class="card-columns">
+    <div class="card text-white bg-info mb-4 h-100 w-40" *ngFor="let driver of allDriversVacancy">
+      <div class="card-header">{{ SpecializationType[driver.specialization.specializationType] }}</div>
       <div class="card-body">
-        <h5><a [routerLink]="['/show-vacancy', driver.id ]"
-               [queryParams] ="{ spec: 'driver' }"
-               style="color: white"> {{ driver.description }} </a></h5>
+        <h5>
+          <a [routerLink]="['/show-vacancy', driver.id ]"
+             [queryParams]="{ spec: 'driver' }"
+             style="color: white"> {{ driver.description }} </a>
+        </h5>
         <p class="card-text">Driving experience: {{ driver.drivingExperience }}</p>
         <p class="card-text">Employment type: {{ EmploymentType[driver.specialization.employmentType] }}</p>
         <p class="card-text">Payment type: {{ PaymentType[driver.specialization.paymentType] }}</p>
@@ -21,17 +22,47 @@
     </div>
   </div>
 
-  <div class="row row-cols-2 row-cols-md-2">
-    <div class="card text-white bg-info mb-3 h-100 w-50" *ngFor="let babysitter of allBabysitterVacancy">
-      <div class="card-header">{{ babysitter.specialization.name }}</div>
+  <div class="card-columns">
+    <div class="card text-white bg-info mb-4 h-100 w-40" *ngFor="let babysitter of allBabysitterVacancy">
+      <div class="card-header">{{ SpecializationType[babysitter.specialization.specializationType] }}</div>
       <div class="card-body">
-        <h5><a [routerLink]="['/show-vacancy', babysitter.id]"
-               [queryParams] ="{ spec: 'babysitter' }"
-               style="color: white"> {{ babysitter.description }} </a></h5>
+        <h5>
+          <a [routerLink]="['/show-vacancy', babysitter.id]"
+             [queryParams]="{ spec: 'babysitter' }"
+             style="color: white"> {{ babysitter.description }} </a>
+        </h5>
         <p class="card-text">Number of children: {{ babysitter.childNumber }}</p>
         <p class="card-text">Employment type: {{ EmploymentType[babysitter.specialization.employmentType] }}</p>
         <p class="card-text">Payment type: {{ PaymentType[babysitter.specialization.paymentType] }}</p>
         <p class="card-text" *ngIf="babysitter.specialization.paymentPrice">Payment price: {{ babysitter.specialization.paymentPrice }} hrn</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div>
+  <h2 class="bg-warning text-white">TOP JOB SEEKERS</h2>
+
+  <div class="card-columns">
+    <div class="card text-white bg-warning mb-4 h-100 w-40" *ngFor="let babysitter of allBabysitterResume">
+      <h5 class="card-header">{{ SpecializationType[babysitter.specialization.specializationType] }}</h5>
+      <div class="card-body">
+        <h5>
+          <a [routerLink]="['/show-vacancy', babysitter.id]"
+             [queryParams]="{ spec: 'babysitter' }"
+             style="color: white"> {{ babysitter.description }} </a>
+        </h5>
+        <p class="card-text">Responsibilities: {{ babysitter.responsibilities }}</p>
+        <p class="card-text">Employment type: {{ EmploymentType[babysitter.specialization.employmentType] }}</p>
+        <p class="card-text">Native Language: {{ LanguageType[babysitter.nativeLanguage] }}</p>
+        <p class="card-text" *ngIf="babysitter.otherLanguages">Other Language: {{ LanguageType[babysitter.otherLanguages] }}</p>
+
+        <p class="card-text" *ngIf="babysitter.foreignPassport">I have a foreign passport</p>
+        <p class="card-text" *ngIf="babysitter.travelWithFamily">I can travel with familly</p>
+        <p class="card-text" *ngIf="babysitter.otherLanguages">Other Language: {{ babysitter.otherLanguages }}</p>
+
+        <p class="card-text">Education: {{ EducationType[babysitter.education.specialityType] }}</p>
+        <p class="card-text" *ngIf="babysitter.education.additionalEducation">Additional Education: {{ babysitter.education.additionalEducation }}</p>
       </div>
     </div>
   </div>

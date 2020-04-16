@@ -35,11 +35,11 @@ export enum EducationType {
 }
 
 export enum LanguageType {
-    English = 1,
-    Spanish = 2,
-    Ukraine = 3,
-    Russian = 4,
-    French = 5,
-    Chinese = 6,
-    Portuguese = 7
+    English,
+    Spanish,
+    Ukraine,
+    Russian,
+    French,
+    Chinese,
+    Portuguese
 }

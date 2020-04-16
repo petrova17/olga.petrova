@@ -239,6 +239,63 @@ namespace JobSearchProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Resume",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "varchar(MAX)", nullable: false),
+                    Age = table.Column<int>(nullable: false),
+                    Status = table.Column<int>(nullable: false),
+                    Top = table.Column<bool>(nullable: false),
+                    ContactName = table.Column<string>(type: "varchar(50)", nullable: false),
+                    Photo = table.Column<byte>(nullable: true),
+                    LocationId = table.Column<int>(nullable: false),
+                    SpecializationId = table.Column<int>(nullable: false),
+                    Discriminator = table.Column<string>(nullable: false),
+                    NativeLanguage = table.Column<int>(nullable: true),
+                    OtherLanguages = table.Column<string>(nullable: true),
+                    DriverLicense = table.Column<bool>(nullable: true),
+                    OwnChildren = table.Column<bool>(nullable: true),
+                    OfficialEmployment = table.Column<bool>(nullable: true),
+                    MedicineBook = table.Column<bool>(nullable: true),
+                    SpecialChild = table.Column<bool>(nullable: true),
+                    VideoSurveillance = table.Column<bool>(nullable: true),
+                    ForeignPassport = table.Column<bool>(nullable: true),
+                    TravelWithFamily = table.Column<bool>(nullable: true),
+                    Responsibilities = table.Column<string>(nullable: true),
+                    Details = table.Column<string>(nullable: true),
+                    EducationId = table.Column<int>(nullable: true),
+                    DrivingExperience = table.Column<decimal>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Resume", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Resume_Education_EducationId",
+                        column: x => x.EducationId,
+                        principalTable: "Education",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Resume_Specialization_SpecializationId",
+                        column: x => x.SpecializationId,
+                        principalTable: "Specialization",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Resume_Specialization_SpecializationId1",
+                        column: x => x.SpecializationId,
+                        principalTable: "Specialization",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Resume_Location_LocationId",
+                        column: x => x.LocationId,
+                        principalTable: "Location",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Vacancy",
                 columns: table => new
                 {
@@ -300,6 +357,28 @@ namespace JobSearchProject.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Experience",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    From = table.Column<DateTime>(nullable: true),
+                    To = table.Column<DateTime>(nullable: true),
+                    Title = table.Column<string>(type: "varchar(50)", nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    ResumeId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Experience", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Experience_Resume_ResumeId",
+                        column: x => x.ResumeId,
+                        principalTable: "Resume",
+                        principalColumn: "Id");
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -351,6 +430,11 @@ namespace JobSearchProject.Migrations
                 column: "Expiration");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Experience_ResumeId",
+                table: "Experience",
+                column: "ResumeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PersistedGrants_Expiration",
                 table: "PersistedGrants",
                 column: "Expiration");
@@ -359,6 +443,28 @@ namespace JobSearchProject.Migrations
                 name: "IX_PersistedGrants_SubjectId_ClientId_Type",
                 table: "PersistedGrants",
                 columns: new[] { "SubjectId", "ClientId", "Type" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Resume_EducationId",
+                table: "Resume",
+                column: "EducationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Resume_SpecializationId",
+                table: "Resume",
+                column: "SpecializationId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Resume_SpecializationId1",
+                table: "Resume",
+                column: "SpecializationId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Resume_LocationId",
+                table: "Resume",
+                column: "LocationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Vacancy_EducationId",
@@ -406,6 +512,9 @@ namespace JobSearchProject.Migrations
                 name: "DeviceCodes");
 
             migrationBuilder.DropTable(
+                name: "Experience");
+
+            migrationBuilder.DropTable(
                 name: "PersistedGrants");
 
             migrationBuilder.DropTable(
@@ -416,6 +525,9 @@ namespace JobSearchProject.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Resume");
 
             migrationBuilder.DropTable(
                 name: "Education");

@@ -5,18 +5,25 @@ import { TrackerError } from '../../models/trackerError';
 import { BabysitterVacancy } from '../../models/babysitterVacancy';
 import { DataService } from '../../core/services/data.service';
 import { OnInit, Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
+import { BabysitterResume } from '../../models/babysitterResume';
 
 @Component({
-    selector: 'app-add-vacancy',
-    templateUrl: './add-vacancy.component.html',
-    styleUrls: ['./add-vacancy.component.css']
+  selector: 'app-add-resume',
+  templateUrl: './add-resume.component.html',
+  styleUrls: ['./add-resume.component.css']
 })
-export class AddVacancyComponent implements OnInit {
+export class AddResumeComponent implements OnInit {
     currentUserName: string;
-    addVacancyForm: FormGroup;
+    addResumeForm: FormGroup;
+
+    get experiences(): FormArray {
+        return this.addResumeForm.get('experiences') as FormArray;
+    }
+
+    babysitterResponsibilities: string[] = ['Cooking', 'Cleaning', 'Dog walking', 'Assisted with school homework', 'Put to bed'];
 
     constructor(private dataService: DataService,
         private authorizeService: AuthorizeService,
@@ -35,17 +42,16 @@ export class AddVacancyComponent implements OnInit {
                 console.log(data);
             });
 
-        this.addVacancyForm = this.fb.group({
-            description: ['', Validators.required],            
-            ageFrom: ['', Validators.required],
-            ageTo: ['', Validators.required],
+        this.addResumeForm = this.fb.group({
+            description: ['', Validators.required],
+            age: ['', Validators.required],
             status: [''],
             top: [false],
+            photo: [null],
             contactName: [''],
-            drivingExperience: [''], 
+            drivingExperience: [''],
             specialization: this.buildSpecialization(),
             location: this.buildLocation(),
-            childNumber: [''],
             specialChild: [false],
             nativeLanguage: [''],
             otherLanguages: [''],
@@ -55,52 +61,49 @@ export class AddVacancyComponent implements OnInit {
             officialEmployment: [false],
             medicineBook: [false],
             ownChildren: [false],
-            pet: [false],           
             videoSurveillance: [false],
+            responsibilitiesList: [''],
             responsibilities: [''],
-            criminalRecord: [false],
-            workingHours: [''],
-            beginningOfWork: [''],
             details: [''],
-            education: this.buildEducation()
+            education: this.buildEducation(),
+            experiences: this.fb.array([ this.buildExperience() ])
         });
 
-        this.addVacancyForm.get('specialization.specializationType').valueChanges
+        this.addResumeForm.get('specialization.specializationType').valueChanges
             .subscribe(value => this.setValidationBySpecialization(value));
 
-    }
+        console.log(this.addResumeForm);
 
+    }
+    
     setValidationBySpecialization(typeSpecialization: string): void {
-        const drivingExperienceControl = this.addVacancyForm.get('drivingExperience');
-        const childNumberControl = this.addVacancyForm.get('childNumber');
-        const nativeLanguageControl = this.addVacancyForm.get('nativeLanguage');
-        const specialityControl = this.addVacancyForm.get('education.specialityType');
-               
+        const drivingExperienceControl = this.addResumeForm.get('drivingExperience');
+        const nativeLanguageControl = this.addResumeForm.get('nativeLanguage');
+        const specialityControl = this.addResumeForm.get('education.specialityType');
+
         if (typeSpecialization === SpecializationType.Driver.toString()) {
             drivingExperienceControl.setValidators(Validators.required);
-            childNumberControl.clearValidators();
             nativeLanguageControl.clearValidators();
             specialityControl.clearValidators();
 
         } else {
             drivingExperienceControl.clearValidators();
-            childNumberControl.setValidators(Validators.required);
             nativeLanguageControl.setValidators(Validators.required);
             specialityControl.setValidators(Validators.required);
         }
         drivingExperienceControl.updateValueAndValidity();
-        childNumberControl.updateValueAndValidity();
         nativeLanguageControl.updateValueAndValidity();
     }
-    
+
+
     buildSpecialization(): FormGroup {
         return this.fb.group({
             specializationType: ['', Validators.required],
             employmentType: ['', Validators.required],
             paymentType: ['', Validators.required],
             paymentPrice: [''],
-            experience: [''],
             educationType: ['', Validators.required],
+            experience: ['']
         })
     }
 
@@ -119,35 +122,41 @@ export class AddVacancyComponent implements OnInit {
             additionalEducation: [''],
         })
     }
- 
-    addVacancy() {
-        const specializationControl = this.addVacancyForm.get('specialization.specializationType');
-        console.log(this.addVacancyForm);
-        if (this.addVacancyForm.valid) {
-            this.addVacancyForm.patchValue({
+
+    buildExperience(): FormGroup {
+        return this.fb.group({
+            from: [''],
+            to: [''],
+            title: [''],
+            description: ['']
+        })
+    }
+
+    addExperience() {
+        this.experiences.push(this.buildExperience());
+    }
+
+    addResume() {
+        const specializationControl = this.addResumeForm.get('specialization.specializationType');
+        const responsibilitiesListValue = this.addResumeForm.get('responsibilitiesList').value;
+
+        console.log(this.addResumeForm);
+                
+        if (this.addResumeForm.valid) {
+            this.addResumeForm.patchValue({
                 status: Status.Saved,
-                contactName: this.currentUserName
+                contactName: this.currentUserName,
+                responsibilities: responsibilitiesListValue
+                    ? responsibilitiesListValue.join(',')
+                    : responsibilitiesListValue
             });
 
-
-            if (specializationControl.value == SpecializationType.Driver) {
-                this.dataService.addDriverVacancy(this.addVacancyForm.value)
-                    .subscribe(
-                        (data: DriverVacancy) => {
-                            console.log(data);
-                            this.router.navigate(['/my-vacancy']);
-                        },
-                        (err: TrackerError) => {
-                            this.trackerError.friendlyMessage = err.friendlyMessage;
-                        }
-                    );
-            }
             if (specializationControl.value == SpecializationType.Babysitter) {
-                this.dataService.addBabysitterVacancy(this.addVacancyForm.value)
+                this.dataService.addBabysitterResume(this.addResumeForm.value)
                     .subscribe(
-                        (data: BabysitterVacancy) => {
+                        (data: BabysitterResume) => {
                             console.log(data);
-                            this.router.navigate(['/my-vacancy']);
+                            this.router.navigate(['']);
                         },
                         (err: TrackerError) => {
                             this.trackerError.friendlyMessage = err.friendlyMessage;
@@ -155,9 +164,11 @@ export class AddVacancyComponent implements OnInit {
                     );
             }
             else {
-                this.trackerError.friendlyMessage = "Add vacancy for this specialization is not implemented yet";
+                this.trackerError.friendlyMessage = "Add resume for this specialization is not implemented yet";
             }
-       }
-    }    
+        }
+        else {
+            this.trackerError.friendlyMessage = "Please fill all required fields";
+        }
+    }
 }
-

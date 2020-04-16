@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace JobSearchProject.Models
+namespace JobSearchProject.Models.ResumeModels
 {
-    public class Vacancy
+    public class Resume
     {
         public int Id { get; set; }
 
@@ -16,11 +13,8 @@ namespace JobSearchProject.Models
         public string Description { get; set; }
 
         [Required]
-        public int AgeFrom { get; set; }
-
-        [Required]
-        public int AgeTo { get; set; }
-
+        public int Age { get; set; }
+        
         public Status Status { get; set; }
 
         public bool Top { get; set; }
@@ -29,6 +23,8 @@ namespace JobSearchProject.Models
         [Column(TypeName = "varchar(50)")]
         public string ContactName { get; set; }
 
+        public byte? Photo { get; set; }
+
         public int LocationId { get; set; }
 
         public virtual Location Location { get; set; }
@@ -36,5 +32,7 @@ namespace JobSearchProject.Models
         public int SpecializationId { get; set; }
 
         public virtual Specialization Specialization { get; set; }
+
+        public List<Experience> Experiences { get; set; }
     }
 }

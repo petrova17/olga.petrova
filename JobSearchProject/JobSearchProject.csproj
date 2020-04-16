@@ -29,8 +29,12 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="ClientApp\src\app\cv\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="ClientApp\src\app\cv\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\cv\**" />
     <None Remove="$(SpaRoot)**" />
+    <None Remove="ClientApp\src\app\cv\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
@@ -38,7 +42,11 @@
     <None Remove="ClientApp\src\app\core\http-cache.service.ts" />
     <None Remove="ClientApp\src\app\core\http-error.service.ts" />
     <None Remove="ClientApp\src\app\core\interceptors\cache.interceptor.ts" />
+    <None Remove="ClientApp\src\app\material.module.ts" />
+    <None Remove="ClientApp\src\app\models\babysitterResume.ts" />
     <None Remove="ClientApp\src\app\models\babysitterVacancy.ts" />
+    <None Remove="ClientApp\src\app\models\experience.ts" />
+    <None Remove="ClientApp\src\app\models\resume.ts" />
     <None Remove="ClientApp\src\app\models\vacancy.ts" />
     <None Remove="ClientApp\src\app\vacancy\add-vacancy\add-vacancy.component.ts" />
     <None Remove="ClientApp\src\app\core\data.service.ts" />
@@ -53,7 +61,11 @@
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\core\interceptors\cache.interceptor.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\core\services\http-cache.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\material.module.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\babysitterResume.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\babysitterVacancy.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\experience.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\resume.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\vacancy.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\vacancy\add-vacancy\add-vacancy.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\core\services\data.service.ts" />
@@ -67,7 +79,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\src\app\cv\" />
+    <Folder Include="ClientApp\src\app\resume\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

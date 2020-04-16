@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobSearchProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200409120459_initial")]
+    [Migration("20200415132251_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -195,6 +195,35 @@ namespace JobSearchProject.Migrations
                     b.ToTable("Education");
                 });
 
+            modelBuilder.Entity("JobSearchProject.Models.Experience", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("From")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ResumeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<DateTime?>("To")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ResumeId");
+
+                    b.ToTable("Experience");
+                });
+
             modelBuilder.Entity("JobSearchProject.Models.Location", b =>
                 {
                     b.Property<int>("Id")
@@ -219,6 +248,52 @@ namespace JobSearchProject.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Location");
+                });
+
+            modelBuilder.Entity("JobSearchProject.Models.ResumeModels.Resume", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ContactName")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("varchar(MAX)");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("LocationId")
+                        .HasColumnType("int");
+
+                    b.Property<byte?>("Photo")
+                        .HasColumnType("tinyint");
+
+                    b.Property<int>("SpecializationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Top")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LocationId");
+
+                    b.ToTable("Resume");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Resume");
                 });
 
             modelBuilder.Entity("JobSearchProject.Models.Specialization", b =>
@@ -254,7 +329,7 @@ namespace JobSearchProject.Migrations
                     b.ToTable("Specialization");
                 });
 
-            modelBuilder.Entity("JobSearchProject.Models.Vacancy", b =>
+            modelBuilder.Entity("JobSearchProject.Models.VacancyModels.Vacancy", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -435,9 +510,74 @@ namespace JobSearchProject.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("JobSearchProject.Models.BabysitterVacancy", b =>
+            modelBuilder.Entity("JobSearchProject.Models.ResumeModels.BabysitterResume", b =>
                 {
-                    b.HasBaseType("JobSearchProject.Models.Vacancy");
+                    b.HasBaseType("JobSearchProject.Models.ResumeModels.Resume");
+
+                    b.Property<string>("Details")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("DriverLicense")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("EducationId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("ForeignPassport")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("MedicineBook")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("NativeLanguage")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("OfficialEmployment")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("OtherLanguages")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("OwnChildren")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Responsibilities")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("SpecialChild")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("TravelWithFamily")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("VideoSurveillance")
+                        .HasColumnType("bit");
+
+                    b.HasIndex("EducationId");
+
+                    b.HasIndex("SpecializationId")
+                        .IsUnique();
+
+                    b.HasDiscriminator().HasValue("BabysitterResume");
+                });
+
+            modelBuilder.Entity("JobSearchProject.Models.ResumeModels.DriverResume", b =>
+                {
+                    b.HasBaseType("JobSearchProject.Models.ResumeModels.Resume");
+
+                    b.Property<decimal>("DrivingExperience")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasIndex("SpecializationId")
+                        .IsUnique()
+                        .HasName("IX_Resume_SpecializationId1");
+
+                    b.HasDiscriminator().HasValue("DriverResume");
+                });
+
+            modelBuilder.Entity("JobSearchProject.Models.VacancyModels.BabysitterVacancy", b =>
+                {
+                    b.HasBaseType("JobSearchProject.Models.VacancyModels.Vacancy");
 
                     b.Property<string>("BeginningOfWork")
                         .HasColumnType("nvarchar(max)");
@@ -503,9 +643,9 @@ namespace JobSearchProject.Migrations
                     b.HasDiscriminator().HasValue("BabysitterVacancy");
                 });
 
-            modelBuilder.Entity("JobSearchProject.Models.DriverVacancy", b =>
+            modelBuilder.Entity("JobSearchProject.Models.VacancyModels.DriverVacancy", b =>
                 {
-                    b.HasBaseType("JobSearchProject.Models.Vacancy");
+                    b.HasBaseType("JobSearchProject.Models.VacancyModels.Vacancy");
 
                     b.Property<decimal>("DrivingExperience")
                         .HasColumnType("decimal(18,2)");
@@ -517,7 +657,25 @@ namespace JobSearchProject.Migrations
                     b.HasDiscriminator().HasValue("DriverVacancy");
                 });
 
-            modelBuilder.Entity("JobSearchProject.Models.Vacancy", b =>
+            modelBuilder.Entity("JobSearchProject.Models.Experience", b =>
+                {
+                    b.HasOne("JobSearchProject.Models.ResumeModels.Resume", "Resume")
+                        .WithMany("Experiences")
+                        .HasForeignKey("ResumeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("JobSearchProject.Models.ResumeModels.Resume", b =>
+                {
+                    b.HasOne("JobSearchProject.Models.Location", "Location")
+                        .WithMany()
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("JobSearchProject.Models.VacancyModels.Vacancy", b =>
                 {
                     b.HasOne("JobSearchProject.Models.Location", "Location")
                         .WithMany("Vacancies")
@@ -577,26 +735,51 @@ namespace JobSearchProject.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("JobSearchProject.Models.BabysitterVacancy", b =>
+            modelBuilder.Entity("JobSearchProject.Models.ResumeModels.BabysitterResume", b =>
+                {
+                    b.HasOne("JobSearchProject.Models.Education", "Education")
+                        .WithMany()
+                        .HasForeignKey("EducationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("JobSearchProject.Models.Specialization", "Specialization")
+                        .WithOne("BabysitterResume")
+                        .HasForeignKey("JobSearchProject.Models.ResumeModels.BabysitterResume", "SpecializationId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("JobSearchProject.Models.ResumeModels.DriverResume", b =>
+                {
+                    b.HasOne("JobSearchProject.Models.Specialization", "Specialization")
+                        .WithOne("DriverResume")
+                        .HasForeignKey("JobSearchProject.Models.ResumeModels.DriverResume", "SpecializationId")
+                        .HasConstraintName("FK_Resume_Specialization_SpecializationId1")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("JobSearchProject.Models.VacancyModels.BabysitterVacancy", b =>
                 {
                     b.HasOne("JobSearchProject.Models.Education", "Education")
                         .WithOne("BabysitterVacancy")
-                        .HasForeignKey("JobSearchProject.Models.BabysitterVacancy", "EducationId")
+                        .HasForeignKey("JobSearchProject.Models.VacancyModels.BabysitterVacancy", "EducationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("JobSearchProject.Models.Specialization", "Specialization")
                         .WithOne("BabysitterVacancy")
-                        .HasForeignKey("JobSearchProject.Models.BabysitterVacancy", "SpecializationId")
+                        .HasForeignKey("JobSearchProject.Models.VacancyModels.BabysitterVacancy", "SpecializationId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("JobSearchProject.Models.DriverVacancy", b =>
+            modelBuilder.Entity("JobSearchProject.Models.VacancyModels.DriverVacancy", b =>
                 {
                     b.HasOne("JobSearchProject.Models.Specialization", "Specialization")
                         .WithOne("DriverVacancy")
-                        .HasForeignKey("JobSearchProject.Models.DriverVacancy", "SpecializationId")
+                        .HasForeignKey("JobSearchProject.Models.VacancyModels.DriverVacancy", "SpecializationId")
                         .HasConstraintName("FK_Vacancy_Specialization_SpecializationId1")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();

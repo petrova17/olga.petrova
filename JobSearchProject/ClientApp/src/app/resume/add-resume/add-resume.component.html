@@ -1,0 +1,434 @@
+<div class="alert alert-danger" role="alert" *ngIf="this.trackerError.friendlyMessage">
+  {{this.trackerError.friendlyMessage}}
+</div>
+
+
+
+<div class="col-lg-8">
+  <div class="well bs-component">
+    <form novalidate (ngSubmit)="addResume()" class="form-horizontal"
+          [formGroup]="addResumeForm">
+      <fieldset>
+        <legend>Add New Resume</legend>
+        <div class="form-group required">
+          <label for="inputDescription" class="control-label">Description</label>
+          <textarea class="form-control"
+                    id="inputDescription" rows="3"
+                    formControlName="description"
+                    [ngClass]="{'is-invalid': (addResumeForm.get('description').touched
+                        || addResumeForm.get('description').dirty)
+                        && !addResumeForm.get('description').valid }">
+              </textarea>
+          <span class="invalid-feedback">
+            <span *ngIf="addResumeForm.get('description').errors?.required">
+              Please enter description.
+            </span>
+          </span>
+        </div>
+
+        <div class="form-group required">
+          <label for="inputAge" class="control-label">Age</label>
+          <input type="number" class="form-control"
+                 id="inputAge" formControlName="age"
+                 [ngClass]="{'is-invalid': (addResumeForm.get('age').touched
+                 || addResumeForm.get('age').dirty) && !addResumeForm.get('age').valid }">
+          <span class="invalid-feedback">
+            <span *ngIf="addResumeForm.get('age').errors?.required">
+              Please enter age.
+            </span>
+          </span>
+        </div>
+
+        <div formGroupName="specialization">
+          <div class="form-group required">
+            <label for="selectSpecialization" class="control-label">Select specialization</label>
+            <select class="form-control" id="selectSpecialization"
+                    formControlName="specializationType"
+                    [ngClass]="{'is-invalid': (addResumeForm.get('specialization.specializationType').touched
+                  || addResumeForm.get('specialization.specializationType').dirty)
+                  && !addResumeForm.get('specialization.specializationType').valid }">
+              <option value="0">Driver</option>
+              <option value="1">Housekeeper</option>
+              <option value="2">Nurse</option>
+              <option value="3">Babysitter</option>
+            </select>
+            <span class="invalid-feedback">
+              <span *ngIf="addResumeForm.get('specialization.specializationType').errors?.required">
+                Please select specialization type.
+              </span>
+            </span>
+          </div>
+
+          <div class="form-group required">
+            <label for="selectEmploymentType" class="control-label">Employment type</label>
+            <select class="form-control" id="selectEmploymentType"
+                    formControlName="employmentType"
+                    [ngClass]="{'is-invalid': (addResumeForm.get('specialization.employmentType').touched || addResumeForm.get('specialization.employmentType').dirty) && !addResumeForm.get('specialization.employmentType').valid }">
+              <option value="0">Full</option>
+              <option value="1">Partial</option>
+            </select>
+            <span class="invalid-feedback">
+              <span *ngIf="addResumeForm.get('specialization.employmentType').errors?.required">
+                Please select employment type.
+              </span>
+            </span>
+          </div>
+          <div class="form-row">
+            <div class="form-group required col-md-6">
+              <label for="selectPaymentType" class="control-label">Payment type</label>
+              <select class="form-control" id="selectPaymentType"
+                      formControlName="paymentType"
+                      [ngClass]="{'is-invalid': (addResumeForm.get('specialization.paymentType').touched
+                    || addResumeForm.get('specialization.paymentType').dirty)
+                    && !addResumeForm.get('specialization.paymentType').valid }">
+                <option value="0">Per Hour</option>
+                <option value="1">Per Day</option>
+                <option value="2">Per Month</option>
+              </select>
+              <span class="invalid-feedback">
+                <span *ngIf="addResumeForm.get('specialization.paymentType').errors?.required">
+                  Please select payment type.
+                </span>
+              </span>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="inputPaymentPrice" class="control-label">Payment price</label>
+              <input type="number" class="form-control"
+                     id="inputPaymentPrice"
+                     formControlName="paymentPrice">
+            </div>
+          </div>
+
+          <div class="form-group required">
+            <label for="selectEducationType" class="control-label">Education type</label>
+            <select class="form-control" id="selectEducationType"
+                    formControlName="educationType"
+                    [ngClass]="{'is-invalid': (addResumeForm.get('specialization.educationType').touched
+                    || addResumeForm.get('specialization.educationType').dirty)
+                    && !addResumeForm.get('specialization.educationType').valid }">
+              <option value="0">Secondary</option>
+              <option value="1">Higher</option>
+            </select>
+            <span class="invalid-feedback">
+              <span *ngIf="addResumeForm.get('specialization.educationType').errors?.required">
+                Please select education type.
+              </span>
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label for="inputExperience" class="control-label">Experience</label>
+            <input type="number" class="form-control"
+                   id="inputExperience"
+                   formControlName="experience" />
+          </div>
+
+        </div>
+
+        <div *ngIf="addResumeForm.get('specialization.specializationType').value == 0">
+          <div class="form-group required">
+            <label for="inputDrivingExperience" class="control-label">Driving experience</label>
+            <input type="number" class="form-control"
+                   id="inputDrivingExperience" formControlName="drivingExperience"
+                   [ngClass]="{'is-invalid': (addResumeForm.get('drivingExperience').touched
+                 || addResumeForm.get('drivingExperience').dirty)
+                 && !addResumeForm.get('drivingExperience').valid }">
+            <span class="invalid-feedback">
+              <span *ngIf="addResumeForm.get('drivingExperience').errors?.required">
+                Please enter driving experience.
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <div *ngIf="addResumeForm.get('specialization.specializationType').value == 3">
+          <div formGroupName="education">
+            <div class="form-group required">
+              <label for="selectSpeciality" class="control-label">Select speciality</label>
+              <select class="form-control" id="selectSpeciality"
+                      formControlName="specialityType"
+                      [ngClass]="{'is-invalid': (addResumeForm.get('education.specialityType').touched
+                  || addResumeForm.get('education.specialityType').dirty)
+                  && !addResumeForm.get('education.specialityType').valid }">
+                <option value="0">Pedagogical</option>
+                <option value="1">Medical</option>
+              </select>
+              <span class="invalid-feedback">
+                <span *ngIf="addResumeForm.get('education.specialityType').errors?.required">
+                  Please select education speciality type.
+                </span>
+              </span>
+            </div>
+
+            <div class="form-group">
+              <label for="inputAdditionalEducation" class="control-label">Additional education</label>
+              <input type="text" class="form-control"
+                     id="inputAdditionalEducation"
+                     formControlName="additionalEducation">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group required col-md-6">
+              <label for="selectNativeLanguage" class="control-label">Native language</label>
+              <select class="form-control" id="selectNativeLanguage"
+                      formControlName="nativeLanguage"
+                      [ngClass]="{'is-invalid': (addResumeForm.get('nativeLanguage').touched
+                || addResumeForm.get('nativeLanguage').dirty)
+                && !addResumeForm.get('nativeLanguage').valid }">
+                <option value="0">English</option>
+                <option value="1">Spanish</option>
+                <option value="2">Ukraine</option>
+                <option value="3">Russian</option>
+                <option value="4">French</option>
+                <option value="5">Chinese</option>
+                <option value="6">Portuguese</option>
+              </select>
+              <span class="invalid-feedback">
+                <span *ngIf="addResumeForm.get('nativeLanguage').errors?.required">
+                  Please select native language.
+                </span>
+              </span>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="selectOtherLanguage" class="control-label">Other language</label>
+              <select class="form-control" id="selectOtherLanguage"
+                      formControlName="otherLanguages">
+                <option value="0">English</option>
+                <option value="1">Spanish</option>
+                <option value="2">Ukraine</option>
+                <option value="3">Russian</option>
+                <option value="4">French</option>
+                <option value="5">Chinese</option>
+                <option value="6">Portuguese</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="driverLicenseCheck"
+                     formControlName="driverLicense">
+              <label class="form-check-label" for="driverLicenseCheck">
+                I have a driver license
+              </label>
+            </div>
+          </div>
+
+          <div class="form-row">
+
+            <div class="form-group col-md-6">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="foreignPassportCheck"
+                       formControlName="foreignPassport">
+                <label class="form-check-label" for="foreignPassportCheck">
+                  I have a foreign passport
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="travelWithFamilyCheck"
+                       formControlName="travelWithFamily">
+                <label class="form-check-label" for="travelWithFamilyCheck">
+                  I can travel with family
+                </label>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="officialEmploymentCheck"
+                       formControlName="officialEmployment">
+                <label class="form-check-label" for="officialEmploymentCheck">
+                  I would like official employment
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="medicineBookCheck"
+                       formControlName="medicineBook">
+                <label class="form-check-label" for="medicineBookCheck">
+                  I have a medicine book
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="ownChildrenCheck"
+                     formControlName="ownChildren">
+              <label class="form-check-label" for="ownChildrenCheck">
+                I have own children
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="specialChildCheck"
+                     formControlName="specialChild">
+              <label class="form-check-label" for="specialChildCheck">
+                I can work with special child
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="videoSurveillanceCheck"
+                     formControlName="videoSurveillance">
+              <label class="form-check-label" for="videoSurveillanceCheck">
+                I don't mind of video surveillance
+              </label>
+            </div>
+          </div>
+          
+          <div class="form-group required">
+            <mat-form-field>
+              <mat-label>Select responsibilities (required)</mat-label>
+              <mat-select required formControlName = "responsibilitiesList"
+                          [(ngModel)]="selected"
+                          multiple>
+                <mat-option *ngFor="let resp of babysitterResponsibilities" [value]="resp">{{resp}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <p>Selected responsibilities: {{ selected ? selected.toString() : null }}</p> </div>
+          </div>
+        <div class="form-group"></div>
+
+        <h6>Professional Experience</h6>
+          <div formArrayName="experiences">
+            <div [formGroupName]="i" *ngFor="let experience of experiences.controls; let i=index">
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <mat-form-field>
+                    <mat-label>Choose a date From</mat-label>
+                    <input matInput
+                           [matDatepicker]="from"
+                           formControlName="from"
+                           [attr.id]="from + i">
+                    <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+                    <mat-datepicker #from></mat-datepicker>
+                  </mat-form-field>
+                </div>
+
+                <div class="form-group col-md-6">
+                  <mat-form-field>
+                    <mat-label>Choose a date To</mat-label>
+                    <input matInput
+                           [matDatepicker]="to"
+                           formControlName="to"
+                           [attr.id]="to + i">
+                    <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
+                    <mat-datepicker #to></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label attr.for="{{ 'inputTitle' + i}}" class="control-label">Title</label>
+                <input type="text" class="form-control"
+                       id="{{ 'inputTitle' + i}}"
+                       formControlName="title">
+              </div>
+              <div class="form-group">
+                <label attr.for="{{ 'inputDescription' + i}}" class="control-label">Description of responsibilities</label>
+                <input type="text" class="form-control"
+                       id="{{ 'inputDescription' + i}}"
+                       formControlName="description">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row mb-2">
+            <div class="col-md-6">
+              <button class="btn btn-outline-primary text-dark"
+                      type="button"
+                      [title]="'Add another experience'"
+                      [disabled]="!experiences.valid"
+                      (click)="addExperience()">
+                Add Another Experience
+              </button>
+            </div>
+          </div>
+
+          <div formGroupName="location">
+            <div class="form-row">
+              <div class="form-group required col-md-6">
+                <label for="inputCountry" class="control-label">Country</label>
+                <input type="text" class="form-control"
+                       id="inputCountry"
+                       formControlName="country"
+                       [ngClass]="{'is-invalid': (addResumeForm.get('location.country').touched
+                   || addResumeForm.get('location.country').dirty)
+                   && !addResumeForm.get('location.country').valid }">
+
+                <span class="invalid-feedback">
+                  <span *ngIf="addResumeForm.get('location.country').errors?.required">
+                    Please enter country.
+                  </span>
+                </span>
+              </div>
+
+              <div class="form-group required col-md-6">
+                <label for="inputCity" class="control-label">City</label>
+                <input type="text" class="form-control" id="inputCity"
+                       formControlName="city"
+                       [ngClass]="{'is-invalid': (addResumeForm.get('location.city').touched
+                   || addResumeForm.get('location.city').dirty)
+                   && !addResumeForm.get('location.city').valid }">
+                <span class="invalid-feedback">
+                  <span *ngIf="addResumeForm.get('location.city').errors?.required">
+                    Please enter city.
+                  </span>
+                </span>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputRegion" class="control-label">Region</label>
+                <input type="text" class="form-control"
+                       id="inputRegion"
+                       formControlName="region">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputStreet" class="control-label">Street</label>
+                <input type="text" class="form-control"
+                       id="inputStreet"
+                       formControlName="street">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="topCheck"
+                     formControlName="top">
+              <label class="form-check-label" for="topCheck">
+                <h6>Add resume to the top list.</h6>
+                *you will receive email with payment details
+
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary">
+              Add
+            </button>
+          </div>
+</fieldset>
+    </form>
+  </div>
+</div>

@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using JobSearchProject.Models.ResumeModels;
+using JobSearchProject.Models.VacancyModels;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JobSearchProject.Models
 {
@@ -12,19 +14,13 @@ namespace JobSearchProject.Models
         public decimal? PaymentPrice { get; set; }
         public EducationType EducationType { get; set; }
         public decimal? Experience { get; set; }
-        public bool? Recommendation { get; set; }
-
-        //public virtual Vacancy Vacancy { get; set; }
-
-        //public int? DriverVacancyId { get; set; }
-
-        //[ForeignKey("DriverVacancyId")]
-        
+        public bool? Recommendation { get; set; }        
         public virtual DriverVacancy DriverVacancy { get; set; }
 
-        //public int? BabysitterVacancyId { get; set; }
-
-        //[ForeignKey("BabysitterVacancyId")]
         public virtual BabysitterVacancy BabysitterVacancy { get; set; }
+
+        public virtual DriverResume DriverResume { get; set; }
+
+        public virtual BabysitterResume BabysitterResume { get; set; }
     }
 }

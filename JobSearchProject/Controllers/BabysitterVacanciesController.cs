@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using JobSearchProject.Data;
-using JobSearchProject.Models;
+using JobSearchProject.Models.VacancyModels;
 
 namespace JobSearchProject.Controllers
 {
