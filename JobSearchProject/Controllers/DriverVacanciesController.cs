@@ -101,7 +101,7 @@ namespace JobSearchProject.Controllers
             //    .Include(x => x.DriverVacancy)
             //    .FirstAsync(r => r.DriverVacancy != null && r.DriverVacancy.Id == id);
 
-            var specialization = await _context.Specialization.FirstAsync(r => r.Id == id);
+            var specialization = await _context.Specialization.FirstAsync(r => r.DriverVacancy.Id == id);
 
             if (specialization == null)
             {

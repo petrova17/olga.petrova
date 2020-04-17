@@ -1,0 +1,48 @@
+<div class="alert alert-danger" role="alert" *ngIf="this.trackerError.friendlyMessage">
+  {{this.trackerError.friendlyMessage}}
+</div>
+
+<div class="card border-dark mb-3" *ngIf="this.specialization == 'babysitter'"> 
+  <h5 class="card-header">{{ SpecializationType[selectedBabysitterResume.specialization.specializationType] }}</h5>
+  <div class="card-body text-dark">
+    <h5 class="card-title">{{ selectedBabysitterResume.description }}</h5>
+    <p class="card-text">Employment type: {{ EmploymentType[selectedBabysitterResume.specialization.employmentType] }}</p>
+    <p class="card-text">Payment type: {{ PaymentType[selectedBabysitterResume.specialization.paymentType] }}</p>
+    <p class="card-text" *ngIf="selectedBabysitterResume.specialization.paymentPrice">Payment price: {{ selectedBabysitterResume.specialization.paymentPrice }} hrn</p>
+    <p class="card-text">Education type: {{ EducationType[selectedBabysitterResume.specialization.educationType] }}</p>
+    <p class="card-text" *ngIf="selectedBabysitterResume.education.speciality">Education speciality type: {{ EducationSpecialityType[selectedBabysitterResume.education.speciality] }}</p>
+    <p class="card-text" *ngIf="selectedBabysitterResume.education.additionalEducation">Additional education: {{ selectedBabysitterResume.education.additionalEducation }}</p>
+    <p class="card-text">Native language: {{ LanguageType[selectedBabysitterResume.nativeLanguage] }}</p>
+    <p class="card-text" *ngIf="selectedBabysitterResume.otherLanguages">Other language: {{ LanguageType[selectedBabysitterResume.otherLanguages] }}</p>
+    <p class="card-text" *ngIf="selectedBabysitterResume.driverLicense">I have a driver license</p>
+    <p class="card-text" *ngIf="selectedBabysitterResume.foreignPassport">I have a foreign passport</p>
+    <p class="card-text" *ngIf="selectedBabysitterResume.travelWithFamily">I can travel with family</p>
+    <p class="card-text" *ngIf="selectedBabysitterResume.officialEmployment">I would like official employment</p>
+    <p class="card-text" *ngIf="selectedBabysitterResume.medicineBook">I have a medicine book</p>
+    <p class="card-text" *ngIf="selectedBabysitterResume.ownChildren">I have own children</p>
+    <p class="card-text" *ngIf="selectedBabysitterResume.specialChild">I can work with special child</p>
+    <p class="card-text" *ngIf="selectedBabysitterResume.videoSurveillance">I don't mind of video surveillance</p>
+    <p class="card-text">Responsibilities: {{ selectedBabysitterResume.responsibilities }}</p>
+    <p class="card-text" *ngIf="selectedBabysitterResume.details">Details: {{ selectedBabysitterResume.details }}</p>
+    <p class="card-text">Country: {{ selectedBabysitterResume.location.country }}</p>
+    <p class="card-text">City: {{ selectedBabysitterResume.location.city }}</p>
+    <p class="card-text" *ngIf="selectedBabysitterResume.location.region">Region: {{ selectedBabysitterResume.location.region }}</p>
+    <p class="card-text" *ngIf="selectedBabysitterResume.location.street">Street: {{ selectedBabysitterResume.location.street }}</p>
+    <div *ngFor="let exp of selectedBabysitterResume.experiences">
+      <p class="card-text">From: {{ exp.from }}</p>
+      <p class="card-text">To: {{ exp.to }}</p>
+      <p class="card-text">Title: {{ exp.title }}</p>
+      <p class="card-text">Description: {{ exp.description }}</p>
+    </div>
+    <p class="card-text">Created by: {{ selectedBabysitterResume.contactName }}</p>
+    <button class="btn btn-outline-secondary mr-3"
+            style="width:80px"
+            (click)="onBack()">
+      Back
+    </button>
+    <a href="#" class="btn btn-primary">Replay</a>
+  </div>
+  <div class="card-footer p-3 mb-2 alert-primary text-dark" *ngIf="selectedBabysitterResume.top">
+    Top Vacancy
+  </div>
+</div>

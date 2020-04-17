@@ -49,11 +49,11 @@ export class MyVacancyComponent implements OnInit {
         this.dataService.getDriverVacancies()
             .subscribe(
                 (data: DriverVacancy[]) => {
-
+                     
                     this.allDriversVacancy = data.filter(r => r.contactName === this.currentUserName);
                     if (this.allDriversVacancy.length === 0) {
                         this.isDriverVacancyListEmpty = true;
-                    };
+                    }; 
                 },
                 (err: TrackerError) => {
                     this.trackerError.friendlyMessage = err.friendlyMessage;
@@ -78,7 +78,7 @@ export class MyVacancyComponent implements OnInit {
     }
 
     onBack(): void {
-        this.router.navigate(['']);
+        this.router.navigate(['profile']);
     }
 
     deleteVacancy(id: number) {

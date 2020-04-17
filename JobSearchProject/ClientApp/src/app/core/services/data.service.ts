@@ -48,7 +48,15 @@ export class DataService {
         return this.http.post<BabysitterResume>('/api/BabysitterResumes', newVacancy);
     }
 
-    getBabysitterResumes(): Observable<BabysitterResume[] | TrackerError> {
+    getBabysitterResumes(): Observable<BabysitterResume[]> {
         return this.http.get<BabysitterResume[]>('/api/BabysitterResumes/');
+    }
+
+    getBabysitterResume(id: number): Observable<BabysitterResume | TrackerError> {
+        return this.http.get<BabysitterResume>(`/api/BabysitterResumes/${id}`);
+    }
+
+    deleteBabysitterResume(id: number): Observable<BabysitterResume> {
+        return this.http.delete<BabysitterResume>(`/api/BabysitterResumes/${id}`);
     }
 }

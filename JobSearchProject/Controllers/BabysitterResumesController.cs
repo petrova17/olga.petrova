@@ -100,6 +100,14 @@ namespace JobSearchProject.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<BabysitterResume>> DeleteBabysitterResume(int id)
         {
+            var specialization = await _context.Specialization.FirstAsync(r => r.BabysitterResume.Id == id);
+            if (specialization == null)
+            {
+                return NotFound(); 
+            }
+
+            _context.Specialization.Remove(specialization);
+
             var babysitterResume = await _context.BabysitterResume.FindAsync(id);
             if (babysitterResume == null)
             {
@@ -107,6 +115,31 @@ namespace JobSearchProject.Controllers
             }
 
             _context.BabysitterResume.Remove(babysitterResume);
+
+            var location = await _context.Location.FindAsync(babysitterResume.LocationId);
+            if (location == null)
+            {
+                return NotFound();
+            }
+
+            _context.Location.Remove(location);
+
+            var education = await _context.Education.FindAsync(babysitterResume.EducationId);
+            if (education == null)
+            {
+                return NotFound();
+            }
+
+            _context.Education.Remove(education);
+
+            var experiences = await _context.Experience.Where( r=> r.ResumeId == babysitterResume.Id)
+                .ToListAsync();
+
+            if (experiences.Count > 0)
+            {
+                experiences.ForEach(r => _context.Experience.Remove(r));
+            }            
+            
             await _context.SaveChangesAsync();
 
             return babysitterResume;

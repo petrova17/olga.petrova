@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
@@ -18,6 +17,9 @@ import { CacheInterceptor } from './core/interceptors/cache.interceptor';
 import { AddResumeComponent } from './resume/add-resume/add-resume.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
+import { ProfileComponent } from './profile/profile.component';
+import { MyResumeComponent } from './resume/my-resume/my-resume.component';
+import { ShowResumeComponent } from './resume/show-resume/show-resume.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,10 @@ import { MaterialModule } from './material.module';
     AddVacancyComponent,
     ShowVacancyComponent,
     MyVacancyComponent,
-    AddResumeComponent
+    AddResumeComponent,
+    ProfileComponent,
+    MyResumeComponent,
+    ShowResumeComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -40,7 +45,10 @@ import { MaterialModule } from './material.module';
       { path: 'add-vacancy', component: AddVacancyComponent, canActivate: [AuthorizeGuard] },
       { path: 'add-resume', component: AddResumeComponent, canActivate: [AuthorizeGuard] },
       { path: 'my-vacancy', component: MyVacancyComponent, canActivate: [AuthorizeGuard] },
+      { path: 'my-resume', component: MyResumeComponent, canActivate: [AuthorizeGuard] },
+      { path: 'profile', component: ProfileComponent, canActivate: [AuthorizeGuard] },
       { path: 'show-vacancy/:id', component: ShowVacancyComponent },
+      { path: 'show-resume/:id', component: ShowResumeComponent },
     ]),
     BrowserAnimationsModule,
     MaterialModule

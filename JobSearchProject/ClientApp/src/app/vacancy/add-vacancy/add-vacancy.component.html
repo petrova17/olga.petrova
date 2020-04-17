@@ -207,13 +207,13 @@
                       [ngClass]="{'is-invalid': (addVacancyForm.get('nativeLanguage').touched
                 || addVacancyForm.get('nativeLanguage').dirty)
                 && !addVacancyForm.get('nativeLanguage').valid }">
-                <option value="1">English</option>
-                <option value="2">Spanish</option>
-                <option value="3">Ukraine</option>
-                <option value="4">Russian</option>
-                <option value="5">French</option>
-                <option value="6">Chinese</option>
-                <option value="7">Portuguese</option>
+                <option value="0">English</option>
+                <option value="1">Spanish</option>
+                <option value="2">Ukraine</option>
+                <option value="3">Russian</option>
+                <option value="4">French</option>
+                <option value="5">Chinese</option>
+                <option value="6">Portuguese</option>
               </select>
               <span class="invalid-feedback">
                 <span *ngIf="addVacancyForm.get('nativeLanguage').errors?.required">
@@ -226,13 +226,13 @@
               <label for="selectOtherLanguage" class="control-label">Other language</label>
               <select class="form-control" id="selectOtherLanguage"
                       formControlName="otherLanguages">
-                <option value="1">English</option>
-                <option value="2">Spanish</option>
-                <option value="3">Ukraine</option>
-                <option value="4">Russian</option>
-                <option value="5">French</option>
-                <option value="6">Chinese</option>
-                <option value="7">Portuguese</option>
+                <option value="0">English</option>
+                <option value="1">Spanish</option>
+                <option value="2">Ukraine</option>
+                <option value="3">Russian</option>
+                <option value="4">French</option>
+                <option value="5">Chinese</option>
+                <option value="6">Portuguese</option>
               </select>
             </div>
           </div>

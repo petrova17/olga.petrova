@@ -1,7 +1,6 @@
 <div class="alert alert-danger" role="alert" *ngIf="this.trackerError.friendlyMessage">
   {{this.trackerError.friendlyMessage}}
 </div>
-
 <div>
   <h2 class="bg-info text-white">TOP VACANCIES</h2>
 
@@ -48,7 +47,7 @@
       <h5 class="card-header">{{ SpecializationType[babysitter.specialization.specializationType] }}</h5>
       <div class="card-body">
         <h5>
-          <a [routerLink]="['/show-vacancy', babysitter.id]"
+          <a [routerLink]="['/show-resume', babysitter.id]"
              [queryParams]="{ spec: 'babysitter' }"
              style="color: white"> {{ babysitter.description }} </a>
         </h5>
@@ -59,7 +58,6 @@
 
         <p class="card-text" *ngIf="babysitter.foreignPassport">I have a foreign passport</p>
         <p class="card-text" *ngIf="babysitter.travelWithFamily">I can travel with familly</p>
-        <p class="card-text" *ngIf="babysitter.otherLanguages">Other Language: {{ babysitter.otherLanguages }}</p>
 
         <p class="card-text">Education: {{ EducationType[babysitter.education.specialityType] }}</p>
         <p class="card-text" *ngIf="babysitter.education.additionalEducation">Additional Education: {{ babysitter.education.additionalEducation }}</p>
