@@ -3,26 +3,13 @@ import { Location } from "./location";
 import { Status } from "./enum";
 
 export class Vacancy {
-    public id: number;
-    public ageFrom: number;
-    public ageTo: number;
-    public status: Status;
-    public top: boolean;
-    public contactName: string;
-    public description: string;
-    public specialization: Specialization;
-    public location: Location;
-
-    constructor(        
-    ) {
-        this.id = null;
-        this.ageFrom = null;
-        this.ageTo = null;
-        this.status = null;
-        this.top = false;
-        this.contactName = null;
-        this.description = null;
-        this.specialization = new Specialization();
-        this.location = new Location();
-    }
+    public id: number = null;
+    public ageFrom: number = null;
+    public ageTo: number = null;
+    public status: Status = null;
+    public top: boolean = null;
+    public contactName: string = null;
+    public description: string = null;
+    public specialization: Specialization = new Specialization();
+    public location: Location = new Location();
 }

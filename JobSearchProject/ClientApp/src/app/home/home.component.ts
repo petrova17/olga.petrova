@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
     allDriversVacancy: DriverVacancy[];
     allBabysitterVacancy: BabysitterVacancy[];
     allBabysitterResume: BabysitterResume[];
-
+ 
     EmploymentType : typeof EmploymentType = EmploymentType;
     PaymentType: typeof PaymentType = PaymentType;
     SpecializationType: typeof SpecializationType = SpecializationType;
@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
     LanguageType: typeof LanguageType = LanguageType;
 
     constructor(private dataService: DataService) { }
-
+     
     ngOnInit() {
         
         this.dataService.getDriverVacancies()
@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
         this.dataService.getBabysitterVacancies()
             .subscribe(
                 (data: BabysitterVacancy[]) => {
-                    this.allBabysitterVacancy = data.filter(r => r.top === true);  
+                    this.allBabysitterVacancy = data.filter(r => r.top === true);                    
                 },
                 (err: TrackerError) => {
                     this.trackerError.friendlyMessage = err.friendlyMessage;

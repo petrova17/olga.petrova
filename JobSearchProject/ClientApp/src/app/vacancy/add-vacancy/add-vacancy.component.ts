@@ -21,10 +21,12 @@ export class AddVacancyComponent implements OnInit {
     constructor(private dataService: DataService,
         private authorizeService: AuthorizeService,
         private router: Router,
-        private fb: FormBuilder) { }
+        private fb: FormBuilder) { } 
 
     trackerError = new TrackerError();
     SpecializationType: typeof SpecializationType = SpecializationType;
+
+    babysitterResponsibilities: string[] = ['Cooking', 'Cleaning', 'Dog walking', 'Assisted with school homework', 'Put to bed'];
 
     ngOnInit() {
 
@@ -57,6 +59,7 @@ export class AddVacancyComponent implements OnInit {
             ownChildren: [false],
             pet: [false],           
             videoSurveillance: [false],
+            responsibilitiesList: [''],
             responsibilities: [''],
             criminalRecord: [false],
             workingHours: [''],
@@ -122,11 +125,16 @@ export class AddVacancyComponent implements OnInit {
  
     addVacancy() {
         const specializationControl = this.addVacancyForm.get('specialization.specializationType');
+        const responsibilitiesListValue = this.addVacancyForm.get('responsibilitiesList').value;
+
         console.log(this.addVacancyForm);
         if (this.addVacancyForm.valid) {
             this.addVacancyForm.patchValue({
                 status: Status.Saved,
-                contactName: this.currentUserName
+                contactName: this.currentUserName,
+                responsibilities: responsibilitiesListValue
+                    ? responsibilitiesListValue.join(',')
+                    : responsibilitiesListValue,
             });
 
 

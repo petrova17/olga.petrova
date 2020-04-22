@@ -81,7 +81,7 @@ export class MyVacancyComponent implements OnInit {
         this.router.navigate(['profile']);
     }
 
-    deleteVacancy(id: number) {
+    deleteDriverVacancy(id: number) {
         this.dataService.deleteDriverVacancy(id)
             .subscribe(
                 (data: DriverVacancy) => {
@@ -117,5 +117,9 @@ export class MyVacancyComponent implements OnInit {
                     throw err;
                 }
             );
+    }
+
+    findMatchedResumes(id: number) {
+        this.router.navigate(['show-resume-matched']);
     }
 }

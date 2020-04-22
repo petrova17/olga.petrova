@@ -6,3 +6,11 @@
   content: "*";
   color: red;
 }
+
+.mat-form-field {
+  width: 350px;
+  min-height: 20px;
+}
+ .mat-select {
+  max-height: 80vh !important;
+}

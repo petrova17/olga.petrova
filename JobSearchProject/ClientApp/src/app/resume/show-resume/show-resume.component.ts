@@ -23,6 +23,7 @@ export class ShowResumeComponent implements OnInit {
     trackerError = new TrackerError();
 
     specialization: string;
+    otherLanguages: {};
 
     constructor(private route: ActivatedRoute,
         private dataService: DataService,
@@ -39,6 +40,7 @@ export class ShowResumeComponent implements OnInit {
                 .subscribe(
                     (data: BabysitterResume) => {
                         this.selectedBabysitterResume = data;
+                        this.otherLanguages = data.otherLanguages.split(',').map(Number);
                     },
                     (err: TrackerError) => {
                         this.trackerError.friendlyMessage = err.friendlyMessage;

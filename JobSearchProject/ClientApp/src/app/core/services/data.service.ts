@@ -59,4 +59,12 @@ export class DataService {
     deleteBabysitterResume(id: number): Observable<BabysitterResume> {
         return this.http.delete<BabysitterResume>(`/api/BabysitterResumes/${id}`);
     }
+
+    getBabysitterResumesMatched(id: number): Observable<BabysitterResume[]> {
+        return this.http.get<BabysitterResume[]>(`/api/BabysitterResumesMatched/${id}`);
+    }
+
+    getEnum(): Observable<any> {
+        return this.http.get<any>(`/api/enums/`);
+    }
 }

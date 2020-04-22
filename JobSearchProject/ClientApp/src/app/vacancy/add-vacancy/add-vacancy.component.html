@@ -343,22 +343,15 @@
             </div>
           </div>
 
+          <h6>Responsibilities</h6>
           <div class="form-group required">
-            <label for="inputResponsibilities" class="control-label">Responsibilities</label>
-            <textarea class="form-control"
-                      id="inputResponsibilities" rows="3"
-                      formControlName="responsibilities"
-                      [ngClass]="{'is-invalid': (addVacancyForm.get('responsibilities').touched
-                        || addVacancyForm.get('responsibilities').dirty)
-                        && !addVacancyForm.get('responsibilities').valid }">
-              </textarea>
-            <span class="invalid-feedback">
-              <span *ngIf="addVacancyForm.get('responsibilities').errors?.required">
-                Please enter responsibilities.
-              </span>
-            </span>
-          </div>
-
+            <mat-selection-list #resp
+                                formControlName="responsibilitiesList">
+              <mat-list-option *ngFor="let resp of babysitterResponsibilities" [value]='resp'>
+                {{resp}}
+              </mat-list-option>
+            </mat-selection-list>
+          </div> 
           <div class="form-group">
             <label for="inputDetails" class="control-label">Details</label>
             <textarea class="form-control"

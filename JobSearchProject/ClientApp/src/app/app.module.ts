@@ -13,13 +13,13 @@ import { AddVacancyComponent } from './vacancy/add-vacancy/add-vacancy.component
 import { ShowVacancyComponent } from './vacancy/show-vacancy/show-vacancy.component';
 import { MyVacancyComponent } from './vacancy/my-vacancy/my-vacancy.component';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
-import { CacheInterceptor } from './core/interceptors/cache.interceptor';
 import { AddResumeComponent } from './resume/add-resume/add-resume.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { ProfileComponent } from './profile/profile.component';
 import { MyResumeComponent } from './resume/my-resume/my-resume.component';
 import { ShowResumeComponent } from './resume/show-resume/show-resume.component';
+import { ShowResumeMatchedToVacancyComponent } from './resume/show-resume-matched-to-vacancy/show-resume-matched-to-vacancy.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,8 @@ import { ShowResumeComponent } from './resume/show-resume/show-resume.component'
     AddResumeComponent,
     ProfileComponent,
     MyResumeComponent,
-    ShowResumeComponent
+    ShowResumeComponent,
+    ShowResumeMatchedToVacancyComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -49,14 +50,14 @@ import { ShowResumeComponent } from './resume/show-resume/show-resume.component'
       { path: 'profile', component: ProfileComponent, canActivate: [AuthorizeGuard] },
       { path: 'show-vacancy/:id', component: ShowVacancyComponent },
       { path: 'show-resume/:id', component: ShowResumeComponent },
+      { path: 'show-resume-matched/:id', component: ShowResumeMatchedToVacancyComponent },
     ]),
     BrowserAnimationsModule,
     MaterialModule
   ],
   providers: [
       { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
-      { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-      { provide: HTTP_INTERCEPTORS, useClass: CacheInterceptor, multi: true }
+      { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

@@ -1,14 +1,7 @@
 export class Location {
-    public country: string;
-    public city: string;
-    public region: string;
-    public street: string;
+    public country: string = null;
+    public city: string = null;
+    public region: string = null;
+    public street: string = null;
 
-    constructor(        
-    ) {
-        this.country = null;
-        this.city = null;
-        this.region = null;
-        this.street = null;
-    }
 }

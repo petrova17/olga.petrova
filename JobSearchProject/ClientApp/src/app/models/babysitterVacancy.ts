@@ -3,49 +3,25 @@ import { LanguageType } from "./enum";
 import { Education } from "./education";
 
 export class BabysitterVacancy extends Vacancy {
-    public childNumber: number;
-    public nativeLanguage: LanguageType;
-    public otherLanguages: string;
-    public driverLicense: boolean;
-    public ownChildren: boolean;
-    public officialEmployment: boolean;
-    public medicineBook: boolean;
-    public specialChild: boolean;
-    public videoSurveillance: boolean;
-    public foreignPassport: boolean;
-    public travelWithFamily: boolean;
-    public workingHours: string;
-    public responsibilities: string;
-    public criminalRecord: boolean;
-    public beginningOfWork: string;
-    public details: string;
-    public pet: boolean;
-    public education: Education;
+    public childNumber: number = null;
+    public nativeLanguage: LanguageType = null;
+    public otherLanguages: string = null;
+    public driverLicense: boolean = null;
+    public ownChildren: boolean = null;
+    public officialEmployment: boolean = null;
+    public medicineBook: boolean = null;
+    public specialChild: boolean = null;
+    public videoSurveillance: boolean = null;
+    public foreignPassport: boolean = null;
+    public travelWithFamily: boolean = null;
+    public workingHours: string = null;
+    public responsibilities: string = null;
+    public criminalRecord: boolean = null;
+    public beginningOfWork: string = null;
+    public details: string = null;
+    public pet: boolean = null;
+    public education: Education = new Education();
 
-    constructor(
-    ) {
-        super();
-        this.childNumber = null;
-        this.nativeLanguage = null;
-        this.childNumber = null;
-        this.otherLanguages = null;
-        this.driverLicense = null;
-        this.ownChildren = null;
-        this.officialEmployment = null;
-        this.medicineBook = null;
-        this.specialChild = null;
-        this.videoSurveillance = null;
-        this.foreignPassport = null;
-        this.travelWithFamily = null;
-        this.workingHours = null;
-        this.responsibilities = null;
-        this.criminalRecord = null;
-        this.beginningOfWork = null;
-        this.details = null;
-        this.beginningOfWork = null;
-        this.pet = null;
-        this.education = new Education();
-    }
 }
 
 

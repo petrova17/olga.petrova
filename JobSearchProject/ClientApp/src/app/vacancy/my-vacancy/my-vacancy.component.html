@@ -28,7 +28,7 @@
     </button>
     <button class="btn btn-outline-secondary mr-3"
             style="width:80px"
-            (click)="deleteVacancy(driver.id)">
+            (click)="deleteDriverVacancy(driver.id)">
       Delete
     </button>
 
@@ -80,9 +80,13 @@
             (click)="deleteBabysitterVacancy(babysitter.id)">
       Delete
     </button>
+    <button class="btn btn-outline-secondary mr-3"
+            style="width:200px"
+            [routerLink]="['/show-resume-matched', babysitter.id]">
+            Find resumes matched to vacancy
+    </button>
   </div>
   <div class="card-footer p-3 mb-2 alert-primary text-dark" *ngIf="babysitter.top">
     Top Vacancy
   </div>
 </div>
-

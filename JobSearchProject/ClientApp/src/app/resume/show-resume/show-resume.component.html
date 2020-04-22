@@ -13,7 +13,9 @@
     <p class="card-text" *ngIf="selectedBabysitterResume.education.speciality">Education speciality type: {{ EducationSpecialityType[selectedBabysitterResume.education.speciality] }}</p>
     <p class="card-text" *ngIf="selectedBabysitterResume.education.additionalEducation">Additional education: {{ selectedBabysitterResume.education.additionalEducation }}</p>
     <p class="card-text">Native language: {{ LanguageType[selectedBabysitterResume.nativeLanguage] }}</p>
-    <p class="card-text" *ngIf="selectedBabysitterResume.otherLanguages">Other language: {{ LanguageType[selectedBabysitterResume.otherLanguages] }}</p>
+    <p class="card-text" *ngIf="selectedBabysitterResume.otherLanguages">Other languages:</p>
+    <p class="card-text" 
+        *ngFor="let lang of this.otherLanguages">*** {{ LanguageType[lang] }}</p>
     <p class="card-text" *ngIf="selectedBabysitterResume.driverLicense">I have a driver license</p>
     <p class="card-text" *ngIf="selectedBabysitterResume.foreignPassport">I have a foreign passport</p>
     <p class="card-text" *ngIf="selectedBabysitterResume.travelWithFamily">I can travel with family</p>

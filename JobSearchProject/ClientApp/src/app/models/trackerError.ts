@@ -1,12 +1,6 @@
 export class TrackerError {
-    public errorNumber: number;
-    public message: string;
-    public friendlyMessage: string;
+    public errorNumber: number = null;
+    public message: string = null;
+    public friendlyMessage: string = null;
 
-    constructor(        
-    ) {
-        this.errorNumber = null;
-        this.message = null;
-        this.friendlyMessage = null;
-    }
 }

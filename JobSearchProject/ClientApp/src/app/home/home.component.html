@@ -54,8 +54,6 @@
         <p class="card-text">Responsibilities: {{ babysitter.responsibilities }}</p>
         <p class="card-text">Employment type: {{ EmploymentType[babysitter.specialization.employmentType] }}</p>
         <p class="card-text">Native Language: {{ LanguageType[babysitter.nativeLanguage] }}</p>
-        <p class="card-text" *ngIf="babysitter.otherLanguages">Other Language: {{ LanguageType[babysitter.otherLanguages] }}</p>
-
         <p class="card-text" *ngIf="babysitter.foreignPassport">I have a foreign passport</p>
         <p class="card-text" *ngIf="babysitter.travelWithFamily">I can travel with familly</p>
 

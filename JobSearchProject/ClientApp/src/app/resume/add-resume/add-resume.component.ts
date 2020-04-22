@@ -1,5 +1,4 @@
 import { AuthorizeService } from '../../../api-authorization/authorize.service';
-import { DriverVacancy } from '../../models/driverVacancy';
 import { Status, SpecializationType } from '../../models/enum';
 import { TrackerError } from '../../models/trackerError';
 import { BabysitterVacancy } from '../../models/babysitterVacancy';
@@ -31,9 +30,31 @@ export class AddResumeComponent implements OnInit {
         private fb: FormBuilder) { }
 
     trackerError = new TrackerError();
-    SpecializationType: typeof SpecializationType = SpecializationType;
+       
+    languages: {};
+    specializations: {};
+    employmentTypes: {};
+    paymentTypes: {};
+    educationTypes: {};
+    specialityTypes: {};
+
 
     ngOnInit() {
+
+        this.dataService.getEnum()
+            .subscribe(
+                (data: any) => {
+                    this.languages = data[1];
+                    this.specializations = data[0];
+                    this.employmentTypes = data[3];
+                    this.paymentTypes = data[2];
+                    this.educationTypes = data[4];
+                    this.specialityTypes = data[5];
+                },
+                (err: TrackerError) => {
+                    this.trackerError.friendlyMessage = err.friendlyMessage;
+                }
+            );
 
         this.authorizeService.getUser()
             .pipe(map(u => u.name))
@@ -54,6 +75,7 @@ export class AddResumeComponent implements OnInit {
             location: this.buildLocation(),
             specialChild: [false],
             nativeLanguage: [''],
+            otherLanguagesList:[''],
             otherLanguages: [''],
             driverLicense: [false],
             foreignPassport: [false],
@@ -75,7 +97,7 @@ export class AddResumeComponent implements OnInit {
         console.log(this.addResumeForm);
 
     }
-    
+        
     setValidationBySpecialization(typeSpecialization: string): void {
         const drivingExperienceControl = this.addResumeForm.get('drivingExperience');
         const nativeLanguageControl = this.addResumeForm.get('nativeLanguage');
@@ -139,6 +161,7 @@ export class AddResumeComponent implements OnInit {
     addResume() {
         const specializationControl = this.addResumeForm.get('specialization.specializationType');
         const responsibilitiesListValue = this.addResumeForm.get('responsibilitiesList').value;
+        const otherLanguagesListValue = this.addResumeForm.get('otherLanguagesList').value;
 
         console.log(this.addResumeForm);
                 
@@ -148,7 +171,10 @@ export class AddResumeComponent implements OnInit {
                 contactName: this.currentUserName,
                 responsibilities: responsibilitiesListValue
                     ? responsibilitiesListValue.join(',')
-                    : responsibilitiesListValue
+                    : responsibilitiesListValue,
+                otherLanguages: otherLanguagesListValue
+                    ? otherLanguagesListValue.join(',')
+                    : otherLanguagesListValue
             });
 
             if (specializationControl.value == SpecializationType.Babysitter) {

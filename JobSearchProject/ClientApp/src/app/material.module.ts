@@ -4,7 +4,8 @@ import {
     MatNativeDateModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule 
+    MatSelectModule,
+    MatListModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -15,7 +16,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         MatNativeDateModule,
         MatInputModule,
         BrowserAnimationsModule,
-        MatSelectModule
+        MatSelectModule,
+        MatListModule
     ],
     exports: [
         MatDatepickerModule,
@@ -23,7 +25,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         MatNativeDateModule,
         MatInputModule,
         BrowserAnimationsModule,
-        MatSelectModule
+        MatSelectModule,
+        MatListModule
     ],
     providers: [MatDatepickerModule, MatSelectModule],
 })
