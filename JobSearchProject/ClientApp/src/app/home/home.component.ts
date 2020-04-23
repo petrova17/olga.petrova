@@ -5,6 +5,7 @@ import { TrackerError } from '../models/trackerError';
 import { BabysitterVacancy } from '../models/babysitterVacancy';
 import { DataService } from '../core/services/data.service';
 import { BabysitterResume } from '../models/babysitterResume';
+import { DriverResume } from '../models/driverResume';
 
 @Component({
   selector: 'app-home',
@@ -20,6 +21,7 @@ export class HomeComponent implements OnInit {
     allDriversVacancy: DriverVacancy[];
     allBabysitterVacancy: BabysitterVacancy[];
     allBabysitterResume: BabysitterResume[];
+    allDriverResume: DriverResume[];
  
     EmploymentType : typeof EmploymentType = EmploymentType;
     PaymentType: typeof PaymentType = PaymentType;
@@ -55,6 +57,16 @@ export class HomeComponent implements OnInit {
             .subscribe(
                 (data: BabysitterResume[]) => {
                     this.allBabysitterResume = data.filter(r => r.top === true);
+                },
+                (err: TrackerError) => {
+                    this.trackerError.friendlyMessage = err.friendlyMessage;
+                }
+        );
+
+        this.dataService.getDriverResumes()
+            .subscribe(
+                (data: DriverResume[]) => {
+                    this.allDriverResume = data.filter(r => r.top === true);
                 },
                 (err: TrackerError) => {
                     this.trackerError.friendlyMessage = err.friendlyMessage;

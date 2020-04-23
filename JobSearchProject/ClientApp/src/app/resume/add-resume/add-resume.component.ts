@@ -8,6 +8,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { BabysitterResume } from '../../models/babysitterResume';
+import { DriverResume } from '../../models/driverResume';
 
 @Component({
   selector: 'app-add-resume',
@@ -181,6 +182,18 @@ export class AddResumeComponent implements OnInit {
                 this.dataService.addBabysitterResume(this.addResumeForm.value)
                     .subscribe(
                         (data: BabysitterResume) => {
+                            console.log(data);
+                            this.router.navigate(['']);
+                        },
+                        (err: TrackerError) => {
+                            this.trackerError.friendlyMessage = err.friendlyMessage;
+                        }
+                    );
+            }
+            if (specializationControl.value == SpecializationType.Driver) {
+                this.dataService.addDriverResume(this.addResumeForm.value)
+                    .subscribe(
+                        (data: DriverResume) => {
                             console.log(data);
                             this.router.navigate(['']);
                         },

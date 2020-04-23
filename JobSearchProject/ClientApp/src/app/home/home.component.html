@@ -59,8 +59,26 @@
 
         <p class="card-text">Education: {{ EducationType[babysitter.education.specialityType] }}</p>
         <p class="card-text" *ngIf="babysitter.education.additionalEducation">Additional Education: {{ babysitter.education.additionalEducation }}</p>
+        <p class="card-text">Age: {{ babysitter.age }}</p>
       </div>
     </div>
   </div>
+
+  <div class="card-columns">
+    <div class="card text-white bg-warning mb-4 h-100 w-40" *ngFor="let driver of allDriverResume">
+      <h5 class="card-header">{{ SpecializationType[driver.specialization.specializationType] }}</h5>
+      <div class="card-body">
+        <h5>
+          <a [routerLink]="['/show-resume', driver.id]"
+             [queryParams]="{ spec: 'driver' }"
+             style="color: white"> {{ driver.description }} </a>
+        </h5>
+        <p class="card-text">Employment type: {{ EmploymentType[driver.specialization.employmentType] }}</p>
+        <p class="card-text">Driving experience: {{ driver.drivingExperience }}</p>
+        <p class="card-text">Age: {{ driver.age }}</p>
+      </div>
+    </div>
+  </div>
+
 </div>
 

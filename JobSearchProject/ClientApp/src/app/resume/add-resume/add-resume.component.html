@@ -158,192 +158,192 @@
                      formControlName="additionalEducation">
             </div>
           </div>
-        </div>
 
 
-        <div class="form-row">
-          <div class="form-group required col-md-6">
-            <label for="selectNativeLanguage" class="control-label">Native language</label>
-            <select class="form-control" id="selectNativeLanguage"
-                    formControlName="nativeLanguage"
-                    [ngClass]="{'is-invalid': (addResumeForm.get('nativeLanguage').touched
+
+          <div class="form-row">
+            <div class="form-group required col-md-6">
+              <label for="selectNativeLanguage" class="control-label">Native language</label>
+              <select class="form-control" id="selectNativeLanguage"
+                      formControlName="nativeLanguage"
+                      [ngClass]="{'is-invalid': (addResumeForm.get('nativeLanguage').touched
                 || addResumeForm.get('nativeLanguage').dirty)
                 && !addResumeForm.get('nativeLanguage').valid }">
-              <option *ngFor="let item of this.languages | keyvalue" [value]="item.key">{{item.value}}</option>
-            </select>
-            <span class="invalid-feedback">
-              <span *ngIf="addResumeForm.get('nativeLanguage').errors?.required">
-                Please select native language.
+                <option *ngFor="let item of this.languages | keyvalue" [value]="item.key">{{item.value}}</option>
+              </select>
+              <span class="invalid-feedback">
+                <span *ngIf="addResumeForm.get('nativeLanguage').errors?.required">
+                  Please select native language.
+                </span>
               </span>
-            </span>
+            </div>
+
+            <div class="form-group col-md-6">
+              <div>Other languages</div>
+              <mat-form-field appearance="outline">
+                <mat-select required formControlName="otherLanguagesList"
+                            multiple>
+                  <mat-option *ngFor="let item of this.languages | keyvalue" [value]="item.key">{{item.value}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
           </div>
 
-          <div class="form-group col-md-6">
-            <div>Other languages</div>
-            <mat-form-field appearance="outline">
-              <mat-select required formControlName="otherLanguagesList"
-                          multiple>
-                <mat-option *ngFor="let item of this.languages | keyvalue" [value]="item.key">{{item.value}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
+          <div class="form-group"></div>
 
-        <div class="form-group"></div>
-
-        <div class="form-group">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="driverLicenseCheck"
-                   formControlName="driverLicense">
-            <label class="form-check-label" for="driverLicenseCheck">
-              I have a driver license
-            </label>
-          </div>
-        </div>
-
-        <div class="form-row">
-
-          <div class="form-group col-md-6">
+          <div class="form-group">
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="foreignPassportCheck"
-                     formControlName="foreignPassport">
-              <label class="form-check-label" for="foreignPassportCheck">
-                I have a foreign passport
+              <input class="form-check-input" type="checkbox" value="" id="driverLicenseCheck"
+                     formControlName="driverLicense">
+              <label class="form-check-label" for="driverLicenseCheck">
+                I have a driver license
               </label>
             </div>
           </div>
 
-          <div class="form-group col-md-6">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="travelWithFamilyCheck"
-                     formControlName="travelWithFamily">
-              <label class="form-check-label" for="travelWithFamilyCheck">
-                I can travel with family
-              </label>
-            </div>
-          </div>
+          <div class="form-row">
 
-        </div>
-
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="officialEmploymentCheck"
-                     formControlName="officialEmployment">
-              <label class="form-check-label" for="officialEmploymentCheck">
-                I would like official employment
-              </label>
-            </div>
-          </div>
-
-          <div class="form-group col-md-6">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="medicineBookCheck"
-                     formControlName="medicineBook">
-              <label class="form-check-label" for="medicineBookCheck">
-                I have a medicine book
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="ownChildrenCheck"
-                   formControlName="ownChildren">
-            <label class="form-check-label" for="ownChildrenCheck">
-              I have own children
-            </label>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="specialChildCheck"
-                   formControlName="specialChild">
-            <label class="form-check-label" for="specialChildCheck">
-              I can work with special child
-            </label>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="videoSurveillanceCheck"
-                   formControlName="videoSurveillance">
-            <label class="form-check-label" for="videoSurveillanceCheck">
-              I don't mind of video surveillance
-            </label>
-          </div>
-        </div>
-
-        <h6>Responsibilities</h6>
-        <div class="form-group required">
-          <mat-selection-list #resp
-                              formControlName="responsibilitiesList">
-            <mat-list-option *ngFor="let resp of babysitterResponsibilities" [value]='resp'>
-              {{resp}}
-            </mat-list-option>
-          </mat-selection-list>
-        </div>
-
-
-        <h6>Professional Experience</h6>
-        <div formArrayName="experiences">
-          <div [formGroupName]="i" *ngFor="let experience of experiences.controls; let i=index">
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <mat-form-field>
-                  <mat-label>Choose a date From</mat-label>
-                  <input matInput
-                         [matDatepicker]="from"
-                         formControlName="from"
-                         [attr.id]="from + i">
-                  <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
-                  <mat-datepicker #from></mat-datepicker>
-                </mat-form-field>
-              </div>
-
-              <div class="form-group col-md-6">
-                <mat-form-field>
-                  <mat-label>Choose a date To</mat-label>
-                  <input matInput
-                         [matDatepicker]="to"
-                         formControlName="to"
-                         [attr.id]="to + i">
-                  <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
-                  <mat-datepicker #to></mat-datepicker>
-                </mat-form-field>
+            <div class="form-group col-md-6">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="foreignPassportCheck"
+                       formControlName="foreignPassport">
+                <label class="form-check-label" for="foreignPassportCheck">
+                  I have a foreign passport
+                </label>
               </div>
             </div>
 
-            <div class="form-group">
-              <label attr.for="{{ 'inputTitle' + i}}" class="control-label">Title</label>
-              <input type="text" class="form-control"
-                     id="{{ 'inputTitle' + i}}"
-                     formControlName="title">
+            <div class="form-group col-md-6">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="travelWithFamilyCheck"
+                       formControlName="travelWithFamily">
+                <label class="form-check-label" for="travelWithFamilyCheck">
+                  I can travel with family
+                </label>
+              </div>
             </div>
-            <div class="form-group">
-              <label attr.for="{{ 'inputDescription' + i}}" class="control-label">Description of responsibilities</label>
-              <input type="text" class="form-control"
-                     id="{{ 'inputDescription' + i}}"
-                     formControlName="description">
+
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="officialEmploymentCheck"
+                       formControlName="officialEmployment">
+                <label class="form-check-label" for="officialEmploymentCheck">
+                  I would like official employment
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="medicineBookCheck"
+                       formControlName="medicineBook">
+                <label class="form-check-label" for="medicineBookCheck">
+                  I have a medicine book
+                </label>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="form-group row mb-2">
-          <div class="col-md-6">
-            <button class="btn btn-outline-primary text-dark"
-                    type="button"
-                    [title]="'Add another experience'"
-                    [disabled]="!experiences.valid"
-                    (click)="addExperience()">
-              Add Another Experience
-            </button>
+          <div class="form-group">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="ownChildrenCheck"
+                     formControlName="ownChildren">
+              <label class="form-check-label" for="ownChildrenCheck">
+                I have own children
+              </label>
+            </div>
           </div>
-        </div>
 
+          <div class="form-group">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="specialChildCheck"
+                     formControlName="specialChild">
+              <label class="form-check-label" for="specialChildCheck">
+                I can work with special child
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="videoSurveillanceCheck"
+                     formControlName="videoSurveillance">
+              <label class="form-check-label" for="videoSurveillanceCheck">
+                I don't mind of video surveillance
+              </label>
+            </div>
+          </div>
+
+          <h6>Responsibilities</h6>
+          <div class="form-group required">
+            <mat-selection-list #resp
+                                formControlName="responsibilitiesList">
+              <mat-list-option *ngFor="let resp of babysitterResponsibilities" [value]='resp'>
+                {{resp}}
+              </mat-list-option>
+            </mat-selection-list>
+          </div>
+
+        </div>
+          <h6>Professional Experience</h6>
+          <div formArrayName="experiences">
+            <div [formGroupName]="i" *ngFor="let experience of experiences.controls; let i=index">
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <mat-form-field>
+                    <mat-label>Choose a date From</mat-label>
+                    <input matInput
+                           [matDatepicker]="from"
+                           formControlName="from"
+                           [attr.id]="from + i">
+                    <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+                    <mat-datepicker #from></mat-datepicker>
+                  </mat-form-field>
+                </div>
+
+                <div class="form-group col-md-6">
+                  <mat-form-field>
+                    <mat-label>Choose a date To</mat-label>
+                    <input matInput
+                           [matDatepicker]="to"
+                           formControlName="to"
+                           [attr.id]="to + i">
+                    <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
+                    <mat-datepicker #to></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label attr.for="{{ 'inputTitle' + i}}" class="control-label">Title</label>
+                <input type="text" class="form-control"
+                       id="{{ 'inputTitle' + i}}"
+                       formControlName="title">
+              </div>
+              <div class="form-group">
+                <label attr.for="{{ 'inputDescription' + i}}" class="control-label">Description of responsibilities</label>
+                <input type="text" class="form-control"
+                       id="{{ 'inputDescription' + i}}"
+                       formControlName="description">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row mb-2">
+            <div class="col-md-6">
+              <button class="btn btn-outline-primary text-dark"
+                      type="button"
+                      [title]="'Add another experience'"
+                      [disabled]="!experiences.valid"
+                      (click)="addExperience()">
+                Add Another Experience
+              </button>
+            </div>
+          </div>
+        
         
         <div formGroupName="location">
           <h6>Location</h6>

@@ -15,7 +15,7 @@ export class ShowResumeMatchedToVacancyComponent implements OnInit {
     allBabysitterResumeMatched: BabysitterResume[];
     trackerError = new TrackerError();
 
-    EmploymentType: typeof EmploymentType = EmploymentType; 
+    EmploymentType: typeof EmploymentType = EmploymentType;  
     PaymentType: typeof PaymentType = PaymentType;
     EducationType: typeof EducationType = EducationType;
     SpecializationType: typeof SpecializationType = SpecializationType;

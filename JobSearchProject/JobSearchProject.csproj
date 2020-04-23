@@ -45,6 +45,7 @@
     <None Remove="ClientApp\src\app\material.module.ts" />
     <None Remove="ClientApp\src\app\models\babysitterResume.ts" />
     <None Remove="ClientApp\src\app\models\babysitterVacancy.ts" />
+    <None Remove="ClientApp\src\app\models\driverResume.ts" />
     <None Remove="ClientApp\src\app\models\experience.ts" />
     <None Remove="ClientApp\src\app\models\resume.ts" />
     <None Remove="ClientApp\src\app\models\vacancy.ts" />
@@ -64,6 +65,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\material.module.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\babysitterResume.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\babysitterVacancy.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\driverResume.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\experience.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\resume.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\vacancy.ts" />

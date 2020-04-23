@@ -5,6 +5,7 @@ import { TrackerError } from '../../models/trackerError';
 import { BabysitterVacancy } from '../../models/babysitterVacancy';
 import { Observable } from 'rxjs';
 import { BabysitterResume } from '../../models/babysitterResume';
+import { DriverResume } from '../../models/driverResume';
 
 @Injectable({
     providedIn: 'root'
@@ -62,6 +63,22 @@ export class DataService {
 
     getBabysitterResumesMatched(id: number): Observable<BabysitterResume[]> {
         return this.http.get<BabysitterResume[]>(`/api/BabysitterResumesMatched/${id}`);
+    }
+
+    addDriverResume(newVacancy: DriverResume): Observable<DriverResume> {
+        return this.http.post<DriverResume>('/api/DriverResumes', newVacancy);
+    }
+
+    getDriverResumes(): Observable<DriverResume[]> {
+        return this.http.get<DriverResume[]>('/api/DriverResumes/');
+    }
+
+    getDriverResume(id: number): Observable<DriverResume | TrackerError> {
+        return this.http.get<DriverResume>(`/api/DriverResumes/${id}`);
+    }
+
+    deleteDriverResume(id: number): Observable<DriverResume> {
+        return this.http.delete<DriverResume>(`/api/DriverResumes/${id}`);
     }
 
     getEnum(): Observable<any> {
