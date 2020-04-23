@@ -31,7 +31,12 @@
             (click)="deleteDriverVacancy(driver.id)">
       Delete
     </button>
-
+    <button class="btn btn-outline-secondary mr-3"
+            style="width:200px"
+            [routerLink]="['/show-resume-matched', driver.id]"
+            [queryParams]="{ spec: 'driver' }">
+      Find resumes matched to vacancy
+    </button>
   </div>
   <div class="card-footer p-3 mb-2 alert-primary text-dark" *ngIf="driver.top">
     Top Vacancy
@@ -82,7 +87,8 @@
     </button>
     <button class="btn btn-outline-secondary mr-3"
             style="width:200px"
-            [routerLink]="['/show-resume-matched', babysitter.id]">
+            [routerLink]="['/show-resume-matched', babysitter.id]"
+            [queryParams]="{ spec: 'babysitter' }">
             Find resumes matched to vacancy
     </button>
   </div>

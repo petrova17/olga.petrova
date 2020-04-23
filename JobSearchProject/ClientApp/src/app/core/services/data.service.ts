@@ -81,6 +81,10 @@ export class DataService {
         return this.http.delete<DriverResume>(`/api/DriverResumes/${id}`);
     }
 
+    getDriverResumesMatched(id: number): Observable<DriverResume[]> {
+        return this.http.get<DriverResume[]>(`/api/DriverResumesMatched/${id}`);
+    }
+
     getEnum(): Observable<any> {
         return this.http.get<any>(`/api/enums/`);
     }

@@ -61,6 +61,7 @@
   <div class="card-body text-dark">
     <h5 class="card-title">{{ driver.description }}</h5>
     <p class="card-text">Age: {{ driver.age }}</p>
+    <p class="card-text">Driving experience: {{ driver.drivingExperience }}</p>
     <p class="card-text">Employment type: {{ EmploymentType[driver.specialization.employmentType] }}</p>
     <p class="card-text">Payment type: {{ PaymentType[driver.specialization.paymentType] }}</p>
     <p class="card-text" *ngIf="driver.specialization.paymentPrice">Payment price: {{ driver.specialization.paymentPrice }} hrn</p>

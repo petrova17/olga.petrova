@@ -4,6 +4,7 @@ import { DataService } from '../../core/services/data.service';
 import { BabysitterResume } from '../../models/babysitterResume';
 import { TrackerError } from '../../models/trackerError';
 import { EmploymentType, PaymentType, EducationType, SpecializationType, EducationSpecialityType, LanguageType } from '../../models/enum';
+import { DriverResume } from '../../models/driverResume';
 
 @Component({
   selector: 'app-show-resume-matched-to-vacancy',
@@ -13,6 +14,7 @@ import { EmploymentType, PaymentType, EducationType, SpecializationType, Educati
 export class ShowResumeMatchedToVacancyComponent implements OnInit {
 
     allBabysitterResumeMatched: BabysitterResume[];
+    allDriverResumeMatched: DriverResume[];
     trackerError = new TrackerError();
 
     EmploymentType: typeof EmploymentType = EmploymentType;  
@@ -23,28 +25,54 @@ export class ShowResumeMatchedToVacancyComponent implements OnInit {
     LanguageType: typeof LanguageType = LanguageType;
 
     isBabysitterResumeListEmpty: boolean;
+    isDriverResumeListEmpty: boolean;
+
+    showAlert: boolean;
+
+    specialization: string;
 
     constructor(private route: ActivatedRoute,
         private dataService: DataService,
         private router: Router) { }
 
     ngOnInit() {
+        this.showAlert = false;
         this.isBabysitterResumeListEmpty = false;
 
         let vacancyId: number = parseInt(this.route.snapshot.params['id']);
+        this.specialization = this.route.snapshot.queryParamMap.get('spec');
 
-        this.dataService.getBabysitterResumesMatched(vacancyId)
-            .subscribe(
-                (data: BabysitterResume[]) => {
-                    this.allBabysitterResumeMatched = data;
-                    if (this.allBabysitterResumeMatched.length === 0) {
-                        this.isBabysitterResumeListEmpty = true;
-                    };
-                },
-                (err: TrackerError) => {
-                    this.trackerError.friendlyMessage = err.friendlyMessage;
-                }
-            );
+        if (this.specialization == 'babysitter') {
+            this.dataService.getBabysitterResumesMatched(vacancyId)
+                .subscribe(
+                    (data: BabysitterResume[]) => {
+                        this.allBabysitterResumeMatched = data;
+                        if (this.allBabysitterResumeMatched.length === 0) {
+                            this.isBabysitterResumeListEmpty = true;
+                            this.showAlert = true;
+                        };
+                    },
+                    (err: TrackerError) => {
+                        this.trackerError.friendlyMessage = err.friendlyMessage;
+                    }
+                );
+        }
+
+        if (this.specialization == 'driver') {
+            this.dataService.getDriverResumesMatched(vacancyId)
+                .subscribe(
+                    (data: DriverResume[]) => {
+                        this.allDriverResumeMatched = data;
+                        if (this.allDriverResumeMatched.length === 0) {
+                            this.isDriverResumeListEmpty = true;
+                            this.showAlert = true;
+                        };
+                    },
+                    (err: TrackerError) => {
+                        this.trackerError.friendlyMessage = err.friendlyMessage;
+                    }
+                );
+        }
   }
      
 }
