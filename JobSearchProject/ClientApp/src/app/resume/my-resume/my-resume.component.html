@@ -11,6 +11,7 @@
   <h5 class="card-header">{{ SpecializationType[babysitter.specialization.specializationType] }}</h5>
   <div class="card-body text-dark">
     <h5 class="card-title">{{ babysitter.description }}</h5>
+    <p class="card-text">Age: {{ babysitter.age }}</p>
     <p class="card-text">Employment type: {{ EmploymentType[babysitter.specialization.employmentType] }}</p>
     <p class="card-text">Payment type: {{ PaymentType[babysitter.specialization.paymentType] }}</p>
     <p class="card-text" *ngIf="babysitter.specialization.paymentPrice">Payment price: {{ babysitter.specialization.paymentPrice }} hrn</p>
@@ -51,6 +52,42 @@
     </button>
   </div>
   <div class="card-footer p-3 mb-2 alert-primary text-dark" *ngIf="babysitter.top">
+    Top Resume
+  </div>
+</div>
+
+<div class="card border-dark mb-3" *ngFor="let driver of allDriverResume">
+  <h5 class="card-header">{{ SpecializationType[driver.specialization.specializationType] }}</h5>
+  <div class="card-body text-dark">
+    <h5 class="card-title">{{ driver.description }}</h5>
+    <p class="card-text">Age: {{ driver.age }}</p>
+    <p class="card-text">Employment type: {{ EmploymentType[driver.specialization.employmentType] }}</p>
+    <p class="card-text">Payment type: {{ PaymentType[driver.specialization.paymentType] }}</p>
+    <p class="card-text" *ngIf="driver.specialization.paymentPrice">Payment price: {{ driver.specialization.paymentPrice }} hrn</p>
+    <p class="card-text">Education type: {{ EducationType[driver.specialization.educationType] }}</p>
+    <p class="card-text" *ngIf="driver.details">Details: {{ driver.details }}</p>
+    <p class="card-text">Country: {{ driver.location.country }}</p>
+    <p class="card-text">City: {{ driver.location.city }}</p>
+    <p class="card-text" *ngIf="driver.location.region">Region: {{ driver.location.region }}</p>
+    <p class="card-text" *ngIf="driver.location.street">Street: {{ driver.location.street }}</p>
+    <div *ngFor="let exp of driver.experiences">
+      <p class="card-text">From: {{ exp.from }}</p>
+      <p class="card-text">To: {{ exp.to }}</p>
+      <p class="card-text">Title: {{ exp.title }}</p>
+      <p class="card-text">Description: {{ exp.description }}</p>
+    </div>
+    <button class="btn btn-outline-secondary mr-3"
+            style="width:80px"
+            (click)="onBack()">
+      Back
+    </button>
+    <button class="btn btn-outline-secondary mr-3"
+            style="width:80px"
+            (click)="deleteDriverResume(driver.id)">
+      Delete
+    </button>
+  </div>
+  <div class="card-footer p-3 mb-2 alert-primary text-dark" *ngIf="driver.top">
     Top Resume
   </div>
 </div>

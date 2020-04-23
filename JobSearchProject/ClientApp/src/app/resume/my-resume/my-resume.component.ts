@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 import { AuthorizeService } from '../../../api-authorization/authorize.service';
 import { DataService } from '../../core/services/data.service';
 import { BabysitterResume } from '../../models/babysitterResume';
+import { DriverResume } from '../../models/driverResume';
 
 @Component({
   selector: 'app-my-resume',
@@ -18,10 +19,12 @@ export class MyResumeComponent implements OnInit {
 
     currentUserName: string;
     allBabysitterResume: BabysitterResume[];
+    allDriverResume: DriverResume[];
 
     trackerError = new TrackerError();
     showAlert: boolean;
     isBabysitterResumeListEmpty: boolean;
+    isDriverResumeListEmpty: boolean;
 
     EmploymentType: typeof EmploymentType = EmploymentType;
     PaymentType: typeof PaymentType = PaymentType;
@@ -56,6 +59,21 @@ export class MyResumeComponent implements OnInit {
                 (err: TrackerError) => {
                     this.trackerError.friendlyMessage = err.friendlyMessage;
                 }
+        );
+
+        this.dataService.getDriverResumes()
+            .subscribe(
+                (data: DriverResume[]) => {
+                    this.allDriverResume = data.filter(r => r.contactName === this.currentUserName);
+                    if (this.allDriverResume.length === 0) {
+                        this.isDriverResumeListEmpty = true;
+
+                        this.showAlert = (this.isDriverResumeListEmpty && this.isBabysitterResumeListEmpty) ? true : false;
+                    };
+                },
+                (err: TrackerError) => {
+                    this.trackerError.friendlyMessage = err.friendlyMessage;
+                }
             );
     }
 
@@ -72,7 +90,26 @@ export class MyResumeComponent implements OnInit {
 
                     if (this.allBabysitterResume.length === 0) {
                         this.isBabysitterResumeListEmpty = true;
-                        this.showAlert = (this.isBabysitterResumeListEmpty) ? true : false;
+                        this.showAlert = (this.isBabysitterResumeListEmpty && this.isDriverResumeListEmpty) ? true : false;
+                    };
+                },
+                (err: any) => {
+                    console.log(err);
+                    throw err;
+                }
+            );
+    }
+
+    deleteDriverResume(id: number) {
+        this.dataService.deleteDriverResume(id)
+            .subscribe(
+                (data: DriverResume) => {
+                    let index: number = this.allDriverResume.findIndex(resume => resume.id === id);
+                    this.allDriverResume.splice(index, 1);
+
+                    if (this.allDriverResume.length === 0) {
+                        this.isDriverResumeListEmpty = true;
+                        this.showAlert = (this.isBabysitterResumeListEmpty && this.isDriverResumeListEmpty) ? true : false;
                     };
                 },
                 (err: any) => {
