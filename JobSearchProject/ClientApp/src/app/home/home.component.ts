@@ -13,11 +13,7 @@ import { DriverResume } from '../models/driverResume';
 })
 export class HomeComponent implements OnInit {
 
-    trackerError: TrackerError = {
-        errorNumber: null,
-        message: null,
-        friendlyMessage: null
-    };
+    trackerError = new TrackerError();
     allDriversVacancy: DriverVacancy[];
     allBabysitterVacancy: BabysitterVacancy[];
     allBabysitterResume: BabysitterResume[];
@@ -31,8 +27,9 @@ export class HomeComponent implements OnInit {
 
     constructor(private dataService: DataService) { }
      
-    ngOnInit() {
-        
+    ngOnInit() { 
+        this.trackerError.friendlyMessage = null;
+
         this.dataService.getDriverVacancies()
             .subscribe(
                 (data: DriverVacancy[]) => {
